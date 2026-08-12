@@ -8,7 +8,7 @@ using NttBank.QueryAgent.Agent.Factories;
 
 namespace NttBank.QueryAgent.Agent.Agents.Query;
 
-internal static class QueryAgentBuilder
+internal static class QueryAgentFactory
 {
     private const string Name = "query-agent";
     private const string Description = "Banking query agent (read-only).";

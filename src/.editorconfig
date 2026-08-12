@@ -120,6 +120,7 @@ dotnet_diagnostic.S1075.severity = none
 dotnet_diagnostic.CA1052.severity = none
 dotnet_diagnostic.S1118.severity = none
 dotnet_diagnostic.S3400.severity = none
+dotnet_diagnostic.S8969.severity = none
 dotnet_diagnostic.VSTHRD002.severity = none
 
 ########################################

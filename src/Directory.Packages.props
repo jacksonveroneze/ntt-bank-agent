@@ -1,38 +1,38 @@
 <Project>
-    <PropertyGroup>
-        <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
-        <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
-        <EnablePackageVersionOverride>false</EnablePackageVersionOverride>
-    </PropertyGroup>
-    <ItemGroup Label="Analyzer">
-        <PackageVersion Include="SonarAnalyzer.CSharp" Version="10.27.0.140913"/>
-        <PackageVersion Include="Microsoft.CodeAnalysis.BannedApiAnalyzers" Version="4.14.0"/>
-        <PackageVersion Include="Microsoft.VisualStudio.Threading.Analyzers" Version="18.7.23"/>
-        <PackageVersion Include="Meziantou.Analyzer" Version="3.0.117"/>
-    </ItemGroup>
-    <ItemGroup Label="Api">
-        <PackageVersion Include="OllamaSharp" Version="5.4.25"/>
-        <PackageVersion Include="Anthropic" Version="12.3.0"/>
-        <PackageVersion Include="Asp.Versioning.Http" Version="10.0.0"/>
-        <PackageVersion Include="FluentValidation" Version="12.1.1"/>
-    </ItemGroup>
-    <ItemGroup Label="Agent">
-        <PackageVersion Include="Microsoft.Agents.AI" Version="1.16.0"/>
-        <PackageVersion Include="Microsoft.Extensions.AI" Version="10.7.0"/>
-        <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.9"/>
-    </ItemGroup>
-    <ItemGroup Label="Infrastructure">
-        <PackageVersion Include="CorrelationId" Version="3.0.1"/>
-        <PackageVersion Include="Mapster.DependencyInjection" Version="10.0.10"/>
-        <PackageVersion Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.1"/>
-        <PackageVersion Include="OpenTelemetry.Exporter.Prometheus.AspNetCore" Version="1.7.0-rc.1"/>
-        <PackageVersion Include="OpenTelemetry.Exporter.Console" Version="1.16.0"/>
-        <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.16.0"/>
-        <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.16.0"/>
-        <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.16.0"/>
-        <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.15.1"/>
-        <PackageVersion Include="OpenTelemetry.Instrumentation.Process" Version="1.11.0-beta.2"/>
-        <PackageVersion Include="Serilog.Settings.Configuration" Version="10.0.1"/>
-        <PackageVersion Include="Serilog.Sinks.Seq" Version="9.1.0"/>
-    </ItemGroup>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
+    <EnablePackageVersionOverride>false</EnablePackageVersionOverride>
+  </PropertyGroup>
+  <ItemGroup Label="Analyzer">
+    <PackageVersion Include="SonarAnalyzer.CSharp" Version="10.32.0.713" />
+    <PackageVersion Include="Microsoft.CodeAnalysis.BannedApiAnalyzers" Version="5.6.0" />
+    <PackageVersion Include="Microsoft.VisualStudio.Threading.Analyzers" Version="18.7.23" />
+    <PackageVersion Include="Meziantou.Analyzer" Version="3.0.151" />
+  </ItemGroup>
+  <ItemGroup Label="Api">
+    <PackageVersion Include="OllamaSharp" Version="5.4.25" />
+    <PackageVersion Include="Anthropic" Version="12.40.0" />
+    <PackageVersion Include="Asp.Versioning.Http" Version="10.2.2" />
+    <PackageVersion Include="FluentValidation" Version="12.1.1" />
+  </ItemGroup>
+  <ItemGroup Label="Agent">
+    <PackageVersion Include="Microsoft.Agents.AI" Version="1.17.0" />
+    <PackageVersion Include="Microsoft.Extensions.AI" Version="10.9.0" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.11" />
+  </ItemGroup>
+  <ItemGroup Label="Infrastructure">
+    <PackageVersion Include="CorrelationId" Version="3.0.1" />
+    <PackageVersion Include="Mapster.DependencyInjection" Version="10.0.11" />
+    <PackageVersion Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.1" />
+    <PackageVersion Include="OpenTelemetry.Exporter.Prometheus.AspNetCore" Version="1.7.0-rc.1" />
+    <PackageVersion Include="OpenTelemetry.Exporter.Console" Version="1.17.0" />
+    <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.17.0" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.17.0" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.17.0" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.17.0" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.Process" Version="1.11.0-beta.2" />
+    <PackageVersion Include="Serilog.Settings.Configuration" Version="10.0.1" />
+    <PackageVersion Include="Serilog.Sinks.Seq" Version="9.1.0" />
+  </ItemGroup>
 </Project>

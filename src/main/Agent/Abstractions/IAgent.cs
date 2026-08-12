@@ -1,8 +1,8 @@
 namespace NttBank.QueryAgent.Agent.Abstractions;
 
 public interface IAgent<in TData, TResponse>
-    where TData : class
-    where TResponse : class
+    where TData : AgentInput
+    where TResponse : AgentOutput
 {
     Task<TResponse> RunAsync(
         TData data,

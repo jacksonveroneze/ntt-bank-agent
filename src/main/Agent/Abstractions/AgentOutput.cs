@@ -1,6 +1,6 @@
 namespace NttBank.QueryAgent.Agent.Abstractions;
 
-public sealed record AgentOutput(
+public record AgentOutput(
     string Message,
     int MessageCount,
     IReadOnlyCollection<string> Messages,
