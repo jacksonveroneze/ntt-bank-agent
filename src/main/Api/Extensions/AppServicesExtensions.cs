@@ -1,7 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
-using Microsoft.Extensions.DependencyInjection;
 
-namespace NttBank.QueryAgent.Infrastructure.Extensions;
+namespace NttBank.QueryAgent.Api.Extensions;
 
 [ExcludeFromCodeCoverage]
 public static class AppServicesExtensions

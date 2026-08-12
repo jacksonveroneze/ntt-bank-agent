@@ -1,5 +1,6 @@
 using System.Collections.Immutable;
 using Microsoft.Agents.AI;
+using NttBank.QueryAgent.Agent.Abstractions;
 using NttBank.QueryAgent.Agent.Agents.Query.Models;
 
 namespace NttBank.QueryAgent.Agent.Agents.Query;

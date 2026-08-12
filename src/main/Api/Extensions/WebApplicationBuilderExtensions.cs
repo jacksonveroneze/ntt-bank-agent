@@ -1,8 +1,7 @@
 using FluentValidation;
 using NttBank.QueryAgent.Agent.Extensions;
+using NttBank.QueryAgent.Api.Configurations;
 using NttBank.QueryAgent.Api.Middlewares;
-using NttBank.QueryAgent.Infrastructure.Configurations;
-using NttBank.QueryAgent.Infrastructure.Extensions;
 
 namespace NttBank.QueryAgent.Api.Extensions;
 
@@ -36,7 +35,7 @@ internal static class WebApplicationBuilderExtensions
                 .AddApplicationServices()
                 .AddOpenTelemetry(appConfiguration)
                 .AddAiProviders(appConfiguration)
-                .AddAgent(appConfiguration)
+                .AddQueryAgent()
                 .AddHealthChecks();
 
             return builder;

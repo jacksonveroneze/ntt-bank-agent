@@ -1,10 +1,9 @@
 using System.Diagnostics.CodeAnalysis;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using NttBank.QueryAgent.Infrastructure.Configurations;
+using NttBank.QueryAgent.Agent.Configurations;
+using NttBank.QueryAgent.Api.Configurations;
 
-namespace NttBank.QueryAgent.Infrastructure.Extensions;
+namespace NttBank.QueryAgent.Api.Extensions;
 
 [ExcludeFromCodeCoverage]
 public static class AppConfigurationExtensions
@@ -17,6 +16,8 @@ public static class AppConfigurationExtensions
             ArgumentNullException.ThrowIfNull(configuration);
 
             services.AddConfiguration<AppConfiguration>(configuration);
+            services.AddConfiguration<QueryAgentOptions>(
+                configuration, QueryAgentOptions.SectionName);
 
             return services;
         }

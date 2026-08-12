@@ -1,4 +1,4 @@
-namespace NttBank.QueryAgent.Agent.Agents.Query.Models;
+namespace NttBank.QueryAgent.Agent.Abstractions;
 
 public sealed record AgentOutput(
     string Message,

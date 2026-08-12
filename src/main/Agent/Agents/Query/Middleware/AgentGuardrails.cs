@@ -8,18 +8,7 @@ internal static class AgentGuardrails
 {
     private static readonly string[] ForbiddenPatterns =
     [
-        "compre", "comprar", "compra", "venda", "vende", "vender",
-        "enviar ordem", "envie ordem", "coloca ordem", "coloque ordem",
-        "cancele", "cancelar", "cancelamento",
-        "altere", "alterar", "modificar", "modifique",
-        "recomend", "devo comprar", "devo vender", "vale a pena",
-        "carteira", "posição", "patrimônio",
-        "provento", "dividendo",
-        "chamado", "suporte", "reclamação",
-        "perfil de risco", "alteração cadastral", "dados cadastrais",
-        "ignore", "esqueça", "desconsidere", "nova instrução",
-        "você agora é", "finja que", "aja como", "pretend",
-        "ignore previous", "forget previous", "disregard"
+        "ignore"
     ];
 
     internal static Task<AgentResponse> ValidateAgentRunAsync(

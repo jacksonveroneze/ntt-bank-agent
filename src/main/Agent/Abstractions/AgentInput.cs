@@ -1,6 +1,6 @@
 using Microsoft.Agents.AI;
 
-namespace NttBank.QueryAgent.Agent.Agents.Query.Models;
+namespace NttBank.QueryAgent.Agent.Abstractions;
 
 public sealed record AgentInput(
     string Prompt,

@@ -3,7 +3,7 @@ using Anthropic;
 using Microsoft.Extensions.AI;
 using NttBank.QueryAgent.Agent.Agents;
 using NttBank.QueryAgent.Agent.Enums;
-using NttBank.QueryAgent.Infrastructure.Configurations;
+using NttBank.QueryAgent.Api.Configurations;
 using OllamaSharp;
 
 namespace NttBank.QueryAgent.Api.Extensions;
@@ -15,94 +15,46 @@ internal static class AiProvidersExtensions
         this IServiceCollection services,
         AppConfiguration appConfiguration)
     {
-        ArgumentNullException.ThrowIfNull(appConfiguration);
+        var providers = appConfiguration.Ai?.Providers;
 
-        services.AddProvider(Provider.Ollama, appConfiguration)
-            .AddProvider(Provider.Claude, appConfiguration);
-
-        return services;
-    }
-
-    private static IServiceCollection AddProvider(
-        this IServiceCollection services,
-        Provider provider,
-        AppConfiguration appConfiguration)
-    {
-        if (!TryGetEnabledProvider(
-                appConfiguration.Ai!, provider,
-                out var providerConfiguration))
+        if (providers is null)
         {
             return services;
         }
 
-        services.AddKeyedSingleton<IChatClient>(provider, (_, _) =>
+        foreach ((Provider provider, AiProviderConfiguration cfg) in providers)
         {
-            var chatClient = CreateChatClient(provider, providerConfiguration);
+            if (provider is Provider.None || !cfg.Enabled)
+            {
+                continue;
+            }
 
-            return BuildPipeline(chatClient, provider, providerConfiguration);
-        });
+            Register(services, provider, cfg);
+        }
 
         return services;
     }
 
-    private static IChatClient CreateChatClient(
-        Provider provider,
-        AiProviderConfiguration providerConfiguration)
+    private static void Register(
+        IServiceCollection services, 
+        Provider provider, 
+        AiProviderConfiguration cfg)
     {
-        return provider switch
+        services.AddKeyedSingleton<IChatClient>(provider, (_, _) =>
         {
-            Provider.Ollama => CreateOllamaChatClient(providerConfiguration),
-            Provider.Claude => CreateClaudeChatClient(providerConfiguration),
-            _ => throw new InvalidOperationException($"AI provider {provider} is not supported.")
-        };
-    }
+            IChatClient inner = provider switch
+            {
+                Provider.Ollama => new OllamaApiClient(new Uri(cfg.Endpoint!), cfg.Model!),
+                Provider.Claude => new AnthropicClient { ApiKey = cfg.ApiKey }.AsIChatClient(cfg.Model!),
+                _ => throw new InvalidOperationException($"Provider {provider} not supported."),
+            };
 
-    private static OllamaApiClient CreateOllamaChatClient(
-        AiProviderConfiguration providerConfiguration)
-    {
-        var endpoint = new Uri(providerConfiguration.Endpoint!);
-
-        var chatClient = new OllamaApiClient(
-            endpoint,
-            providerConfiguration.Model!);
-
-        return chatClient;
-    }
-
-    private static IChatClient CreateClaudeChatClient(
-        AiProviderConfiguration providerConfiguration)
-    {
-        using var anthropicClient = new AnthropicClient
-        {
-            ApiKey = providerConfiguration.ApiKey,
-        };
-
-        return anthropicClient.AsIChatClient(
-            providerConfiguration.Model!);
-    }
-
-    private static bool TryGetEnabledProvider(
-        AiConfiguration aiConfiguration,
-        Provider provider,
-        out AiProviderConfiguration providerConfiguration)
-    {
-        providerConfiguration = null!;
-
-        return aiConfiguration.Providers
-                   .TryGetValue(provider.ToString(), out providerConfiguration!) &&
-               providerConfiguration.Enabled;
-    }
-
-    private static IChatClient BuildPipeline(
-        IChatClient chatClient,
-        Provider provider,
-        AiProviderConfiguration providerConfiguration)
-    {
-        return chatClient
-            .AsBuilder()
-            .UseOpenTelemetry(
-                sourceName: $"ai-provider-{provider.ToString().ToLowerInvariant()}",
-                configure: cfg => { cfg.EnableSensitiveData = providerConfiguration.EnableSensitiveData; })
-            .Build();
+            return inner
+                .AsBuilder()
+                .UseOpenTelemetry(
+                    sourceName: $"ai-{provider.ToString().ToLowerInvariant()}",
+                    configure: c => c.EnableSensitiveData = cfg.EnableSensitiveData)
+                .Build();
+        });
     }
 }

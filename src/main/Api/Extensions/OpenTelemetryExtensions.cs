@@ -1,5 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
-using NttBank.QueryAgent.Infrastructure.Configurations;
+using NttBank.QueryAgent.Api.Configurations;
 
 namespace NttBank.QueryAgent.Api.Extensions;
 

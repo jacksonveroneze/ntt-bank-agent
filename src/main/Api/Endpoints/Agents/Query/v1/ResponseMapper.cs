@@ -1,3 +1,4 @@
+using NttBank.QueryAgent.Agent.Abstractions;
 using NttBank.QueryAgent.Agent.Agents.Query.Models;
 using NttBank.QueryAgent.Api.Endpoints.Agents.Common.Models;
 using NttBank.QueryAgent.Api.Endpoints.Agents.Query.v1.Models;
