@@ -1,12 +1,9 @@
-using Asp.Versioning;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using NttBank.QueryAgent.Agent.Abstractions;
 using NttBank.QueryAgent.Agent.Agents.Query;
-using NttBank.QueryAgent.Agent.Agents.Query.Models;
 using NttBank.QueryAgent.Api.Endpoints.Agents.Query.v1.Models;
 using NttBank.QueryAgent.Api.Endpoints.Extensions;
-using NttBank.QueryAgent.Api.Extensions;
 
 namespace NttBank.QueryAgent.Api.Endpoints.Agents.Query.v1;
 

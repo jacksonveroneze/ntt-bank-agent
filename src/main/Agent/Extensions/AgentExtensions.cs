@@ -2,8 +2,10 @@ using System.Diagnostics.CodeAnalysis;
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using NttBank.QueryAgent.Agent.Agents.Query;
 using NttBank.QueryAgent.Agent.Configurations;
+using NttBank.QueryAgent.Agent.Enums;
 
 namespace NttBank.QueryAgent.Agent.Extensions;
 
@@ -15,12 +17,14 @@ public static class AgentExtensions
     {
         services.AddSingleton<IQueryAgent>(sp =>
         {
-            var options = sp.GetRequiredService<QueryAgentOptions>();
+            var options = sp.GetRequiredService<IOptions<QueryAgentOptions>>().Value;
+
             var chatClient = sp.GetRequiredKeyedService<IChatClient>(options.Provider);
             var env = sp.GetRequiredService<IHostEnvironment>();
 
-            return new Agents.Query.QueryAgent(
-                QueryAgentBuilder.Build(chatClient, options, env));
+            var agent = QueryAgentBuilder.Build(chatClient, options, env);
+            
+            return new Agents.Query.QueryAgent(agent);
         });
 
         return services;

@@ -1,7 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using Anthropic;
 using Microsoft.Extensions.AI;
-using NttBank.QueryAgent.Agent.Agents;
 using NttBank.QueryAgent.Agent.Enums;
 using NttBank.QueryAgent.Api.Configurations;
 using OllamaSharp;
@@ -36,17 +35,24 @@ internal static class AiProvidersExtensions
     }
 
     private static void Register(
-        IServiceCollection services, 
-        Provider provider, 
+        IServiceCollection services,
+        Provider provider,
         AiProviderConfiguration cfg)
     {
         services.AddKeyedSingleton<IChatClient>(provider, (_, _) =>
         {
             IChatClient inner = provider switch
             {
-                Provider.Ollama => new OllamaApiClient(new Uri(cfg.Endpoint!), cfg.Model!),
-                Provider.Claude => new AnthropicClient { ApiKey = cfg.ApiKey }.AsIChatClient(cfg.Model!),
-                _ => throw new InvalidOperationException($"Provider {provider} not supported."),
+                Provider.Ollama => new OllamaApiClient(
+                    new Uri(cfg.Endpoint!), cfg.Model!),
+
+                Provider.Claude => new AnthropicClient
+                {
+                    ApiKey = cfg.ApiKey,
+                }.AsIChatClient(cfg.Model!),
+
+                _ => throw new InvalidOperationException(
+                    $"Provider {provider} not supported."),
             };
 
             return inner
