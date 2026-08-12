@@ -1,0 +1,66 @@
+using Asp.Versioning;
+using FluentValidation;
+using Microsoft.AspNetCore.Mvc;
+using NttBank.QueryAgent.Agent.Agents.Query;
+using NttBank.QueryAgent.Agent.Agents.Query.Models;
+using NttBank.QueryAgent.Api.Endpoints.Agents.Query.v1.Models;
+using NttBank.QueryAgent.Api.Endpoints.Extensions;
+using NttBank.QueryAgent.Api.Extensions;
+
+namespace NttBank.QueryAgent.Api.Endpoints.Agents.Query.v1;
+
+internal static class QueryAgentEndpoint
+{
+    private const string Resource = "query";
+
+    public static WebApplication AddOrdersEndpoints(
+        this WebApplication app)
+    {
+        RouteGroupBuilder builder =
+            app.MapGroup("agents/v1/" + Resource)
+                .WithTags(Resource);
+
+        builder.AddChatAgentEndpoint();
+
+        return app;
+    }
+
+    private static RouteGroupBuilder AddChatAgentEndpoint(
+        this RouteGroupBuilder builder)
+    {
+        builder.MapPost("chat", async (
+                [FromServices] IQueryAgent agent,
+                [FromServices] IValidator<QueryAgentRequest> validator,
+                [FromServices] IHostEnvironment hostEnvironment,
+                [FromBody] QueryAgentRequest input,
+                CancellationToken cancellationToken) =>
+            {
+                var validationResult = await validator
+                    .ValidateAsync(input, cancellationToken);
+
+                if (!validationResult.IsValid)
+                {
+                    return validationResult
+                        .ToValidationProblem();
+                }
+
+                var agentRequest = new AgentInput(input.Prompt!);
+
+                var agentResponse = await agent.RunAsync(
+                    agentRequest, cancellationToken);
+
+                var output = agentResponse
+                    .ToHttpResponse(hostEnvironment);
+
+                return Results.Ok(output);
+            })
+            .Produces<QueryAgentResponse>(
+                statusCode: StatusCodes.Status200OK)
+            .ProducesValidationProblem()
+            .Produces(StatusCodes.Status401Unauthorized)
+            .Produces(StatusCodes.Status403Forbidden)
+            .Produces(StatusCodes.Status500InternalServerError);
+
+        return builder;
+    }
+}
