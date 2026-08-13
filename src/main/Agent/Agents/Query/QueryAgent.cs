@@ -1,5 +1,3 @@
-using Microsoft.Agents.AI;
-using Microsoft.Extensions.AI;
 using NttBank.QueryAgent.Agent.Abstractions;
 
 namespace NttBank.QueryAgent.Agent.Agents.Query;
@@ -19,10 +17,6 @@ internal sealed class QueryAgent(
         var response = await agent.RunAsync(
             message: input.Prompt,
             session: input.Session,
-            options: new AgentRunOptions
-            {
-                ResponseFormat = new ChatResponseFormatText(),
-            },
             cancellationToken: cancellationToken);
 
         return AgentOutputMapper.ToOutput(response);
