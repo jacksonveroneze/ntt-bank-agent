@@ -5,7 +5,6 @@ namespace NttBank.QueryAgent.Api.Extensions;
 
 internal static class WebApplicationExtensions
 {
-    private const string PathHealth = "/health";
     private const string PathMetrics = "metrics";
     
     public static WebApplication Configure(
@@ -20,10 +19,10 @@ internal static class WebApplicationExtensions
 
         app.UseRouting();
 
-        app.UseHealthChecks(PathHealth);
+        app.AddHealthCheckEndpoints();
         app.UseOpenTelemetryPrometheusScrapingEndpoint(PathMetrics);
 
-        app.AddOrdersEndpoints();
+        app.AddQueryAgentEndpoints();
 
         return app;
     }

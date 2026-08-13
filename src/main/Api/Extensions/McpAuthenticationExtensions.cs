@@ -17,10 +17,10 @@ public static class McpAuthenticationExtensions
         var oauth = configuration.GetSection("Mcp:OAuth").Get<McpOAuthOptions>()
                     ?? throw new InvalidOperationException("Missing 'Mcp:OAuth' configuration.");
 
-        const string TokenClientName = "mcp-token-client";
+        const string tokenClientName = "mcp-token-client";
 
         services.AddClientCredentialsTokenManagement()
-            .AddClient(TokenClientName, client =>
+            .AddClient(tokenClientName, client =>
             {
                 client.TokenEndpoint = oauth.TokenEndpoint;
                 client.ClientId = ClientId.Parse(oauth.ClientId);
@@ -44,7 +44,7 @@ public static class McpAuthenticationExtensions
             });
 
         services.AddClientCredentialsHttpClient(McpDefaults.HttpClientName,
-            ClientCredentialsClientName.Parse(TokenClientName))
+            ClientCredentialsClientName.Parse(tokenClientName))
             .AcceptSelfSignedInDevelopment();
 
         return services;

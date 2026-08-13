@@ -4,12 +4,21 @@ using OpenTelemetry;
 using OpenTelemetry.Instrumentation.AspNetCore;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
 
 namespace NttBank.QueryAgent.Api.Extensions;
 
 [ExcludeFromCodeCoverage]
 public static class OpenTelemetryExtensions
 {
+    private static readonly string[] ExclusionPathsTrace =
+    [
+        "/metrics",
+        "/health",
+        "/health/live",
+        "/health/ready",
+    ];
+    
     public static IServiceCollection AddOpenTelemetry(
         this IServiceCollection services,
         AppConfiguration appConfiguration)
@@ -18,15 +27,14 @@ public static class OpenTelemetryExtensions
 
         services.Configure<AspNetCoreTraceInstrumentationOptions>(options =>
         {
-            options.Filter = ctx =>
-                (!ctx.Request.Path.Value?.StartsWith("/metrics",
-                    StringComparison.OrdinalIgnoreCase) ?? false) &&
-                ctx.Request.Path != "/health";
+            options.Filter = ctx => !ExclusionPathsTrace
+                .Contains(ctx.Request.Path.Value);
         });
 
         services.AddOpenTelemetry()
             .ConfigureResource(ConfigureResource)
-            .AddMetrics();
+            .AddMetrics()
+            .AddTracing(appConfiguration);
 
         return services;
 
@@ -50,6 +58,28 @@ public static class OpenTelemetryExtensions
                 .AddHttpClientInstrumentation()
                 .AddRuntimeInstrumentation()
                 .AddPrometheusExporter());
+
+            return builder;
+        }
+
+        private IOpenTelemetryBuilder AddTracing(
+            AppConfiguration appConfiguration)
+        {
+            if (appConfiguration.OpenTelemetry.EndpointTracing is null)
+            {
+                return builder;
+            }
+
+            builder.WithTracing(options =>
+            {
+                options
+                    .AddAspNetCoreInstrumentation()
+                    .AddHttpClientInstrumentation()
+                    .AddSource("query-agent");
+
+                options.AddOtlpExporter(config => config.Endpoint =
+                    appConfiguration.OpenTelemetry.EndpointTracing);
+            });
 
             return builder;
         }

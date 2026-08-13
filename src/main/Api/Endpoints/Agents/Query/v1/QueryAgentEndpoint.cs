@@ -11,7 +11,7 @@ internal static class QueryAgentEndpoint
 {
     private const string Resource = "query";
 
-    public static WebApplication AddOrdersEndpoints(
+    public static WebApplication AddQueryAgentEndpoints(
         this WebApplication app)
     {
         RouteGroupBuilder builder =
