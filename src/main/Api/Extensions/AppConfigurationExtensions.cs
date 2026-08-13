@@ -16,8 +16,12 @@ public static class AppConfigurationExtensions
             ArgumentNullException.ThrowIfNull(configuration);
 
             services.AddConfiguration<AppConfiguration>(configuration);
+            
             services.AddConfiguration<QueryAgentOptions>(
                 configuration, QueryAgentOptions.SectionName);
+            
+            services.AddConfiguration<McpOptions>(
+                configuration, McpOptions.SectionName);
 
             return services;
         }

@@ -14,9 +14,10 @@ internal static class QueryAgentFactory
     private const string Description = "Banking query agent (read-only).";
 
     internal static AIAgent Build(
-        IChatClient chatClient,
+        IChatClient chatClient, 
         QueryAgentOptions options,
-        IHostEnvironment env)
+        IHostEnvironment env, 
+        IList<AITool> tools)
     {
         var agent = ChatClientAgentFactory.Create(
             new ChatAgentDescriptor
@@ -27,6 +28,7 @@ internal static class QueryAgentFactory
                 ModelId = options.Model,
                 Instructions = SystemPromptInstructions.SystemPrompt,
                 Temperature = options.Temperature,
+                Tools = tools,
                 EnableSensitiveData = env.IsDevelopment(),
             });
 

@@ -5,6 +5,8 @@
     <EnablePackageVersionOverride>false</EnablePackageVersionOverride>
   </PropertyGroup>
   <ItemGroup Label="Analyzer">
+    <PackageVersion Include="Microsoft.Extensions.Http" Version="10.0.11" />
+    <PackageVersion Include="ModelContextProtocol" Version="2.1.0" />
     <PackageVersion Include="SonarAnalyzer.CSharp" Version="10.32.0.713" />
     <PackageVersion Include="Microsoft.CodeAnalysis.BannedApiAnalyzers" Version="5.6.0" />
     <PackageVersion Include="Microsoft.VisualStudio.Threading.Analyzers" Version="18.7.23" />
@@ -15,6 +17,7 @@
     <PackageVersion Include="Anthropic" Version="12.40.0" />
     <PackageVersion Include="Asp.Versioning.Http" Version="10.2.2" />
     <PackageVersion Include="FluentValidation" Version="12.1.1" />
+    <PackageVersion Include="Duende.AccessTokenManagement" Version="4.2.0" />
   </ItemGroup>
   <ItemGroup Label="Agent">
     <PackageVersion Include="Microsoft.Agents.AI" Version="1.17.0" />

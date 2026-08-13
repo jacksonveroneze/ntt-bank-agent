@@ -5,7 +5,7 @@ namespace NttBank.QueryAgent.Api.Configurations;
 [ExcludeFromCodeCoverage]
 public sealed record AppConfiguration
 {
-    public AppInfoConfiguration? Application { get; init; }
+    public required AppInfoConfiguration Application { get; init; }
 
-    public AiConfiguration? Ai { get; init; }
+    public required AiConfiguration? Ai { get; init; }
 }

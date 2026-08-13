@@ -16,13 +16,14 @@ internal static class WebApplicationBuilderExtensions
             var appConfiguration = builder.Configuration
                 .Get<AppConfiguration>()!;
 
-            builder.ConfigureDefaultServices(appConfiguration);
+            builder.ConfigureDefaultServices(appConfiguration, builder.Configuration);
 
             return builder;
         }
 
         private WebApplicationBuilder ConfigureDefaultServices(
-            AppConfiguration appConfiguration)
+            AppConfiguration appConfiguration,
+            IConfiguration configuration)
         {
             builder.Services
                 .AddHttpContextAccessor()
@@ -35,6 +36,8 @@ internal static class WebApplicationBuilderExtensions
                 .AddApplicationServices()
                 .AddOpenTelemetry(appConfiguration)
                 .AddAiProviders(appConfiguration)
+                .AddMcpAuthentication(configuration)
+                .AddMcpToolProvider()
                 .AddQueryAgent()
                 .AddHealthChecks();
 

@@ -3,8 +3,10 @@ using Microsoft.Extensions.AI;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
+using NttBank.QueryAgent.Agent.Abstractions;
 using NttBank.QueryAgent.Agent.Agents.Query;
 using NttBank.QueryAgent.Agent.Configurations;
+using NttBank.QueryAgent.Agent.Services;
 
 namespace NttBank.QueryAgent.Agent.Extensions;
 
@@ -14,7 +16,7 @@ public static class AgentExtensions
     public static IServiceCollection AddQueryAgent(
         this IServiceCollection services)
     {
-        services.AddSingleton<IQueryAgent>(sp =>
+        services.AddSingleton<IQueryAgentProvider>(sp =>
         {
             var options = sp.GetRequiredService<
                 IOptions<QueryAgentOptions>>().Value;
@@ -23,12 +25,16 @@ public static class AgentExtensions
                 IChatClient>(options.Provider);
             
             var env = sp.GetRequiredService<IHostEnvironment>();
-
-            var agent = QueryAgentFactory.Build(
-                chatClient, options, env);
             
-            return new Agents.Query.QueryAgent(agent);
+            var toolProvider = sp.GetRequiredService<IMcpToolService>();
+
+            var agent = new QueryAgentProvider(
+                chatClient, options, env, toolProvider);
+            
+            return agent;
         });
+        
+        services.AddSingleton<IQueryAgent, Agents.Query.QueryAgent>();
 
         return services;
     }
