@@ -6,7 +6,7 @@ namespace NttBank.QueryAgent.Agent.Services;
 internal sealed class McpToolService(
     IClientTransport transport) : IMcpToolService, IAsyncDisposable
 {
-    private readonly SemaphoreSlim _gate = new(1, 1);
+    private readonly SemaphoreSlim _semaphore = new(1, 1);
 
     private McpClient? _client;
 
@@ -20,7 +20,7 @@ internal sealed class McpToolService(
             return _tools;
         }
 
-        await _gate.WaitAsync(cancellationToken);
+        await _semaphore.WaitAsync(cancellationToken);
 
         try
         {
@@ -41,7 +41,7 @@ internal sealed class McpToolService(
         }
         finally
         {
-            _gate.Release();
+            _semaphore.Release();
         }
     }
 
@@ -52,6 +52,6 @@ internal sealed class McpToolService(
             await _client.DisposeAsync();
         }
 
-        _gate.Dispose();
+        _semaphore.Dispose();
     }
 }
