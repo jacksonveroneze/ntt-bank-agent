@@ -12,6 +12,8 @@ public static class AuthorizationExtensions
     {
         ArgumentNullException.ThrowIfNull(appConfiguration);
 
+        services.AddAuthorization();
+        
         return services;
     }
 }

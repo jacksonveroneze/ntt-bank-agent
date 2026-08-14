@@ -16,7 +16,8 @@ internal static class QueryAgentEndpoint
     {
         RouteGroupBuilder builder =
             app.MapGroup("agents/v1/" + Resource)
-                .WithTags(Resource);
+                .WithTags(Resource)
+                .RequireAuthorization();
 
         builder.AddChatAgentEndpoint();
 

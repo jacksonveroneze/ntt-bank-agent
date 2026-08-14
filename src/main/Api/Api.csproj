@@ -24,6 +24,8 @@
     <PackageReference Include="OpenTelemetry.Instrumentation.Runtime"/>
     <PackageReference Include="OpenTelemetry.Instrumentation.Process"/>
 
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
+    
     <PackageReference Include="Serilog.AspNetCore"/>
     <PackageReference Include="Serilog.Settings.Configuration"/>
     <PackageReference Include="Serilog.Sinks.Async"/>

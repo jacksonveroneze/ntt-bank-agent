@@ -22,7 +22,7 @@ internal static class WebApplicationBuilderExtensions
                 .AddHttpContextAccessor()
                 .AddProblemDetails()
                 .AddExceptionHandler<CustomExceptionHandler>()
-                .AddAuthentication(appConfiguration)
+                .AddAppAuthentication(appConfiguration)
                 .AddAuthorization(appConfiguration)
                 .AddValidatorsFromAssembly(typeof(WebApplicationBuilderExtensions).Assembly)
                 .AddCorrelation()

@@ -22,6 +22,9 @@ internal static class WebApplicationExtensions
         app.AddHealthCheckEndpoints();
         app.UseOpenTelemetryPrometheusScrapingEndpoint(PathMetrics);
 
+        app.UseAuthentication();
+        app.UseAuthorization();
+        
         app.AddQueryAgentEndpoints();
 
         return app;
