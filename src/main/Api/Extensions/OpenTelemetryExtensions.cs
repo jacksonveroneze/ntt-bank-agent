@@ -1,4 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
+using NttBank.QueryAgent.Agent.Enums;
 using NttBank.QueryAgent.Api.Configurations;
 using OpenTelemetry;
 using OpenTelemetry.Instrumentation.AspNetCore;
@@ -52,7 +53,6 @@ public static class OpenTelemetryExtensions
         private IOpenTelemetryBuilder AddMetrics()
         {
             builder.WithMetrics(options => options
-                .AddMeter("query-agent")
                 .AddProcessInstrumentation()
                 .AddAspNetCoreInstrumentation()
                 .AddHttpClientInstrumentation()
@@ -74,9 +74,14 @@ public static class OpenTelemetryExtensions
             {
                 options
                     .AddAspNetCoreInstrumentation()
-                    .AddHttpClientInstrumentation()
-                    .AddSource("query-agent");
+                    .AddHttpClientInstrumentation();
 
+                foreach ((Provider key, _) in appConfiguration?.Ai?.Providers
+                             .Where(p => p.Value.Enabled)!)
+                {
+                    options.AddSource(key!.ToString().ToLowerInvariant());
+                }
+  
                 options.AddOtlpExporter(config => config.Endpoint =
                     appConfiguration.OpenTelemetry.EndpointTracing);
             });

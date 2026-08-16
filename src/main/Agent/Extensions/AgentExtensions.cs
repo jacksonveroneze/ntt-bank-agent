@@ -6,6 +6,7 @@ using Microsoft.Extensions.Options;
 using NttBank.QueryAgent.Agent.Abstractions;
 using NttBank.QueryAgent.Agent.Agents.Query;
 using NttBank.QueryAgent.Agent.Configurations;
+using NttBank.QueryAgent.Agent.Memory;
 using NttBank.QueryAgent.Agent.Services;
 
 namespace NttBank.QueryAgent.Agent.Extensions;
@@ -19,7 +20,7 @@ public static class AgentExtensions
         services.AddSingleton<IQueryAgentProvider>(sp =>
         {
             var options = sp.GetRequiredService<
-                IOptions<QueryAgentOptions>>().Value;
+                IOptions<QueryAgentConfiguration>>().Value;
 
             var chatClient = sp.GetRequiredKeyedService<
                 IChatClient>(options.Provider);
@@ -35,6 +36,8 @@ public static class AgentExtensions
         });
         
         services.AddSingleton<IQueryAgent, Agents.Query.QueryAgent>();
+        
+        services.AddSingleton<ISessionStore, HybridCacheSessionStore>();
 
         return services;
     }

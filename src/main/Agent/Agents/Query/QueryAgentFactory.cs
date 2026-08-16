@@ -10,12 +10,9 @@ namespace NttBank.QueryAgent.Agent.Agents.Query;
 
 internal static class QueryAgentFactory
 {
-    private const string Name = "query-agent";
-    private const string Description = "Banking query agent (read-only).";
-
     internal static AIAgent Build(
         IChatClient chatClient, 
-        QueryAgentOptions options,
+        QueryAgentConfiguration configuration,
         IHostEnvironment env, 
         IList<AITool> tools)
     {
@@ -23,13 +20,14 @@ internal static class QueryAgentFactory
             new ChatAgentDescriptor
             {
                 ChatClient = chatClient,
-                Name = Name,
-                Description = Description,
-                ModelId = options.Model,
+                Name = configuration.Name,
+                Description = configuration.Description,
+                ModelId = configuration.Model,
                 Instructions = SystemPromptInstructions.SystemPrompt,
-                Temperature = options.Temperature,
+                Temperature = configuration.Temperature,
                 Tools = tools,
                 EnableSensitiveData = env.IsDevelopment(),
+                AllowMultipleToolCalls = true,
             });
 
         return agent

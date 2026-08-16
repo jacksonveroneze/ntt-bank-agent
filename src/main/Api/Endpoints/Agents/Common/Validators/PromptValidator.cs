@@ -5,8 +5,8 @@ namespace NttBank.QueryAgent.Api.Endpoints.Agents.Common.Validators;
 public sealed class PromptValidator
     : AbstractValidator<string>
 {
-    private const int PromptMinLength = 10;
-    private const int PromptMaxLength = 500;
+    private const int PromptMinLength = 25;
+    private const int PromptMaxLength = 10_000;
 
     public PromptValidator()
     {

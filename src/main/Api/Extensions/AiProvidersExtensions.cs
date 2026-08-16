@@ -1,6 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using Anthropic;
 using Microsoft.Extensions.AI;
+using Microsoft.Extensions.Hosting;
 using NttBank.QueryAgent.Agent.Enums;
 using NttBank.QueryAgent.Api.Configurations;
 using OllamaSharp;
@@ -39,8 +40,10 @@ internal static class AiProvidersExtensions
         Provider provider,
         AiProviderConfiguration cfg)
     {
-        services.AddKeyedSingleton<IChatClient>(provider, (_, _) =>
+        services.AddKeyedSingleton<IChatClient>(provider, (sp, _) =>
         {
+            var env = sp.GetRequiredService<IHostEnvironment>();
+
             IChatClient inner = provider switch
             {
                 Provider.Ollama => new OllamaApiClient(
@@ -58,8 +61,9 @@ internal static class AiProvidersExtensions
             return inner
                 .AsBuilder()
                 .UseOpenTelemetry(
-                    sourceName: $"ai-{provider.ToString().ToLowerInvariant()}",
-                    configure: c => c.EnableSensitiveData = cfg.EnableSensitiveData)
+                    sourceName: provider.ToString().ToLowerInvariant(),
+                    configure: c => c.EnableSensitiveData =
+                        cfg.EnableSensitiveData && env.IsDevelopment())
                 .Build();
         });
     }

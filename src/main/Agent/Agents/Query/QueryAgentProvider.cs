@@ -9,7 +9,7 @@ namespace NttBank.QueryAgent.Agent.Agents.Query;
 
 internal sealed class QueryAgentProvider(
     IChatClient chatClient,
-    QueryAgentOptions options,
+    QueryAgentConfiguration configuration,
     IHostEnvironment env,
     IMcpToolService toolService) : IQueryAgentProvider, IDisposable
 {
@@ -37,7 +37,7 @@ internal sealed class QueryAgentProvider(
                 .GetToolsAsync(cancellationToken);
 
             _agent = QueryAgentFactory.Build(
-                chatClient, options, env, tools);
+                chatClient, configuration, env, tools);
 
             return _agent;
         }

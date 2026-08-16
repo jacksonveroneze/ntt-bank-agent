@@ -17,8 +17,8 @@ public static class AppConfigurationExtensions
 
             services.AddConfiguration<AppConfiguration>(configuration);
             
-            services.AddConfiguration<QueryAgentOptions>(
-                configuration, QueryAgentOptions.SectionName);
+            services.AddConfiguration<QueryAgentConfiguration>(
+                configuration, QueryAgentConfiguration.SectionName);
             
             services.AddConfiguration<McpOptions>(
                 configuration, McpOptions.SectionName);

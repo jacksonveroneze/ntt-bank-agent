@@ -16,6 +16,7 @@ public static class ChatClientAgentFactory
             {
                 Name = descriptor.Name,
                 Description = descriptor.Description,
+                ChatHistoryProvider = new InMemoryChatHistoryProvider(),
                 ChatOptions = new ChatOptions
                 {
                     ModelId = descriptor.ModelId,

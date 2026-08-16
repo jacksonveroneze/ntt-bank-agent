@@ -2,7 +2,6 @@ using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using NttBank.QueryAgent.Agent.Abstractions;
 using NttBank.QueryAgent.Agent.Agents.Query;
-using NttBank.QueryAgent.Api.Endpoints.Agents.Query.v1.Models;
 using NttBank.QueryAgent.Api.Endpoints.Extensions;
 
 namespace NttBank.QueryAgent.Api.Endpoints.Agents.Query.v1;
@@ -29,9 +28,8 @@ internal static class QueryAgentEndpoint
     {
         builder.MapPost("chat", async (
                 [FromServices] IQueryAgent agent,
-                [FromServices] IValidator<QueryAgentRequest> validator,
-                [FromServices] IHostEnvironment hostEnvironment,
-                [FromBody] QueryAgentRequest input,
+                [FromServices] IValidator<AgentInput> validator,
+                [FromBody] AgentInput input,
                 CancellationToken cancellationToken) =>
             {
                 var validationResult = await validator
@@ -43,17 +41,12 @@ internal static class QueryAgentEndpoint
                         .ToValidationProblem();
                 }
 
-                var agentRequest = new AgentInput(input.Prompt!);
-
-                var agentResponse = await agent.RunAsync(
-                    agentRequest, cancellationToken);
-
-                var output = agentResponse
-                    .ToHttpResponse(hostEnvironment);
+                var output = await agent.RunAsync(
+                    input, cancellationToken);
 
                 return Results.Ok(output);
             })
-            .Produces<QueryAgentResponse>(
+            .Produces<AgentOutput>(
                 statusCode: StatusCodes.Status200OK)
             .ProducesValidationProblem()
             .Produces(StatusCodes.Status401Unauthorized)

@@ -8,7 +8,4 @@ public sealed record AiConfiguration
 {
     public IReadOnlyDictionary<Provider, AiProviderConfiguration> Providers { get; init; } =
         new Dictionary<Provider, AiProviderConfiguration>();
-
-    public IReadOnlyDictionary<Provider, AiAgentConfiguration> Agents { get; init; } =
-        new Dictionary<Provider, AiAgentConfiguration>();
 }

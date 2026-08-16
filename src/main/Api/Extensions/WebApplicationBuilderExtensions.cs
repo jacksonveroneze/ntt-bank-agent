@@ -27,6 +27,7 @@ internal static class WebApplicationBuilderExtensions
                 .AddValidatorsFromAssembly(typeof(WebApplicationBuilderExtensions).Assembly)
                 .AddCorrelation()
                 .AddApplicationServices()
+                .AddCached(appConfiguration)
                 .AddOpenTelemetry(appConfiguration)
                 .AddAiProviders(appConfiguration)
                 .AddMcpAuthentication(builder.Configuration)

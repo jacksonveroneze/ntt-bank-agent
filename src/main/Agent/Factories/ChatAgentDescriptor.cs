@@ -21,4 +21,6 @@ public sealed record ChatAgentDescriptor
     public bool? AllowMultipleToolCalls { get; init; }
     
     public bool EnableSensitiveData { get; init; }
+    
+    public int MaxHistoryMessages { get; init; }
 }
