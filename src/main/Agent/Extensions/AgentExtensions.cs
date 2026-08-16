@@ -24,20 +24,20 @@ public static class AgentExtensions
 
             var chatClient = sp.GetRequiredKeyedService<
                 IChatClient>(options.Provider);
-            
+
             var env = sp.GetRequiredService<IHostEnvironment>();
-            
+
             var toolProvider = sp.GetRequiredService<IMcpToolService>();
 
             var agent = new QueryAgentProvider(
                 chatClient, options, env, toolProvider);
-            
+
             return agent;
         });
-        
+
         services.AddSingleton<IQueryAgent, Agents.Query.QueryAgent>();
-        
-        services.AddSingleton<ISessionStore, HybridCacheSessionStore>();
+
+        services.AddSingleton<ISessionStore, CacheSessionStore>();
 
         return services;
     }

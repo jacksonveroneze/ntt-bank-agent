@@ -32,7 +32,7 @@ internal static class QueryAgentFactory
 
         return agent
             .AsBuilder()
-            .Use(AgentGuardrails.ValidateAgentRunAsync, runStreamingFunc: null)
+            .Use(inner => new GuardrailChatClient(inner))
             .Build();
     }
 }

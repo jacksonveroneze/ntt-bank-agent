@@ -4,7 +4,12 @@ namespace NttBank.QueryAgent.Agent.Abstractions;
 
 internal interface ISessionStore
 {
-    ValueTask<JsonElement?> LoadAsync(string key, CancellationToken ct);
+    ValueTask<JsonElement?> LoadAsync(
+        string key, 
+        CancellationToken cancellationToken);
     
-    ValueTask SaveAsync(string key, JsonElement session, CancellationToken ct);
+    ValueTask SaveAsync(
+        string key, 
+        JsonElement session, 
+        CancellationToken cancellationToken);
 }

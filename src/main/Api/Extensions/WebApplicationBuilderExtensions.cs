@@ -32,6 +32,7 @@ internal static class WebApplicationBuilderExtensions
                 .AddAiProviders(appConfiguration)
                 .AddMcpAuthentication(builder.Configuration)
                 .AddMcpToolProvider()
+                .AddAgentServices()
                 .AddQueryAgent()
                 .AddHealthCheck(appConfiguration);
 
