@@ -1,6 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using NttBank.QueryAgent.Agent.Enums;
-using NttBank.QueryAgent.Api.Configurations;
+using NttBank.QueryAgent.Infra.Configurations;
 using OpenTelemetry;
 using OpenTelemetry.Instrumentation.AspNetCore;
 using OpenTelemetry.Metrics;

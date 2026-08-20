@@ -2,10 +2,11 @@ using System.Diagnostics.CodeAnalysis;
 using System.Net.Security;
 using Duende.AccessTokenManagement;
 using Duende.IdentityModel.Client;
-using NttBank.QueryAgent.Infra;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using NttBank.QueryAgent.Infra.Configurations;
 
-namespace NttBank.QueryAgent.Api.Extensions;
+namespace NttBank.QueryAgent.Infra.Extensions;
 
 [ExcludeFromCodeCoverage]
 public static class McpAuthenticationExtensions

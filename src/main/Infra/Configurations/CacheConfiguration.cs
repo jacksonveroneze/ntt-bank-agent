@@ -1,6 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 
-namespace NttBank.QueryAgent.Api.Configurations;
+namespace NttBank.QueryAgent.Infra.Configurations;
 
 [ExcludeFromCodeCoverage]
 public sealed record CacheConfiguration

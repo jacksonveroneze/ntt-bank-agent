@@ -1,7 +1,7 @@
 using FluentValidation;
-using NttBank.QueryAgent.Api.Configurations;
 using NttBank.QueryAgent.Api.Middlewares;
 using NttBank.QueryAgent.Infra;
+using NttBank.QueryAgent.Infra.Configurations;
 using NttBank.QueryAgent.Infra.Extensions;
 
 namespace NttBank.QueryAgent.Api.Extensions;

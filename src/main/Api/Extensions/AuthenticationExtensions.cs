@@ -1,7 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using NttBank.QueryAgent.Api.Configurations;
+using NttBank.QueryAgent.Infra.Configurations;
 
 namespace NttBank.QueryAgent.Api.Extensions;
 

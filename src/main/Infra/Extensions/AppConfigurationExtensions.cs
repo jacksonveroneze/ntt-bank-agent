@@ -1,12 +1,12 @@
 using System.Diagnostics.CodeAnalysis;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using NttBank.QueryAgent.Agent.Agents.Cards;
 using NttBank.QueryAgent.Agent.Agents.Query;
-using NttBank.QueryAgent.Api.Configurations;
-using NttBank.QueryAgent.Infra;
 using NttBank.QueryAgent.Infra.Configurations;
 
-namespace NttBank.QueryAgent.Api.Extensions;
+namespace NttBank.QueryAgent.Infra.Extensions;
 
 [ExcludeFromCodeCoverage]
 public static class AppConfigurationExtensions

@@ -1,14 +1,16 @@
 using System.Diagnostics.CodeAnalysis;
 using Anthropic;
 using Microsoft.Extensions.AI;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using NttBank.QueryAgent.Agent.Enums;
-using NttBank.QueryAgent.Api.Configurations;
+using NttBank.QueryAgent.Infra.Configurations;
 using OllamaSharp;
 
-namespace NttBank.QueryAgent.Api.Extensions;
+namespace NttBank.QueryAgent.Infra.Extensions;
 
 [ExcludeFromCodeCoverage]
-internal static class AiProvidersExtensions
+public static class AiProvidersExtensions
 {
     public static IServiceCollection AddAiProviders(
         this IServiceCollection services,
