@@ -3,7 +3,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using ModelContextProtocol.Client;
 using NttBank.QueryAgent.Agent.Configurations;
-using NttBank.QueryAgent.Agent.Services.Mcp;
+using NttBank.QueryAgent.Agent.Services;
+using NttBank.QueryAgent.Agent.Services.Abstractions;
 
 namespace NttBank.QueryAgent.Agent.Extensions;
 

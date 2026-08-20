@@ -1,6 +1,7 @@
 using Microsoft.Agents.AI;
+using NttBank.QueryAgent.Agent.Abstractions;
 
-namespace NttBank.QueryAgent.Agent.Abstractions;
+namespace NttBank.QueryAgent.Agent.Agents;
 
 internal static class AgentOutputMapper
 {

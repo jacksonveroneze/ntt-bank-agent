@@ -3,7 +3,7 @@ using System.Net.Security;
 using Duende.AccessTokenManagement;
 using Duende.IdentityModel.Client;
 using NttBank.QueryAgent.Agent.Configurations;
-using NttBank.QueryAgent.Agent.Services.Mcp;
+using NttBank.QueryAgent.Agent.Services;
 
 namespace NttBank.QueryAgent.Api.Extensions;
 

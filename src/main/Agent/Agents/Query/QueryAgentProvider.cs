@@ -4,7 +4,7 @@ using NttBank.QueryAgent.Agent.Abstractions;
 using NttBank.QueryAgent.Agent.Agents.Query.Instructions;
 using NttBank.QueryAgent.Agent.Configurations;
 using NttBank.QueryAgent.Agent.Factories;
-using NttBank.QueryAgent.Agent.Services.Mcp;
+using NttBank.QueryAgent.Agent.Services.Abstractions;
 
 namespace NttBank.QueryAgent.Agent.Agents.Query;
 

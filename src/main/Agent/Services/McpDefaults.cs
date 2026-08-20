@@ -1,4 +1,4 @@
-namespace NttBank.QueryAgent.Agent.Services.Mcp;
+namespace NttBank.QueryAgent.Agent.Services;
 
 public sealed class McpDefaults
 {
