@@ -27,7 +27,7 @@ public static class McpExtensions
             }, httpClient);
         });
 
-        services.AddSingleton<IMcpToolService, McpToolService>();
+        services.AddSingleton<IMcpQueryToolService, QueryMcpToolService>();
 
         return services;
     }

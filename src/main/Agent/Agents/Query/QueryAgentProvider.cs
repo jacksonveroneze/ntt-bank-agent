@@ -1,6 +1,6 @@
 using Microsoft.Agents.AI;
-using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Hosting;
+using NttBank.QueryAgent.Agent.Abstractions;
 using NttBank.QueryAgent.Agent.Agents.Query.Instructions;
 using NttBank.QueryAgent.Agent.Configurations;
 using NttBank.QueryAgent.Agent.Factories;
@@ -9,10 +9,10 @@ using NttBank.QueryAgent.Agent.Services.Mcp;
 namespace NttBank.QueryAgent.Agent.Agents.Query;
 
 internal sealed class QueryAgentProvider(
-    IChatClient chatClient,
+    IChatClientResolver chatClientResolver,
     QueryAgentConfiguration configuration,
     IHostEnvironment env,
-    IMcpToolService mcpToolService) : IQueryAgentProvider, IDisposable
+    IMcpQueryToolService mcpQueryToolService) : IQueryAgentProvider, IDisposable
 {
     private readonly SemaphoreSlim _buildLock = new(1, 1);
     private AIAgent? _agent;
@@ -34,8 +34,7 @@ internal sealed class QueryAgentProvider(
                 return _agent;
             }
 
-            _agent = await BuildAgentAsync(
-                chatClient, configuration, env, cancellationToken);
+            _agent = await BuildAgentAsync(cancellationToken);
 
             return _agent;
         }
@@ -46,27 +45,27 @@ internal sealed class QueryAgentProvider(
     }
 
     private async Task<AIAgent> BuildAgentAsync(
-        IChatClient chatClientAgent,
-        QueryAgentConfiguration configurationAgent,
-        IHostEnvironment envAgent,
         CancellationToken cancellationToken)
     {
-        var mcpTools = await mcpToolService
+        var chatClientAgent = chatClientResolver
+            .Resolve(configuration.Provider);
+
+        var mcpTools = await mcpQueryToolService
             .GetToolsAsync(cancellationToken);
-        
+
         var agent = ChatClientAgentFactory.Create(
             new ChatAgentDescriptor
             {
                 ChatClient = chatClientAgent,
-                Name = configurationAgent.Name,
-                Description = configurationAgent.Description,
-                ModelId = configurationAgent.Model,
-                Instructions = configurationAgent.SystemPrompt
+                Name = configuration.Name,
+                Description = configuration.Description,
+                ModelId = configuration.Model,
+                Instructions = configuration.SystemPrompt
                                ?? SystemPromptInstructions.SystemPrompt,
-                Temperature = configurationAgent.Temperature,
+                Temperature = configuration.Temperature,
                 Tools = mcpTools,
-                EnableSensitiveData = envAgent.IsDevelopment(),
-                AllowMultipleToolCalls = configurationAgent.AllowMultipleToolCalls,
+                EnableSensitiveData = env.IsDevelopment(),
+                AllowMultipleToolCalls = configuration.AllowMultipleToolCalls,
             });
 
         return agent
@@ -76,7 +75,6 @@ internal sealed class QueryAgentProvider(
 
     public void Dispose()
     {
-        chatClient.Dispose();
         _buildLock.Dispose();
     }
 }

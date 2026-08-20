@@ -1,6 +1,6 @@
 using Microsoft.Extensions.AI;
 
-namespace NttBank.QueryAgent.Agent.Services.Mcp;
+namespace NttBank.QueryAgent.Agent.Abstractions;
 
 public interface IMcpToolService
 {

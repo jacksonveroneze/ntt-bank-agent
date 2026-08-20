@@ -4,10 +4,10 @@ using ModelContextProtocol.Client;
 
 namespace NttBank.QueryAgent.Agent.Services.Mcp;
 
-internal sealed class McpToolService(
-    ILogger<McpToolService> logger,
+internal sealed class QueryMcpToolService(
+    ILogger<QueryMcpToolService> logger,
     ILoggerFactory loggerFactory,
-    IClientTransport transport) : IMcpToolService, IAsyncDisposable
+    IClientTransport transport) : IMcpQueryToolService, IAsyncDisposable
 {
     private static readonly TimeSpan DiscoverProbeTimeout
         = TimeSpan.FromSeconds(5);
