@@ -19,8 +19,7 @@ internal sealed class QueryMcpToolService(
 
     private IList<AITool>? _tools;
 
-    public async ValueTask<IList<AITool>> GetToolsAsync(
-        CancellationToken cancellationToken)
+    public async ValueTask<IList<AITool>?> GetToolsAsync(CancellationToken cancellationToken)
     {
         if (_tools is not null)
         {

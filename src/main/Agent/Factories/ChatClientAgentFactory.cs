@@ -1,37 +1,40 @@
 using Microsoft.Agents.AI;
 using Microsoft.Extensions.AI;
+using NttBank.QueryAgent.Agent.Abstractions;
 
 namespace NttBank.QueryAgent.Agent.Factories;
 
 public static class ChatClientAgentFactory
 {
     public static AIAgent Create(
-        ChatAgentDescriptor descriptor)
+        AgentConfiguration configuration,
+        IChatClient chatClient,
+        bool enableSensitiveData,
+        IList<AITool>? tools = null)
     {
-        ArgumentNullException.ThrowIfNull(descriptor);
+        ArgumentNullException.ThrowIfNull(configuration);
+        ArgumentNullException.ThrowIfNull(chatClient);
 
-        var chatAgent = new ChatClientAgent(
-            descriptor.ChatClient,
+        var chatAgent = new ChatClientAgent(chatClient,
             new ChatClientAgentOptions
             {
-                Name = descriptor.Name,
-                Description = descriptor.Description,
+                Name = configuration.Name,
+                Description = configuration.Description,
                 ChatOptions = new ChatOptions
                 {
-                    ModelId = descriptor.ModelId,
-                    Instructions = descriptor.Instructions,
-                    Temperature = descriptor.Temperature,
-                    Tools = descriptor.Tools,
+                    ModelId = configuration.Model,
+                    Instructions = configuration.SystemPrompt,
+                    Temperature = configuration.Temperature,
+                    Tools = tools,
                     ToolMode = ChatToolMode.Auto,
-                    AllowMultipleToolCalls = descriptor.AllowMultipleToolCalls,
+                    AllowMultipleToolCalls = configuration.AllowMultipleToolCalls,
                 },
             });
 
         return chatAgent
             .AsBuilder()
-            .UseOpenTelemetry(
-                descriptor.Name,
-                config => { config.EnableSensitiveData = descriptor.EnableSensitiveData; })
+            .UseOpenTelemetry(configuration.Name,
+                config => config.EnableSensitiveData = enableSensitiveData)
             .Build();
     }
 }
