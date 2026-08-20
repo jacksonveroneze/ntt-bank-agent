@@ -1,7 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using Anthropic;
 using Microsoft.Extensions.AI;
-using Microsoft.Extensions.Hosting;
 using NttBank.QueryAgent.Agent.Enums;
 using NttBank.QueryAgent.Api.Configurations;
 using OllamaSharp;

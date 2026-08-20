@@ -14,5 +14,9 @@ public sealed class QueryAgentConfiguration
 
     public required string Description { get; init; }
 
+    public string? SystemPrompt { get; init; }
+
     public float Temperature { get; init; }
+
+    public bool AllowMultipleToolCalls { get; init; }
 }

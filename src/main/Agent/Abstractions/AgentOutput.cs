@@ -4,5 +4,5 @@ namespace NttBank.QueryAgent.Agent.Abstractions;
 
 public record AgentOutput(
     string Message,
-    string ConversationId,
+    string? ConversationId,
     AgentResponse? AgentResponse = null);

@@ -3,11 +3,9 @@ using Microsoft.Extensions.AI;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
-using NttBank.QueryAgent.Agent.Abstractions;
 using NttBank.QueryAgent.Agent.Agents.Query;
 using NttBank.QueryAgent.Agent.Configurations;
-using NttBank.QueryAgent.Agent.Memory;
-using NttBank.QueryAgent.Agent.Services;
+using NttBank.QueryAgent.Agent.Services.Mcp;
 
 namespace NttBank.QueryAgent.Agent.Extensions;
 
@@ -36,8 +34,6 @@ public static class AgentExtensions
         });
 
         services.AddSingleton<IQueryAgent, Agents.Query.QueryAgent>();
-
-        services.AddSingleton<ISessionStore, CacheSessionStore>();
 
         return services;
     }

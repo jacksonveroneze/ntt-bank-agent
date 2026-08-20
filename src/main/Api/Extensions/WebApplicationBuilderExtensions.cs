@@ -18,6 +18,8 @@ internal static class WebApplicationBuilderExtensions
 
             //builder.AddLogger(appConfiguration);
 
+            builder.Services.AddAGUIServer();
+
             builder.Services
                 .AddHttpContextAccessor()
                 .AddProblemDetails()

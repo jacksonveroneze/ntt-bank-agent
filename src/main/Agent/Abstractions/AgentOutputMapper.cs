@@ -6,7 +6,7 @@ internal static class AgentOutputMapper
 {
     public static AgentOutput ToOutput(
         AgentResponse response,
-        string conversationId)
+        string? conversationId = null)
     {
         return new AgentOutput(
             Message: response.Text,

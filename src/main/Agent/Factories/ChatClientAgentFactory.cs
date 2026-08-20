@@ -10,13 +10,12 @@ public static class ChatClientAgentFactory
     {
         ArgumentNullException.ThrowIfNull(descriptor);
 
-        var agent = new ChatClientAgent(
+        var chatAgent = new ChatClientAgent(
             descriptor.ChatClient,
             new ChatClientAgentOptions
             {
                 Name = descriptor.Name,
                 Description = descriptor.Description,
-                ChatHistoryProvider = new InMemoryChatHistoryProvider(),
                 ChatOptions = new ChatOptions
                 {
                     ModelId = descriptor.ModelId,
@@ -28,9 +27,10 @@ public static class ChatClientAgentFactory
                 },
             });
 
-        return agent
+        return chatAgent
             .AsBuilder()
-            .UseOpenTelemetry(descriptor.Name,
+            .UseOpenTelemetry(
+                descriptor.Name,
                 config => { config.EnableSensitiveData = descriptor.EnableSensitiveData; })
             .Build();
     }

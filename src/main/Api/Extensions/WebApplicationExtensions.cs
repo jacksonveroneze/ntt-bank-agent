@@ -1,4 +1,6 @@
 using CorrelationId;
+using Microsoft.Agents.AI.Hosting.AGUI.AspNetCore;
+using NttBank.QueryAgent.Agent.Agents.Query;
 using NttBank.QueryAgent.Api.Endpoints.Agents.Query.v1;
 
 namespace NttBank.QueryAgent.Api.Extensions;
@@ -24,7 +26,12 @@ internal static class WebApplicationExtensions
 
         app.UseAuthentication();
         app.UseAuthorization();
+
+        var service = app.Services.GetRequiredService<IQueryAgentProvider>();
+
+        var agent=service.GetAsync(CancellationToken.None).GetAwaiter().GetResult();
         
+        app.MapAGUIServer("/", agent);
         app.AddQueryAgentEndpoints();
 
         return app;

@@ -2,7 +2,7 @@ using Microsoft.Agents.AI;
 
 namespace NttBank.QueryAgent.Agent.Abstractions;
 
-internal interface IQueryAgentProvider
+public interface IAgentProvider
 {
     ValueTask<AIAgent> GetAsync(
         CancellationToken cancellationToken);
