@@ -1,17 +1,17 @@
 using Microsoft.Agents.AI;
 using Microsoft.Extensions.Hosting;
 using NttBank.QueryAgent.Agent.Abstractions;
-using NttBank.QueryAgent.Agent.Agents.Query.Instructions;
+using NttBank.QueryAgent.Agent.Agents.Cards.Instructions;
 using NttBank.QueryAgent.Agent.Factories;
 using NttBank.QueryAgent.Agent.Services.Abstractions;
 
-namespace NttBank.QueryAgent.Agent.Agents.Query;
+namespace NttBank.QueryAgent.Agent.Agents.Cards;
 
-internal sealed class QueryAgentProvider(
+internal sealed class CardsAgentProvider(
     IChatClientResolver chatClientResolver,
-    QueryAgentConfiguration configuration,
+    CardsAgentConfiguration configuration,
     IHostEnvironment env,
-    IMcpQueryToolService mcpQueryToolService) : IQueryAgentProvider, IDisposable
+    IMcpQueryToolService mcpQueryToolService) : ICardsAgentProvider, IDisposable
 {
     private readonly SemaphoreSlim _buildLock = new(1, 1);
     private AIAgent? _agent;

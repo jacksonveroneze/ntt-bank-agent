@@ -1,5 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.Extensions.Options;
+using NttBank.QueryAgent.Agent.Agents.Cards;
+using NttBank.QueryAgent.Agent.Agents.Query;
 using NttBank.QueryAgent.Agent.Configurations;
 using NttBank.QueryAgent.Api.Configurations;
 
@@ -18,7 +20,10 @@ public static class AppConfigurationExtensions
             services.AddConfiguration<AppConfiguration>(configuration);
             
             services.AddConfiguration<QueryAgentConfiguration>(
-                configuration, QueryAgentConfiguration.SectionName);
+                configuration, QueryAgentConfiguration.SectionName); 
+            
+            services.AddConfiguration<CardsAgentConfiguration>(
+                configuration, CardsAgentConfiguration.SectionName);
             
             services.AddConfiguration<McpOptions>(
                 configuration, McpOptions.SectionName);
@@ -42,8 +47,8 @@ public static class AppConfigurationExtensions
                 .ValidateDataAnnotations()
                 .ValidateOnStart();
 
-            services.AddScoped<TParameterType>(sp =>
-                sp.GetRequiredService<IOptionsMonitor<TParameterType>>().CurrentValue);
+            services.AddSingleton<TParameterType>(sp =>
+                sp.GetRequiredService<IOptions<TParameterType>>().Value);
 
             return services;
         }

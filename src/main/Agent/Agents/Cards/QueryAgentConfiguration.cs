@@ -1,10 +1,10 @@
 using NttBank.QueryAgent.Agent.Enums;
 
-namespace NttBank.QueryAgent.Agent.Configurations;
+namespace NttBank.QueryAgent.Agent.Agents.Cards;
 
-public sealed class QueryAgentConfiguration
+public sealed class CardsAgentConfiguration
 {
-    public const string SectionName = "Ai:Agents:Query";
+    public const string SectionName = "Ai:Agents:Cards";
 
     public Provider Provider { get; init; } = Provider.None;
 

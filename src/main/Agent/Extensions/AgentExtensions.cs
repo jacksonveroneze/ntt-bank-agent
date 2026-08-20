@@ -1,5 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.Extensions.DependencyInjection;
+using NttBank.QueryAgent.Agent.Agents.Cards;
 using NttBank.QueryAgent.Agent.Agents.Query;
 
 namespace NttBank.QueryAgent.Agent.Extensions;
@@ -12,7 +13,10 @@ public static class AgentExtensions
     {
         services.AddSingleton<IQueryAgentProvider, QueryAgentProvider>();
         services.AddSingleton<IQueryAgent, Agents.Query.QueryAgent>();
-
+        
+        services.AddSingleton<ICardsAgentProvider, CardsAgentProvider>();
+        services.AddSingleton<ICardsAgent, CardsAgent>();
+        
         return services;
     }
 }
