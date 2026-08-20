@@ -3,7 +3,7 @@ using NttBank.QueryAgent.Agent.Abstractions;
 
 namespace NttBank.QueryAgent.Agent.Agents.Cards;
 
-internal sealed class CardsAgent(
+public sealed class CardsAgent(
     ILogger<CardsAgent> logger,
     ICardsAgentProvider provider) : ICardsAgent
 {

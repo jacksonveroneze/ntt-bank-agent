@@ -3,7 +3,7 @@ using NttBank.QueryAgent.Agent.Enums;
 
 namespace NttBank.QueryAgent.Agent.Abstractions;
 
-internal interface IChatClientResolver
+public interface IChatClientResolver
 {
     IChatClient Resolve(Provider provider);
 }

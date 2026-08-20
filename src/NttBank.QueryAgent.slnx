@@ -15,5 +15,6 @@
     <Folder Name="/src/">
         <Project Path="main/Agent/Agent.csproj" />
         <Project Path="main/Api/Api.csproj" />
+        <Project Path="main/Infra/Infra.csproj" />
     </Folder>
 </Solution>

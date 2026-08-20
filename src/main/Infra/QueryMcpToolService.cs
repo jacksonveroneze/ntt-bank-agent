@@ -1,9 +1,9 @@
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Logging;
 using ModelContextProtocol.Client;
-using NttBank.QueryAgent.Agent.Services.Abstractions;
+using NttBank.QueryAgent.Agent.Services;
 
-namespace NttBank.QueryAgent.Agent.Services;
+namespace NttBank.QueryAgent.Infra;
 
 internal sealed class QueryMcpToolService(
     ILogger<QueryMcpToolService> logger,

@@ -2,7 +2,7 @@ using System.Text.Json;
 
 namespace NttBank.QueryAgent.Agent.Abstractions;
 
-internal interface ISessionStore
+public interface ISessionStore
 {
     ValueTask<JsonElement?> LoadAsync(
         string key, 

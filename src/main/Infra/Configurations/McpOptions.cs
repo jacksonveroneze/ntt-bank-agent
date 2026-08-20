@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace NttBank.QueryAgent.Agent.Configurations;
+namespace NttBank.QueryAgent.Infra.Configurations;
 
 public sealed class McpOptions
 {

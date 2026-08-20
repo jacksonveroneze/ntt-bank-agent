@@ -2,8 +2,9 @@ using System.Diagnostics.CodeAnalysis;
 using Microsoft.Extensions.Options;
 using NttBank.QueryAgent.Agent.Agents.Cards;
 using NttBank.QueryAgent.Agent.Agents.Query;
-using NttBank.QueryAgent.Agent.Configurations;
 using NttBank.QueryAgent.Api.Configurations;
+using NttBank.QueryAgent.Infra;
+using NttBank.QueryAgent.Infra.Configurations;
 
 namespace NttBank.QueryAgent.Api.Extensions;
 

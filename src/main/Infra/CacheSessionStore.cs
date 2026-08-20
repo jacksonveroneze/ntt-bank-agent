@@ -2,7 +2,7 @@ using System.Text.Json;
 using Microsoft.Extensions.Caching.Hybrid;
 using NttBank.QueryAgent.Agent.Abstractions;
 
-namespace NttBank.QueryAgent.Agent.Memory;
+namespace NttBank.QueryAgent.Infra;
 
 internal sealed class CacheSessionStore(
     HybridCache cache) : ISessionStore

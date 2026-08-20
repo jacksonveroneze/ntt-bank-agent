@@ -8,7 +8,7 @@ using NttBank.QueryAgent.Agent.Factories;
 
 namespace NttBank.QueryAgent.Agent.Agents;
 
-internal abstract class AgentProviderBase<TConfiguration> : IAgentProvider, IDisposable
+public abstract class AgentProviderBase<TConfiguration> : IAgentProvider, IDisposable
     where TConfiguration : AgentConfiguration
 {
     private readonly IChatClientResolver _chatClientResolver;

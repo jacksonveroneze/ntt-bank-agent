@@ -5,7 +5,7 @@ using NttBank.QueryAgent.Agent.Abstractions;
 
 namespace NttBank.QueryAgent.Agent.Agents.Cards;
 
-internal sealed class CardsAgentProvider(
+public sealed class CardsAgentProvider(
     ILogger<CardsAgentProvider> logger,
     IOptionsMonitor<CardsAgentConfiguration> options,
     IChatClientResolver chatClientResolver,

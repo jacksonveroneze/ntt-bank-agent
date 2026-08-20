@@ -2,8 +2,8 @@ using System.Diagnostics.CodeAnalysis;
 using System.Net.Security;
 using Duende.AccessTokenManagement;
 using Duende.IdentityModel.Client;
-using NttBank.QueryAgent.Agent.Configurations;
-using NttBank.QueryAgent.Agent.Services;
+using NttBank.QueryAgent.Infra;
+using NttBank.QueryAgent.Infra.Configurations;
 
 namespace NttBank.QueryAgent.Api.Extensions;
 

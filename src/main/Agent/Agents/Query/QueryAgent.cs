@@ -3,7 +3,7 @@ using NttBank.QueryAgent.Agent.Abstractions;
 
 namespace NttBank.QueryAgent.Agent.Agents.Query;
 
-internal sealed class QueryAgent(
+public sealed class QueryAgent(
     ILogger<QueryAgent> logger,
     IQueryAgentProvider provider) : IQueryAgent
 {

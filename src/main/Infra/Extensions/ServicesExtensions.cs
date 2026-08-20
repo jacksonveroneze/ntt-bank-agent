@@ -1,10 +1,10 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.Extensions.DependencyInjection;
 using NttBank.QueryAgent.Agent.Abstractions;
-using NttBank.QueryAgent.Agent.Memory;
-using NttBank.QueryAgent.Agent.Services;
+using NttBank.QueryAgent.Agent.Agents.Cards;
+using NttBank.QueryAgent.Agent.Agents.Query;
 
-namespace NttBank.QueryAgent.Agent.Extensions;
+namespace NttBank.QueryAgent.Infra.Extensions;
 
 [ExcludeFromCodeCoverage]
 public static class ServicesExtensions
@@ -12,6 +12,12 @@ public static class ServicesExtensions
     public static IServiceCollection AddAgentServices(
         this IServiceCollection services)
     {
+        services.AddSingleton<IQueryAgentProvider, QueryAgentProvider>();
+        services.AddSingleton<IQueryAgent, Agent.Agents.Query.QueryAgent>();
+        
+        services.AddSingleton<ICardsAgentProvider, CardsAgentProvider>();
+        services.AddSingleton<ICardsAgent, CardsAgent>();
+        
         services.AddSingleton<ISessionStore, CacheSessionStore>();
         services.AddSingleton<IChatClientResolver, ChatClientResolver>();
 

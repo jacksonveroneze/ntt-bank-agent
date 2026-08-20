@@ -2,11 +2,10 @@ using System.Diagnostics.CodeAnalysis;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using ModelContextProtocol.Client;
-using NttBank.QueryAgent.Agent.Configurations;
 using NttBank.QueryAgent.Agent.Services;
-using NttBank.QueryAgent.Agent.Services.Abstractions;
+using NttBank.QueryAgent.Infra.Configurations;
 
-namespace NttBank.QueryAgent.Agent.Extensions;
+namespace NttBank.QueryAgent.Infra.Extensions;
 
 [ExcludeFromCodeCoverage]
 public static class McpExtensions

@@ -39,6 +39,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Agent\Agent.csproj"/>
+    <ProjectReference Include="..\Infra\Infra.csproj" />
   </ItemGroup>
 
 </Project>
