@@ -1,11 +1,9 @@
 using NttBank.QueryAgent.Agent.Enums;
 
-namespace NttBank.QueryAgent.Agent.Agents.Cards;
+namespace NttBank.QueryAgent.Agent.Abstractions;
 
-public sealed class CardsAgentConfiguration
+public abstract class AgentConfiguration
 {
-    public const string SectionName = "Ai:Agents:Cards";
-
     public Provider Provider { get; init; } = Provider.None;
 
     public required string Model { get; init; }
@@ -14,7 +12,7 @@ public sealed class CardsAgentConfiguration
 
     public required string Description { get; init; }
 
-    public string? SystemPrompt { get; init; }
+    public required string SystemPrompt { get; init; }
 
     public float Temperature { get; init; }
 
