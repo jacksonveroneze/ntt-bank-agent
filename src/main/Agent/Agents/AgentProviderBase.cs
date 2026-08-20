@@ -20,10 +20,13 @@ public abstract class AgentProviderBase<TConfiguration> : IAgentProvider, IDispo
     private readonly IDisposable? _reloadRegistration;
 
     private volatile AIAgent? _agent;
+    
+    protected abstract string Invariants { get; }
+    
     private int _generation;
 
     private bool _disposed;
-
+    
     protected AgentProviderBase(
         ILogger logger,
         IOptionsMonitor<TConfiguration> options,
@@ -82,16 +85,22 @@ public abstract class AgentProviderBase<TConfiguration> : IAgentProvider, IDispo
     {
         var configuration = _options.CurrentValue;
 
-        var chatClient = _chatClientResolver.Resolve(configuration.Provider);
+        var chatClient = _chatClientResolver.Resolve(
+            configuration.Provider);
 
         var tools = await ResolveToolsAsync(cancellationToken);
 
+        var persona = configuration.Persona;
+        var instructions = string.IsNullOrWhiteSpace(persona)
+            ? Invariants
+            : persona + "\n\n" + Invariants;
+        
         _logger.LogInformation(
             "• Construindo agente {Agent} — provider: {Provider}, tools: {ToolCount}.",
             configuration.Name, configuration.Provider, tools?.Count ?? 0);
 
         return ChatClientAgentFactory.Create(
-            configuration, chatClient, _env.IsDevelopment(), tools);
+            configuration, instructions, chatClient, _env.IsDevelopment(), tools);
     }
 
     private void Invalidate()

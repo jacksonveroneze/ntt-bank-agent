@@ -8,6 +8,7 @@ public static class ChatClientAgentFactory
 {
     public static AIAgent Create(
         AgentConfiguration configuration,
+        string instructions,
         IChatClient chatClient,
         bool enableSensitiveData,
         IList<AITool>? tools = null)
@@ -23,7 +24,7 @@ public static class ChatClientAgentFactory
                 ChatOptions = new ChatOptions
                 {
                     ModelId = configuration.Model,
-                    Instructions = configuration.SystemPrompt,
+                    Instructions = instructions,
                     Temperature = configuration.Temperature,
                     Tools = tools,
                     ToolMode = ChatToolMode.Auto,

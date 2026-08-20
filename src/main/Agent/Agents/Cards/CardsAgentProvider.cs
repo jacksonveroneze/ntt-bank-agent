@@ -11,4 +11,7 @@ public sealed class CardsAgentProvider(
     IChatClientResolver chatClientResolver,
     IHostEnvironment env)
     : AgentProviderBase<CardsAgentConfiguration>(logger, options, chatClientResolver, env),
-        ICardsAgentProvider;
+        ICardsAgentProvider
+{
+    protected override string Invariants => QueryInstructions.Invariants;
+}

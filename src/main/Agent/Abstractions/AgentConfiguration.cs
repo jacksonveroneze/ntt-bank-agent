@@ -12,7 +12,7 @@ public abstract class AgentConfiguration
 
     public required string Description { get; init; }
 
-    public required string SystemPrompt { get; init; }
+    public required string Persona { get; init; }
 
     public float Temperature { get; init; }
 

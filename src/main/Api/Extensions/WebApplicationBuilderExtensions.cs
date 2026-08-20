@@ -35,7 +35,6 @@ internal static class WebApplicationBuilderExtensions
                 .AddAiProviders(appConfiguration)
                 .AddMcpAuthentication(builder.Configuration)
                 .AddMcpToolProvider()
-                .AddAgentServices()
                 .AddHealthCheck(appConfiguration);
 
             return builder;
