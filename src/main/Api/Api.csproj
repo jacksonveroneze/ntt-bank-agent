@@ -27,12 +27,12 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
     <PackageReference Include="Microsoft.Extensions.Caching.Hybrid" />
     <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" />
-    
-    <PackageReference Include="Serilog.AspNetCore"/>
-    <PackageReference Include="Serilog.Settings.Configuration"/>
-    <PackageReference Include="Serilog.Sinks.Async"/>
-    <PackageReference Include="Serilog.Expressions"/>
-    <PackageReference Include="Serilog.Sinks.Seq"/>
+
+    <PackageReference Include="Serilog.AspNetCore" />
+    <PackageReference Include="Serilog.Settings.Configuration" />
+    <PackageReference Include="Serilog.Sinks.Async" />
+    <PackageReference Include="Serilog.Expressions" />
+    <PackageReference Include="Serilog.Sinks.Seq" />
   </ItemGroup>
 
   <ItemGroup>

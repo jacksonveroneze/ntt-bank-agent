@@ -17,10 +17,12 @@ internal static class WebApplicationBuilderExtensions
             var appConfiguration = builder.Configuration
                 .Get<AppConfiguration>()!;
 
-            //builder.AddLogger(appConfiguration);
+            builder.AddLogger(appConfiguration);
 
             builder.Services.AddAGUIServer();
 
+            builder.Services.AddCors();
+            
             builder.Services
                 .AddHttpContextAccessor()
                 .AddProblemDetails()

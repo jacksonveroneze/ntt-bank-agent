@@ -7,6 +7,7 @@ WORKDIR /src
 
 COPY ./main/Api/Api.csproj ./main/Api/
 COPY ./main/Agent/Agent.csproj ./main/Agent/
+COPY ./main/Infra/Infra.csproj ./main/Infra/
 COPY *.slnx ./
 COPY nuget.config ./
 COPY Directory.Build.props ./

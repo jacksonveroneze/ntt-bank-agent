@@ -16,7 +16,7 @@ public sealed class QueryAgentProvider(
     : AgentProviderBase<QueryAgentConfiguration>(logger, options, chatClientResolver, env),
         IQueryAgentProvider
 {
-    protected override string Invariants => QueryInstructions.Invariants;
+    protected override string Invariants => QueryInstructions.SystemPrompt;
 
     protected override ValueTask<IList<AITool>?> ResolveToolsAsync(
         CancellationToken cancellationToken)
