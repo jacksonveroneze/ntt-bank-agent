@@ -11,17 +11,22 @@ public sealed class QueryAgentProvider(
     ILogger<QueryAgentProvider> logger,
     IOptionsMonitor<QueryAgentConfiguration> options,
     IChatClientResolver chatClientResolver,
+    ILoggerFactory loggerFactory,
     IHostEnvironment env,
     IMcpQueryToolService mcpQueryToolService)
-    : AgentProviderBase<QueryAgentConfiguration>(logger, options, chatClientResolver, env),
+    : AgentProviderBase<QueryAgentConfiguration>(
+            logger, options, chatClientResolver, loggerFactory, env),
         IQueryAgentProvider
 {
     public override string Name => "query";
+
+    protected override string Description => 
+        QueryConstants.Description;
     
-    public override string Description =>
-        "Consultas bancárias somente-leitura: clientes, contas e transações.";
+    protected override string Invariants =>
+        QueryConstants.SystemPrompt;
     
-    protected override string Invariants => QueryInstructions.SystemPrompt;
+    public override bool IsSpecialist => false;
 
     protected override ValueTask<IList<AITool>?> ResolveToolsAsync(
         CancellationToken cancellationToken)

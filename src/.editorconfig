@@ -21,6 +21,7 @@ indent_size = 2
 
 [*.json]
 indent_size = 2
+max_line_length = 120
 
 [*.config]
 indent_size = 2

@@ -1,7 +1,10 @@
 namespace NttBank.QueryAgent.Agent.Agents.Cards;
 
-internal static class QueryInstructions
+internal static class CardsConstants
 {
+    internal const string Description =
+        "Consultas bancárias somente-leitura: cartões.";
+    
     internal const string SystemPrompt =
         """
         # Papel

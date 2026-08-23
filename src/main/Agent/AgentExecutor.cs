@@ -1,3 +1,4 @@
+using Microsoft.Agents.AI;
 using NttBank.QueryAgent.Agent.Abstractions;
 using NttBank.QueryAgent.Agent.Agents;
 
@@ -6,12 +7,10 @@ namespace NttBank.QueryAgent.Agent;
 public static class AgentExecutor
 {
     public static async Task<AgentOutput> RunAsync(
-        IAgentProvider provider,
+        AIAgent agent,
         AgentInput input,
         CancellationToken cancellationToken)
     {
-        var agent = await provider.GetAsync(cancellationToken);
-
         var response = await agent.RunAsync(
             input.Prompt, cancellationToken: cancellationToken);
 

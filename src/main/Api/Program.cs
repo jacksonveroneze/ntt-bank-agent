@@ -1,8 +1,10 @@
 using CorrelationId;
 using FluentValidation;
 using Microsoft.Agents.AI.Hosting.AGUI.AspNetCore;
+using NttBank.QueryAgent.Agent;
 using NttBank.QueryAgent.Agent.Abstractions;
 using NttBank.QueryAgent.Api.Endpoints;
+using NttBank.QueryAgent.Api.Endpoints.Agents;
 using NttBank.QueryAgent.Api.Extensions;
 using NttBank.QueryAgent.Api.Middlewares;
 using NttBank.QueryAgent.Infra.Configurations;
@@ -19,20 +21,20 @@ builder.AddLogger(appConfiguration);
 
 builder.Services
     .AddAGUIServer()
+    .AddAiProviders(appConfiguration)
+    .AddMcpToolProvider()
+    .AddApplicationServices()
+    .AddCached(appConfiguration)
+    .AddOpenTelemetry(appConfiguration)
+    .AddMcpAuthentication(builder.Configuration)
+    .AddAppAuthentication(appConfiguration)
+    .AddAuthorization(appConfiguration)
     .AddCors()
     .AddHttpContextAccessor()
     .AddProblemDetails()
     .AddExceptionHandler<CustomExceptionHandler>()
-    .AddAppAuthentication(appConfiguration)
-    .AddAuthorization(appConfiguration)
     .AddValidatorsFromAssembly(typeof(Program).Assembly)
     .AddCorrelation()
-    .AddApplicationServices()
-    .AddCached(appConfiguration)
-    .AddOpenTelemetry(appConfiguration)
-    .AddAiProviders(appConfiguration)
-    .AddMcpAuthentication(builder.Configuration)
-    .AddMcpToolProvider()
     .AddHealthCheck(appConfiguration);
 
 var app = builder.Build();
@@ -40,22 +42,26 @@ var app = builder.Build();
 app.UseCorrelationId();
 app.UseExceptionHandler();
 app.UseStatusCodePages();
-app.UseCors(p => p.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+
+if (builder.Environment.IsDevelopment())
+{
+    app.UseCors(p => p.AllowAnyOrigin()
+        .AllowAnyHeader().AllowAnyMethod());
+}
+
 app.UseRouting();
 app.AddHealthCheckEndpoints();
 app.UseOpenTelemetryPrometheusScrapingEndpoint("metrics");
 app.UseAuthentication();
 app.UseAuthorization();
 
-var providers = app.Services.GetServices<IAgentProvider>().ToArray();
+var cancellationToken = app.Lifetime.ApplicationStopping;
 
-var ct = app.Lifetime.ApplicationStopping;
+var providers = app.Services.GetServices<IAgentProvider>();
+var agent = await HandoffWorkflowFactory.BuildAsync(
+    providers, cancellationToken);
 
-foreach (var p in providers)
-{
-    var agent = await p.GetAsync(ct);
-    app.MapAGUIServer(p.Name, agent);
-    app.MapAgentChatEndpoint(p);
-}
+app.MapAGUIServer("/", agent);
+app.MapAgentChatEndpoint(agent);
 
 await app.RunAsync();

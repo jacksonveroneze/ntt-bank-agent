@@ -3,25 +3,25 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using NttBank.QueryAgent.Agent.Abstractions;
 
-namespace NttBank.QueryAgent.Agent.Agents.Cards;
+namespace NttBank.QueryAgent.Agent.Agents.Triage;
 
-public sealed class CardsAgentProvider(
-    ILogger<CardsAgentProvider> logger,
-    IOptionsMonitor<CardsAgentConfiguration> options,
+public sealed class TriageAgentProvider(
+    ILogger<TriageAgentProvider> logger,
+    IOptionsMonitor<TriageAgentConfiguration> options,
     IChatClientResolver chatClientResolver,
     ILoggerFactory loggerFactory,
-    IHostEnvironment env)
-    : AgentProviderBase<CardsAgentConfiguration>(
+    IHostEnvironment env) 
+    : AgentProviderBase<TriageAgentConfiguration>(
             logger, options, chatClientResolver, loggerFactory, env),
-        ICardsAgentProvider
+        ITriageAgentProvider
 {
-    public override string Name => "cards";
+    public override string Name => "triage";
 
     protected override string Description => 
-        CardsConstants.Description;
+        TriageConstants.Description;
     
     protected override string Invariants =>
-        CardsConstants.SystemPrompt;
+        TriageConstants.SystemPrompt;
     
     public override bool IsSpecialist => false;
 }

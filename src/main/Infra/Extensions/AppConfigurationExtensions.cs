@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using NttBank.QueryAgent.Agent.Agents.Cards;
 using NttBank.QueryAgent.Agent.Agents.Query;
+using NttBank.QueryAgent.Agent.Agents.Triage;
 using NttBank.QueryAgent.Infra.Configurations;
 
 namespace NttBank.QueryAgent.Infra.Extensions;
@@ -19,6 +20,9 @@ public static class AppConfigurationExtensions
             ArgumentNullException.ThrowIfNull(configuration);
 
             services.AddConfiguration<AppConfiguration>(configuration);
+            
+            services.AddConfiguration<TriageAgentConfiguration>(
+                configuration, TriageAgentConfiguration.SectionName); 
             
             services.AddConfiguration<QueryAgentConfiguration>(
                 configuration, QueryAgentConfiguration.SectionName); 

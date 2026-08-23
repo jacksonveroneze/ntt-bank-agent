@@ -15,6 +15,7 @@ public abstract class AgentProviderBase<TConfiguration> : IAgentProvider, IDispo
     private readonly IOptionsMonitor<TConfiguration> _options;
     private readonly IHostEnvironment _env;
     private readonly ILogger _logger;
+    private readonly ILoggerFactory _loggerFactory;
 
     private readonly SemaphoreSlim _buildLock = new(1, 1);
     private readonly IDisposable? _reloadRegistration;
@@ -28,18 +29,23 @@ public abstract class AgentProviderBase<TConfiguration> : IAgentProvider, IDispo
     private bool _disposed;
 
     public abstract string Name { get; }
-    public abstract string Description { get; }
+
+    protected abstract string Description { get; }
+
+    public abstract bool IsSpecialist { get; }
 
     protected AgentProviderBase(
         ILogger logger,
         IOptionsMonitor<TConfiguration> options,
         IChatClientResolver chatClientResolver,
+        ILoggerFactory loggerFactory,
         IHostEnvironment env)
     {
         _logger = logger;
         _options = options;
         _chatClientResolver = chatClientResolver;
         _env = env;
+        _loggerFactory = loggerFactory;
 
         _reloadRegistration = options.OnChange(_ => Invalidate());
     }
@@ -101,8 +107,8 @@ public abstract class AgentProviderBase<TConfiguration> : IAgentProvider, IDispo
             Name, configuration.Provider, tools?.Count ?? 0);
 
         return ChatClientAgentFactory.Create(
-            Name, Description, configuration, instructions,
-            chatClient, _env.IsDevelopment(), tools);
+            Name, Description, instructions, chatClient,
+            configuration, _loggerFactory, _env.IsDevelopment(), tools);
     }
 
     private string BuildInstructions(

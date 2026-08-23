@@ -1,5 +1,6 @@
 using Microsoft.Agents.AI;
 using Microsoft.Extensions.AI;
+using Microsoft.Extensions.Logging;
 using NttBank.QueryAgent.Agent.Abstractions;
 
 namespace NttBank.QueryAgent.Agent.Factories;
@@ -9,9 +10,10 @@ public static class ChatClientAgentFactory
     public static AIAgent Create(
         string name,
         string description,
-        AgentConfiguration configuration,
         string instructions,
         IChatClient chatClient,
+        AgentConfiguration configuration,
+        ILoggerFactory loggerFactory,
         bool enableSensitiveData,
         IList<AITool>? tools = null)
     {
@@ -24,6 +26,7 @@ public static class ChatClientAgentFactory
         var chatAgent = new ChatClientAgent(chatClient,
             new ChatClientAgentOptions
             {
+                Id = $"agent-id-{name}",
                 Name = name,
                 Description = description,
                 ChatOptions = new ChatOptions
@@ -33,9 +36,10 @@ public static class ChatClientAgentFactory
                     Temperature = configuration.Temperature,
                     Tools = tools,
                     ToolMode = ChatToolMode.Auto,
-                    AllowMultipleToolCalls = configuration.AllowMultipleToolCalls,
+                    AllowMultipleToolCalls =
+                        configuration.AllowMultipleToolCalls,
                 },
-            });
+            }, loggerFactory);
 
         return chatAgent
             .AsBuilder()

@@ -74,7 +74,9 @@ public static class OpenTelemetryExtensions
             {
                 options
                     .AddAspNetCoreInstrumentation()
-                    .AddHttpClientInstrumentation();
+                    .AddHttpClientInstrumentation()
+                    .AddSource("Microsoft.Agents.AI") // spans de agente/handoff
+                    .AddSource("Microsoft.Extensions.AI");       // spans de chat/function-invocation
 
                 foreach ((Provider key, _) in appConfiguration?.Ai?.Providers
                              .Where(p => p.Value.Enabled)!)
