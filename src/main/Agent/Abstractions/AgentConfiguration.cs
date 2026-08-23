@@ -8,10 +8,6 @@ public abstract class AgentConfiguration
 
     public required string Model { get; init; }
 
-    public required string Name { get; init; }
-
-    public required string Description { get; init; }
-
     public required string Persona { get; init; }
 
     public float Temperature { get; init; }

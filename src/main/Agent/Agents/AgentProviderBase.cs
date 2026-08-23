@@ -20,13 +20,16 @@ public abstract class AgentProviderBase<TConfiguration> : IAgentProvider, IDispo
     private readonly IDisposable? _reloadRegistration;
 
     private volatile AIAgent? _agent;
-    
+
     protected abstract string Invariants { get; }
-    
+
     private int _generation;
 
     private bool _disposed;
-    
+
+    public abstract string Name { get; }
+    public abstract string Description { get; }
+
     protected AgentProviderBase(
         ILogger logger,
         IOptionsMonitor<TConfiguration> options,
@@ -50,6 +53,7 @@ public abstract class AgentProviderBase<TConfiguration> : IAgentProvider, IDispo
     public async ValueTask<AIAgent> GetAsync(CancellationToken cancellationToken)
     {
         var cached = _agent;
+
         if (cached is not null)
         {
             return cached;
@@ -90,17 +94,30 @@ public abstract class AgentProviderBase<TConfiguration> : IAgentProvider, IDispo
 
         var tools = await ResolveToolsAsync(cancellationToken);
 
-        var persona = configuration.Persona;
-        var instructions = string.IsNullOrWhiteSpace(persona)
-            ? Invariants
-            : persona + "\n\n" + Invariants;
-        
+        var instructions = BuildInstructions(configuration);
+
         _logger.LogInformation(
             "• Construindo agente {Agent} — provider: {Provider}, tools: {ToolCount}.",
-            configuration.Name, configuration.Provider, tools?.Count ?? 0);
+            Name, configuration.Provider, tools?.Count ?? 0);
 
         return ChatClientAgentFactory.Create(
-            configuration, instructions, chatClient, _env.IsDevelopment(), tools);
+            Name, Description, configuration, instructions,
+            chatClient, _env.IsDevelopment(), tools);
+    }
+
+    private string BuildInstructions(
+        TConfiguration configuration)
+    {
+        var persona = configuration.Persona;
+
+        var instructions = $"""
+                            # Persona
+                            {persona}
+
+                            {Invariants}
+                            """;
+
+        return instructions;
     }
 
     private void Invalidate()

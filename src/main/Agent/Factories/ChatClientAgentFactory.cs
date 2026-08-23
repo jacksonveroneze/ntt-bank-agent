@@ -7,20 +7,25 @@ namespace NttBank.QueryAgent.Agent.Factories;
 public static class ChatClientAgentFactory
 {
     public static AIAgent Create(
+        string name,
+        string description,
         AgentConfiguration configuration,
         string instructions,
         IChatClient chatClient,
         bool enableSensitiveData,
         IList<AITool>? tools = null)
     {
+        ArgumentException.ThrowIfNullOrEmpty(name);
+        ArgumentException.ThrowIfNullOrEmpty(description);
+        ArgumentException.ThrowIfNullOrEmpty(instructions);
         ArgumentNullException.ThrowIfNull(configuration);
         ArgumentNullException.ThrowIfNull(chatClient);
 
         var chatAgent = new ChatClientAgent(chatClient,
             new ChatClientAgentOptions
             {
-                Name = configuration.Name,
-                Description = configuration.Description,
+                Name = name,
+                Description = description,
                 ChatOptions = new ChatOptions
                 {
                     ModelId = configuration.Model,
@@ -34,7 +39,7 @@ public static class ChatClientAgentFactory
 
         return chatAgent
             .AsBuilder()
-            .UseOpenTelemetry(configuration.Name,
+            .UseOpenTelemetry(name,
                 config => config.EnableSensitiveData = enableSensitiveData)
             .Build();
     }

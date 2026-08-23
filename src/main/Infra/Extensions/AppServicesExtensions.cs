@@ -13,13 +13,16 @@ public static class AppServicesExtensions
         this IServiceCollection services)
     {
         services.AddSingleton<IQueryAgentProvider, QueryAgentProvider>();
-        services.AddSingleton<IQueryAgent, Agent.Agents.Query.QueryAgent>();
+        // services.AddSingleton<IQueryAgent, Agent.Agents.Query.QueryAgent>();
         
         services.AddSingleton<ICardsAgentProvider, CardsAgentProvider>();
-        services.AddSingleton<ICardsAgent, CardsAgent>();
+        // services.AddSingleton<ICardsAgent, CardsAgent>();
         
         services.AddSingleton<ISessionStore, CacheSessionStore>();
         services.AddSingleton<IChatClientResolver, ChatClientResolver>();
+        
+        services.AddSingleton<IAgentProvider, QueryAgentProvider>();
+        services.AddSingleton<IAgentProvider, CardsAgentProvider>();
         
         return services;
     }

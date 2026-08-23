@@ -18,14 +18,6 @@ internal static class QueryAgentEndpoint
                 .WithTags(Resource)
                 .RequireAuthorization();
 
-        builder.AddChatAgentEndpoint();
-
-        return app;
-    }
-
-    private static RouteGroupBuilder AddChatAgentEndpoint(
-        this RouteGroupBuilder builder)
-    {
         builder.MapPost("chat", async (
                 [FromServices] IQueryAgent agent,
                 [FromServices] IValidator<AgentInput> validator,
@@ -53,6 +45,6 @@ internal static class QueryAgentEndpoint
             .Produces(StatusCodes.Status403Forbidden)
             .Produces(StatusCodes.Status500InternalServerError);
 
-        return builder;
+        return app;
     }
 }

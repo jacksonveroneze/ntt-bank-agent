@@ -16,6 +16,11 @@ public sealed class QueryAgentProvider(
     : AgentProviderBase<QueryAgentConfiguration>(logger, options, chatClientResolver, env),
         IQueryAgentProvider
 {
+    public override string Name => "query";
+    
+    public override string Description =>
+        "Consultas bancárias somente-leitura: clientes, contas e transações.";
+    
     protected override string Invariants => QueryInstructions.SystemPrompt;
 
     protected override ValueTask<IList<AITool>?> ResolveToolsAsync(

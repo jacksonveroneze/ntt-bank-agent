@@ -13,5 +13,10 @@ public sealed class CardsAgentProvider(
     : AgentProviderBase<CardsAgentConfiguration>(logger, options, chatClientResolver, env),
         ICardsAgentProvider
 {
+    public override string Name => "cards";
+    
+    public override string Description =>
+        "Consultas bancárias somente-leitura: cartões.";
+    
     protected override string Invariants => QueryInstructions.SystemPrompt;
 }
