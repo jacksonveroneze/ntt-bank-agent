@@ -56,7 +56,8 @@ public abstract class AgentProviderBase<TConfiguration> : IAgentProvider, IDispo
         return ValueTask.FromResult<IList<AITool>?>(null);
     }
 
-    public async ValueTask<AIAgent> GetAsync(CancellationToken cancellationToken)
+    public async ValueTask<AIAgent> GetAsync(
+        CancellationToken cancellationToken)
     {
         var cached = _agent;
 
@@ -90,7 +91,7 @@ public abstract class AgentProviderBase<TConfiguration> : IAgentProvider, IDispo
         }
     }
 
-    private async Task<AIAgent> BuildAsync(
+    protected virtual async Task<AIAgent> BuildAsync(
         CancellationToken cancellationToken)
     {
         var configuration = _options.CurrentValue;

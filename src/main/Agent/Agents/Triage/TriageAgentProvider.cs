@@ -1,3 +1,4 @@
+using Microsoft.Agents.AI;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -10,18 +11,31 @@ public sealed class TriageAgentProvider(
     IOptionsMonitor<TriageAgentConfiguration> options,
     IChatClientResolver chatClientResolver,
     ILoggerFactory loggerFactory,
-    IHostEnvironment env) 
+    IHostEnvironment env)
     : AgentProviderBase<TriageAgentConfiguration>(
             logger, options, chatClientResolver, loggerFactory, env),
         ITriageAgentProvider
 {
     public override string Name => "triage";
 
-    protected override string Description => 
+    protected override string Description =>
         TriageConstants.Description;
-    
+
     protected override string Invariants =>
         TriageConstants.SystemPrompt;
-    
+
     public override bool IsSpecialist => false;
+
+    protected override async Task<AIAgent> BuildAsync(
+        CancellationToken cancellationToken)
+    {
+        var agent = await base.BuildAsync(cancellationToken);
+
+        return agent
+            .AsBuilder()
+            .Use(
+                runFunc: InputGuardrailMiddleware.InvokeAsync,
+                runStreamingFunc: InputGuardrailMiddleware.InvokeStreamingAsync)
+            .Build();
+    }
 }
