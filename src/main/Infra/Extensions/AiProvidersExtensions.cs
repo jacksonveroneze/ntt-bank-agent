@@ -1,3 +1,4 @@
+using System.ClientModel;
 using System.Diagnostics.CodeAnalysis;
 using Anthropic;
 using Microsoft.Extensions.AI;
@@ -6,6 +7,8 @@ using Microsoft.Extensions.Hosting;
 using NttBank.QueryAgent.Agent.Enums;
 using NttBank.QueryAgent.Infra.Configurations;
 using OllamaSharp;
+using OpenAI;
+using Valkey.Glide;
 
 namespace NttBank.QueryAgent.Infra.Extensions;
 
@@ -54,6 +57,10 @@ public static class AiProvidersExtensions
                 {
                     ApiKey = cfg.ApiKey,
                 }.AsIChatClient(cfg.Model!),
+
+                Provider.OpenAi => new OpenAIClient(cfg.ApiKey!)
+                    .GetChatClient(cfg.Model!)
+                    .AsIChatClient(),
 
                 _ => throw new InvalidOperationException(
                     $"Provider {provider} not supported."),

@@ -4,6 +4,6 @@ public enum Provider
 {
     None = 0,
     Ollama = 1,
-    OpenAI = 2,
+    OpenAi = 2,
     Claude = 3,
 }

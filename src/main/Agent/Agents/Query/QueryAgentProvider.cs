@@ -1,3 +1,4 @@
+using Microsoft.Agents.AI;
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -11,11 +12,12 @@ public sealed class QueryAgentProvider(
     ILogger<QueryAgentProvider> logger,
     IOptionsMonitor<QueryAgentConfiguration> options,
     IChatClientResolver chatClientResolver,
+    ChatHistoryProvider historyProvider,
     ILoggerFactory loggerFactory,
     IHostEnvironment env,
     IMcpQueryToolService mcpQueryToolService)
     : AgentProviderBase<QueryAgentConfiguration>(
-            logger, options, chatClientResolver, loggerFactory, env),
+            logger, options, chatClientResolver, loggerFactory, env, historyProvider),
         IQueryAgentProvider
 {
     public override string Name => "query";

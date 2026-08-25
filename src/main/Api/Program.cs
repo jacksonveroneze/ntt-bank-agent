@@ -25,6 +25,7 @@ builder.Services
     .AddMcpToolProvider()
     .AddApplicationServices()
     .AddCached(appConfiguration)
+    .AddAgentMemory(appConfiguration)
     .AddOpenTelemetry(appConfiguration)
     .AddMcpAuthentication(builder.Configuration)
     .AddAppAuthentication(appConfiguration)

@@ -16,7 +16,8 @@ public static class HandoffWorkflowFactory
             .First(conf => !conf.IsSpecialist);
 
         var agentsSpecialistsProviders = agentProviders
-            .Where(conf => conf.IsSpecialist).ToArray();
+            .Where(conf => conf.IsSpecialist)
+            .ToArray();
 
         if (agentsSpecialistsProviders.Length is 0)
         {
@@ -27,17 +28,17 @@ public static class HandoffWorkflowFactory
         var triageAgentTask = agentTriageProvider
             .GetAsync(cancellationToken);
 
-        var tasks = agentsSpecialistsProviders.Select(async conf =>
-            await conf.GetAsync(cancellationToken));
+        var tasks = agentsSpecialistsProviders.Select(async agent =>
+            await agent.GetAsync(cancellationToken));
 
-        var specialistsAgents = await Task.WhenAll(tasks);
+        var agentsSpecialists = await Task.WhenAll(tasks);
 
         var triageAgent = await triageAgentTask;
 
         var workflow = AgentWorkflowBuilder
             .CreateHandoffBuilderWith(triageAgent)
-            .WithHandoffs(triageAgent, specialistsAgents)
-            .WithHandoffs(specialistsAgents, triageAgent)
+            .WithHandoffs(triageAgent, agentsSpecialists)
+            .WithHandoffs(agentsSpecialists, triageAgent)
             .Build();
 
         return workflow.AsAIAgent();

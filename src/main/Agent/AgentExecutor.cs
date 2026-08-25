@@ -14,6 +14,9 @@ public static class AgentExecutor
         var response = await agent.RunAsync(
             input.Prompt, cancellationToken: cancellationToken);
 
-        return AgentOutputMapper.ToOutput(response);
+        return new AgentOutput(
+            Message: response.Text,
+            ConversationId: input.ConversationId,
+            response);
     }
 }

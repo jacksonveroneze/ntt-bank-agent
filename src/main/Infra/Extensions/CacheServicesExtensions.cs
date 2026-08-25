@@ -1,6 +1,10 @@
 using System.Diagnostics.CodeAnalysis;
+using Microsoft.Agents.AI.Hosting;
+using Microsoft.Agents.AI.Valkey;
 using Microsoft.Extensions.Caching.Hybrid;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using NttBank.QueryAgent.Infra.Configurations;
 using StackExchange.Redis;
 

@@ -33,7 +33,7 @@ RUN dotnet publish ./main/Api/Api.csproj \
 # =====================================================
 # Etapa Final: Imagem de Runtime
 # =====================================================
-FROM jacksonveroneze/aspnet:10.0-alpine-1.5.0
+FROM jacksonveroneze/aspnet:10.0-ubuntu-1.5.0
 
 ENV DOTNET_GCDynamicAdaptationMode=1 \
     DOTNET_GCHeapHardLimitPercent=0x4B \

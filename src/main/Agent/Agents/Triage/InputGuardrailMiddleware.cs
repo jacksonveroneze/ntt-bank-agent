@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 
 namespace NttBank.QueryAgent.Agent.Agents.Triage;
 
-internal sealed class InputGuardrailMiddleware()
+internal sealed class InputGuardrailMiddleware
 {
     public static async Task<AgentResponse> InvokeAsync(
         IEnumerable<ChatMessage> messages,

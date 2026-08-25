@@ -1,7 +1,10 @@
+using Microsoft.Agents.AI;
+using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using NttBank.QueryAgent.Agent.Abstractions;
+using NttBank.QueryAgent.Agent.Services;
 
 namespace NttBank.QueryAgent.Agent.Agents.Cards;
 
@@ -9,10 +12,12 @@ public sealed class CardsAgentProvider(
     ILogger<CardsAgentProvider> logger,
     IOptionsMonitor<CardsAgentConfiguration> options,
     IChatClientResolver chatClientResolver,
+    ChatHistoryProvider historyProvider,
     ILoggerFactory loggerFactory,
-    IHostEnvironment env)
+    IHostEnvironment env,
+    IMcpQueryToolService mcpQueryToolService)
     : AgentProviderBase<CardsAgentConfiguration>(
-            logger, options, chatClientResolver, loggerFactory, env),
+            logger, options, chatClientResolver, loggerFactory, env, historyProvider),
         ICardsAgentProvider
 {
     public override string Name => "cards";
@@ -24,4 +29,10 @@ public sealed class CardsAgentProvider(
         CardsConstants.SystemPrompt;
     
     public override bool IsSpecialist => true;
+    
+    protected override ValueTask<IList<AITool>?> ResolveToolsAsync(
+        CancellationToken cancellationToken)
+    {
+        return mcpQueryToolService.GetToolsAsync(cancellationToken);
+    }
 }

@@ -10,10 +10,11 @@ public sealed class TriageAgentProvider(
     ILogger<TriageAgentProvider> logger,
     IOptionsMonitor<TriageAgentConfiguration> options,
     IChatClientResolver chatClientResolver,
+    ChatHistoryProvider historyProvider,
     ILoggerFactory loggerFactory,
     IHostEnvironment env)
     : AgentProviderBase<TriageAgentConfiguration>(
-            logger, options, chatClientResolver, loggerFactory, env),
+            logger, options, chatClientResolver, loggerFactory, env, historyProvider),
         ITriageAgentProvider
 {
     public override string Name => "triage";

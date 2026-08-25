@@ -15,13 +15,14 @@ public static class ChatClientAgentFactory
         AgentConfiguration configuration,
         ILoggerFactory loggerFactory,
         bool enableSensitiveData,
-        IList<AITool>? tools = null)
+        IList<AITool>? tools = null,
+        ChatHistoryProvider? historyProvider = null)
     {
         ArgumentException.ThrowIfNullOrEmpty(name);
         ArgumentException.ThrowIfNullOrEmpty(description);
         ArgumentException.ThrowIfNullOrEmpty(instructions);
-        ArgumentNullException.ThrowIfNull(configuration);
         ArgumentNullException.ThrowIfNull(chatClient);
+        ArgumentNullException.ThrowIfNull(configuration);
 
         var chatAgent = new ChatClientAgent(chatClient,
             new ChatClientAgentOptions
@@ -39,6 +40,7 @@ public static class ChatClientAgentFactory
                     AllowMultipleToolCalls =
                         configuration.AllowMultipleToolCalls,
                 },
+                ChatHistoryProvider = historyProvider,
             }, loggerFactory);
 
         return chatAgent
