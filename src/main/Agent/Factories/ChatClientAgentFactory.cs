@@ -29,7 +29,7 @@ public static class ChatClientAgentFactory
         var textSearchOptions = new TextSearchProviderOptions
         {
             SearchTime = TextSearchProviderOptions.TextSearchBehavior.BeforeAIInvoke,
-            RecentMessageMemoryLimit = 6,
+            RecentMessageMemoryLimit = 6, // Parametrizado
         };
 
         var chatOptions = new ChatClientAgentOptions
