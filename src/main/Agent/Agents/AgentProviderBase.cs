@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using NttBank.QueryAgent.Agent.Abstractions;
 using NttBank.QueryAgent.Agent.Factories;
+using NttBank.QueryAgent.Agent.Rag;
 
 namespace NttBank.QueryAgent.Agent.Agents;
 
@@ -41,7 +42,7 @@ public abstract class AgentProviderBase<TConfiguration> : IAgentProvider, IDispo
         IChatClientResolver chatClientResolver,
         ILoggerFactory loggerFactory,
         IHostEnvironment env,
-        ChatHistoryProvider? historyProvider=null)
+        ChatHistoryProvider? historyProvider = null)
     {
         _logger = logger;
         _options = options;
@@ -112,7 +113,7 @@ public abstract class AgentProviderBase<TConfiguration> : IAgentProvider, IDispo
 
         return ChatClientAgentFactory.Create(
             Name, Description, instructions, chatClient,
-            configuration, _loggerFactory, _env.IsDevelopment(), 
+            configuration, _loggerFactory, _env.IsDevelopment(),
             tools, _historyProvider);
     }
 

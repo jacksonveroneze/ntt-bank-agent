@@ -2,6 +2,7 @@ using Microsoft.Agents.AI;
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Logging;
 using NttBank.QueryAgent.Agent.Abstractions;
+using NttBank.QueryAgent.Agent.Rag;
 
 namespace NttBank.QueryAgent.Agent.Factories;
 
@@ -16,7 +17,8 @@ public static class ChatClientAgentFactory
         ILoggerFactory loggerFactory,
         bool enableSensitiveData,
         IList<AITool>? tools = null,
-        ChatHistoryProvider? historyProvider = null)
+        ChatHistoryProvider? historyProvider = null,
+        RagSearchAdapter? ragAdapter = null)
     {
         ArgumentException.ThrowIfNullOrEmpty(name);
         ArgumentException.ThrowIfNullOrEmpty(description);
@@ -24,24 +26,41 @@ public static class ChatClientAgentFactory
         ArgumentNullException.ThrowIfNull(chatClient);
         ArgumentNullException.ThrowIfNull(configuration);
 
-        var chatAgent = new ChatClientAgent(chatClient,
-            new ChatClientAgentOptions
+        var textSearchOptions = new TextSearchProviderOptions
+        {
+            SearchTime = TextSearchProviderOptions.TextSearchBehavior.BeforeAIInvoke,
+            RecentMessageMemoryLimit = 6,
+        };
+
+        var chatOptions = new ChatClientAgentOptions
+        {
+            Id = $"agent-id-{name}",
+            Name = name,
+            Description = description,
+            ChatOptions = new ChatOptions
             {
-                Id = $"agent-id-{name}",
-                Name = name,
-                Description = description,
-                ChatOptions = new ChatOptions
-                {
-                    ModelId = configuration.Model,
-                    Instructions = instructions,
-                    Temperature = configuration.Temperature,
-                    Tools = tools,
-                    ToolMode = ChatToolMode.Auto,
-                    AllowMultipleToolCalls =
-                        configuration.AllowMultipleToolCalls,
-                },
-                ChatHistoryProvider = historyProvider,
-            }, loggerFactory);
+                ModelId = configuration.Model,
+                Instructions = instructions,
+                Temperature = configuration.Temperature,
+                Tools = tools,
+                ToolMode = ChatToolMode.Auto,
+                AllowMultipleToolCalls =
+                    configuration.AllowMultipleToolCalls,
+            },
+            ChatHistoryProvider = historyProvider,
+        };
+
+        if (ragAdapter != null)
+        {
+            chatOptions.AIContextProviders =
+            [
+                new TextSearchProvider(
+                    ragAdapter.SearchAsync, textSearchOptions),
+            ];
+        }
+
+        var chatAgent = new ChatClientAgent(
+            chatClient, chatOptions, loggerFactory);
 
         return chatAgent
             .AsBuilder()
