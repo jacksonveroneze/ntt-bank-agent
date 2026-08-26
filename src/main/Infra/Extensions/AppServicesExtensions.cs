@@ -2,8 +2,10 @@ using System.Diagnostics.CodeAnalysis;
 using Microsoft.Extensions.DependencyInjection;
 using NttBank.QueryAgent.Agent.Abstractions;
 using NttBank.QueryAgent.Agent.Agents.Cards;
+using NttBank.QueryAgent.Agent.Agents.Documents;
 using NttBank.QueryAgent.Agent.Agents.Query;
 using NttBank.QueryAgent.Agent.Agents.Triage;
+using NttBank.QueryAgent.Agent.Rag;
 
 namespace NttBank.QueryAgent.Infra.Extensions;
 
@@ -21,10 +23,12 @@ public static class AppServicesExtensions
         
         services.AddSingleton<ISessionStore, CacheSessionStore>();
         services.AddSingleton<IChatClientResolver, ChatClientResolver>();
+        services.AddSingleton<RagSearchAdapter>();
         
         services.AddSingleton<IAgentProvider, TriageAgentProvider>();
         services.AddSingleton<IAgentProvider, QueryAgentProvider>();
         services.AddSingleton<IAgentProvider, CardsAgentProvider>();
+        services.AddSingleton<IAgentProvider, DocumentsAgentProvider>();
         
         return services;
     }

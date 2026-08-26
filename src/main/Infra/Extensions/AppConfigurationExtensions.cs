@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using NttBank.QueryAgent.Agent.Agents.Cards;
+using NttBank.QueryAgent.Agent.Agents.Documents;
 using NttBank.QueryAgent.Agent.Agents.Query;
 using NttBank.QueryAgent.Agent.Agents.Triage;
 using NttBank.QueryAgent.Infra.Configurations;
@@ -29,6 +30,9 @@ public static class AppConfigurationExtensions
             
             services.AddConfiguration<CardsAgentConfiguration>(
                 configuration, CardsAgentConfiguration.SectionName);
+            
+            services.AddConfiguration<DocumentsAgentConfiguration>(
+                configuration, DocumentsAgentConfiguration.SectionName);
             
             services.AddConfiguration<McpOptions>(
                 configuration, McpOptions.SectionName);

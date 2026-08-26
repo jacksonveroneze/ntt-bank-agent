@@ -18,6 +18,7 @@ public abstract class AgentProviderBase<TConfiguration> : IAgentProvider, IDispo
     private readonly ILogger _logger;
     private readonly ILoggerFactory _loggerFactory;
     private readonly ChatHistoryProvider? _historyProvider;
+    private readonly RagSearchAdapter? _ragSearchAdapter;
 
     private readonly SemaphoreSlim _buildLock = new(1, 1);
     private readonly IDisposable? _reloadRegistration;
@@ -42,7 +43,8 @@ public abstract class AgentProviderBase<TConfiguration> : IAgentProvider, IDispo
         IChatClientResolver chatClientResolver,
         ILoggerFactory loggerFactory,
         IHostEnvironment env,
-        ChatHistoryProvider? historyProvider = null)
+        ChatHistoryProvider? historyProvider = null,
+        RagSearchAdapter? ragSearchAdapter = null)
     {
         _logger = logger;
         _options = options;
@@ -50,6 +52,7 @@ public abstract class AgentProviderBase<TConfiguration> : IAgentProvider, IDispo
         _env = env;
         _loggerFactory = loggerFactory;
         _historyProvider = historyProvider;
+        _ragSearchAdapter = ragSearchAdapter;
 
         _reloadRegistration = options.OnChange(_ => Invalidate());
     }
@@ -114,7 +117,7 @@ public abstract class AgentProviderBase<TConfiguration> : IAgentProvider, IDispo
         return ChatClientAgentFactory.Create(
             Name, Description, instructions, chatClient,
             configuration, _loggerFactory, _env.IsDevelopment(),
-            tools, _historyProvider);
+            tools, _historyProvider, _ragSearchAdapter);
     }
 
     private string BuildInstructions(
@@ -125,6 +128,8 @@ public abstract class AgentProviderBase<TConfiguration> : IAgentProvider, IDispo
         var instructions = $"""
                             # Persona
                             {persona}
+
+                            {Invariants}
                             """;
 
         return instructions;
