@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
-using NttBank.QueryAgent.Infra.Configurations;
+using NttBank.QueryAgent.Infrastructure.Configurations;
 
 namespace NttBank.QueryAgent.Api.Extensions;
 

@@ -1,12 +1,20 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <RootNamespace>NttBank.QueryAgent.Api</RootNamespace>
-    <UserSecretsId>25c4e2ba-9366-4fed-a546-f1d09293f8e4</UserSecretsId>
+    <RootNamespace>NttBank.QueryAgent.Infrastructure</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="OllamaSharp"/>
+    <PackageReference Include="Anthropic"/>
+
+    <PackageReference Include="Microsoft.Agents.AI"/>
+    <PackageReference Include="Microsoft.Agents.AI.OpenAI" />
     <PackageReference Include="Microsoft.Agents.AI.Hosting.AGUI.AspNetCore"/>
+    <PackageReference Include="Microsoft.Extensions.AI"/>
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions"/>
+    <PackageReference Include="Microsoft.Extensions.Http"/>
+    <PackageReference Include="ModelContextProtocol"/>
     
     <PackageReference Include="Asp.Versioning.Http"/>
     <PackageReference Include="FluentValidation"/>
@@ -28,16 +36,20 @@
     <PackageReference Include="Microsoft.Extensions.Caching.Hybrid" />
     <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" />
 
-    <PackageReference Include="Serilog.AspNetCore" />
-    <PackageReference Include="Serilog.Settings.Configuration" />
-    <PackageReference Include="Serilog.Sinks.Async" />
-    <PackageReference Include="Serilog.Expressions" />
-    <PackageReference Include="Serilog.Sinks.Seq" />
+    <PackageReference Include="Serilog.AspNetCore"/>
+    <PackageReference Include="Serilog.Settings.Configuration"/>
+    <PackageReference Include="Serilog.Sinks.Async"/>
+    <PackageReference Include="Serilog.Expressions"/>
+    <PackageReference Include="Serilog.Sinks.Seq"/>
+
+    <PackageReference Include="Refit.HttpClientFactory" />
+    <PackageReference Include="Refit.Reflection" />
+
+    <PackageReference Include="Microsoft.Extensions.Http.Resilience" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Agent\Agent.csproj"/>
-    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

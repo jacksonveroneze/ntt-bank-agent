@@ -6,8 +6,8 @@ using NttBank.QueryAgent.Agent.Abstractions;
 using NttBank.QueryAgent.Api.Endpoints.Agents;
 using NttBank.QueryAgent.Api.Extensions;
 using NttBank.QueryAgent.Api.Middlewares;
-using NttBank.QueryAgent.Infra.Configurations;
-using NttBank.QueryAgent.Infra.Extensions;
+using NttBank.QueryAgent.Infrastructure.Configurations;
+using NttBank.QueryAgent.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateSlimBuilder(args);
 
@@ -21,12 +21,11 @@ builder.AddLogger(appConfiguration);
 builder.Services
     .AddAGUIServer()
     .AddAiProviders(appConfiguration)
-    .AddMcpToolProvider()
     .AddApplicationServices()
     .AddCached(appConfiguration)
     .AddAgentMemory(appConfiguration)
     .AddOpenTelemetry(appConfiguration)
-    .AddMcpAuthentication(builder.Configuration)
+    .AddMcpAuthentication(appConfiguration)
     .AddAppAuthentication(appConfiguration)
     .AddAuthorization(appConfiguration)
     .AddHttpClient(appConfiguration)
