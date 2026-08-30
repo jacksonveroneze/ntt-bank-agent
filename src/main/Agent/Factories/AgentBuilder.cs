@@ -16,10 +16,6 @@ public sealed class AgentBuilder(
 {
     private const int RecentMessageMemoryLimit = 6;
 
-    private const TextSearchProviderOptions.TextSearchBehavior
-        DefaultSearchBehavior =
-            TextSearchProviderOptions.TextSearchBehavior.BeforeAIInvoke;
-
     private readonly ILogger _logger =
         loggerFactory.CreateLogger<AgentBuilder>();
 
@@ -57,8 +53,7 @@ public sealed class AgentBuilder(
                 Temperature = context.Configuration.Temperature,
                 Tools = context.Tools,
                 ToolMode = ChatToolMode.Auto,
-                AllowMultipleToolCalls =
-                    context.Configuration.AllowMultipleToolCalls,
+                AllowMultipleToolCalls = context.Configuration.AllowMultipleToolCalls,
             },
             ChatHistoryProvider = historyProvider,
         };
@@ -68,18 +63,18 @@ public sealed class AgentBuilder(
 
     private static void ApplyRag(
         ChatClientAgentOptions chatOptions,
-        IRagSearchAdapter ragAdapter)
+        IRagSearchRepository ragRepository)
     {
         var textSearchOptions = new TextSearchProviderOptions
         {
-            SearchTime = DefaultSearchBehavior,
+            SearchTime = TextSearchProviderOptions.TextSearchBehavior.BeforeAIInvoke,
             RecentMessageMemoryLimit = RecentMessageMemoryLimit,
         };
 
         chatOptions.AIContextProviders =
         [
             new TextSearchProvider(
-                ragAdapter.SearchAsync, textSearchOptions),
+                ragRepository.SearchAsync, textSearchOptions),
         ];
     }
 
@@ -87,15 +82,11 @@ public sealed class AgentBuilder(
         AIAgent chatAgent,
         string name)
     {
-        _logger.AgentApplyingOpenTelemetry(name);
-
         return chatAgent
             .AsBuilder()
-            .UseOpenTelemetry(
-                name,
-                config =>
-                    config.EnableSensitiveData =
-                        hostEnvironment.IsDevelopment())
+            .UseOpenTelemetry(name, config =>
+                config.EnableSensitiveData =
+                    hostEnvironment.IsDevelopment())
             .Build();
     }
 }

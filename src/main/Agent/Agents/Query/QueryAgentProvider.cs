@@ -22,8 +22,6 @@ public sealed class QueryAgentProvider(
     protected override string Invariants =>
         QueryConstants.SystemPrompt;
 
-    public override bool IsSpecialist => true;
-
     protected override ValueTask<IList<AITool>?> ResolveToolsAsync(
         CancellationToken cancellationToken)
     {

@@ -5,12 +5,12 @@ using NttBank.QueryAgent.Infrastructure.Extensions;
 using NttBank.QueryAgent.Infrastructure.HttpClients;
 using TextSearchResult = Microsoft.Agents.AI.TextSearchProvider.TextSearchResult;
 
-namespace NttBank.QueryAgent.Infrastructure.Rag;
+namespace NttBank.QueryAgent.Infrastructure.Repositories;
 
-public sealed class RagSearchAdapter(
+public sealed class RagSearchRepository(
     IMapper mapper,
     INttBankRagApi api,
-    ILogger<RagSearchAdapter> logger) : IRagSearchAdapter
+    ILogger<RagSearchRepository> logger) : IRagSearchRepository
 {
     private const int TopK = 10;
 

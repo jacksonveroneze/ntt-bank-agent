@@ -4,7 +4,6 @@ using Duende.AccessTokenManagement;
 using Duende.IdentityModel.Client;
 using Microsoft.Extensions.DependencyInjection;
 using NttBank.QueryAgent.Infrastructure.Configurations;
-using NttBank.QueryAgent.Infrastructure.Configurations.Mcp;
 
 namespace NttBank.QueryAgent.Infrastructure.Extensions;
 

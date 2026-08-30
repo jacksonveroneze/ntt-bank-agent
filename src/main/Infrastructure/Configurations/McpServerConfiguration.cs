@@ -1,10 +1,10 @@
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 
-namespace NttBank.QueryAgent.Infrastructure.Configurations.Mcp;
+namespace NttBank.QueryAgent.Infrastructure.Configurations;
 
 [ExcludeFromCodeCoverage]
-public abstract record McpServerConfiguration
+public record McpServerConfiguration
 {
     [Required]
     public required string Name { get; init; }

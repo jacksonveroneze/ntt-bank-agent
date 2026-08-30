@@ -8,7 +8,7 @@ internal static class DocumentsConstants
         "Responde dúvidas conceituais e informações a partir de documentos. " +
         "NÃO consulta dados do cliente, contas, cartões nem transações.";
 
-    private const string Specific =
+    private const string SpecificPrompt =
         """
         # Papel
         Documents Agent. Responde APENAS sobre dúvidas conceituais, definições,
@@ -32,5 +32,5 @@ internal static class DocumentsConstants
         """;
 
     internal const string SystemPrompt =
-        Specific + "\n\n" + SharedGuardrails.Block;
+        SpecificPrompt + "\n\n" + SharedGuardrails.Block;
 }

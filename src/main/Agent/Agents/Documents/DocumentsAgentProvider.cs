@@ -8,7 +8,7 @@ public sealed class DocumentsAgentProvider(
     ILogger<DocumentsAgentProvider> logger,
     IOptionsMonitor<DocumentsAgentConfiguration> options,
     IAgentBuilder agentBuilder,
-    IRagSearchAdapter ragSearchAdapter)
+    IRagSearchRepository ragSearchRepository)
     : AgentProviderBase<DocumentsAgentConfiguration>(
             logger, options, agentBuilder),
         IDocumentsAgentProvider
@@ -21,8 +21,6 @@ public sealed class DocumentsAgentProvider(
     protected override string Invariants =>
         DocumentsConstants.SystemPrompt;
 
-    public override bool IsSpecialist => true;
-
-    protected override IRagSearchAdapter RagAdapter =>
-        ragSearchAdapter;
+    protected override IRagSearchRepository RagRepository =>
+        ragSearchRepository;
 }

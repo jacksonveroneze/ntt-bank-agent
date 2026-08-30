@@ -13,11 +13,10 @@ namespace NttBank.QueryAgent.Infrastructure.Extensions;
 [ExcludeFromCodeCoverage]
 public static class AgentMemoryExtensions
 {
-    private const string InMemoryProvider = "InMemory";
-
     extension(IServiceCollection services)
     {
-        public IServiceCollection AddAgentMemory(AppConfiguration appConfiguration)
+        public IServiceCollection AddAgentMemory(
+            AppConfiguration appConfiguration)
         {
             ArgumentNullException.ThrowIfNull(appConfiguration);
 
@@ -30,19 +29,8 @@ public static class AgentMemoryExtensions
                 return services;
             }
 
-            var provider = memoryConfiguration.Provider;
-
-            return provider.Equals(InMemoryProvider,
-                StringComparison.OrdinalIgnoreCase)
-                ? services.AddInMemoryChatHistory()
-                : services.AddValkeyChatHistory(memoryConfiguration);
-        }
-
-        private IServiceCollection AddInMemoryChatHistory()
-        {
-            services.AddSingleton<ChatHistoryProvider>(static _ =>
-                new InMemoryChatHistoryProvider());
-
+            services.AddValkeyChatHistory(memoryConfiguration);
+            
             return services;
         }
 

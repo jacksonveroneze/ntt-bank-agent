@@ -22,8 +22,6 @@ public sealed class CardsAgentProvider(
     protected override string Invariants =>
         CardsConstants.SystemPrompt;
 
-    public override bool IsSpecialist => true;
-
     protected override ValueTask<IList<AITool>?> ResolveToolsAsync(
         CancellationToken cancellationToken)
     {

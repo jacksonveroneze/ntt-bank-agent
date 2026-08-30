@@ -8,4 +8,4 @@ public sealed record AgentBuildContext(
     string Instructions,
     AgentConfiguration Configuration,
     IList<AITool>? Tools = null,
-    IRagSearchAdapter? RagAdapter = null);
+    IRagSearchRepository? RagAdapter = null);

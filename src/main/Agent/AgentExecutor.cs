@@ -19,22 +19,14 @@ public static class AgentExecutor
 
         logger.AgentExecuting(agentName, conversationId);
 
-        try
-        {
-            var response = await agent.RunAsync(
-                input.Prompt, cancellationToken: cancellationToken);
+        var response = await agent.RunAsync(
+            input.Prompt, cancellationToken: cancellationToken);
 
-            logger.AgentExecuted(agentName, conversationId);
+        logger.AgentExecuted(agentName, conversationId);
 
-            return new AgentOutput(
-                response.Text,
-                conversationId,
-                response);
-        }
-        catch (Exception ex)
-        {
-            logger.AgentExecutionFailed(ex, agentName, conversationId);
-            throw;
-        }
+        return new AgentOutput(
+            response.Text,
+            conversationId,
+            response);
     }
 }

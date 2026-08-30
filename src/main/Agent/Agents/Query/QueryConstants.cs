@@ -8,7 +8,7 @@ internal static class QueryConstants
         "Consultas bancárias somente-leitura: clientes, contas, saldos e transações " +
         "DE CONTA. NÃO trata cartões, faturas nem transações de cartão.";
 
-    private const string Specific =
+    private const string SpecificPrompt =
         """
         # Papel
         Accounts Agent bancário, somente leitura. Responde APENAS sobre clientes,
@@ -40,5 +40,5 @@ internal static class QueryConstants
         """;
 
     internal const string SystemPrompt =
-        Specific + "\n\n" + SharedGuardrails.Block;
+        SpecificPrompt + "\n\n" + SharedGuardrails.Block;
 }

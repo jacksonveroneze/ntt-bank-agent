@@ -15,8 +15,8 @@ public static class CacheServicesExtensions
     {
         ArgumentNullException.ThrowIfNull(appConfiguration);
 
-        services.AddSingleton<IConnectionMultiplexer>(_ =>
-            ConnectionMultiplexer.Connect(appConfiguration.Cache.Endpoint!));
+        services.AddSingleton<Valkey.Glide.IConnectionMultiplexer>(_ =>
+            Valkey.Glide.ConnectionMultiplexer.Connect(appConfiguration.Cache.Endpoint!));
         
         services.AddHybridCache(options =>
         {

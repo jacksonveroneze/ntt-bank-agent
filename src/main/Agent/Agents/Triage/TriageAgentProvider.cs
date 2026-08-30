@@ -10,8 +10,7 @@ public sealed class TriageAgentProvider(
     IOptionsMonitor<TriageAgentConfiguration> options,
     IAgentBuilder agentBuilder)
     : AgentProviderBase<TriageAgentConfiguration>(
-            logger, options, agentBuilder),
-        ITriageAgentProvider
+        logger, options, agentBuilder), ITriageAgentProvider
 {
     public override string Name => "triage";
 
@@ -21,12 +20,12 @@ public sealed class TriageAgentProvider(
     protected override string Invariants =>
         TriageConstants.SystemPrompt;
 
-    public override bool IsSpecialist => false;
-
-    protected override AIAgent PostBuild(AIAgent agent) =>
-        agent.AsBuilder()
-             .Use(
-                 runFunc: InputGuardrailMiddleware.InvokeAsync,
-                 runStreamingFunc: InputGuardrailMiddleware.InvokeStreamingAsync)
-             .Build();
+    protected override AIAgent PostBuild(AIAgent agent)
+    {
+        return agent.AsBuilder()
+            .Use(
+                runFunc: InputGuardrailMiddleware.InvokeAsync,
+                runStreamingFunc: InputGuardrailMiddleware.InvokeStreamingAsync)
+            .Build();
+    }
 }

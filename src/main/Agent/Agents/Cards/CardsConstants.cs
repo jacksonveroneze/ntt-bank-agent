@@ -8,7 +8,7 @@ internal static class CardsConstants
         "Consultas bancárias somente-leitura: cartões de crédito, faturas, limites e " +
         "transações DE CARTÃO. NÃO trata contas, saldos nem transações de conta.";
 
-    private const string Specific =
+    private const string SpecificPrompt =
         """
         # Papel
         Cards Agent bancário, somente leitura. Responde APENAS sobre cartões de
@@ -34,5 +34,5 @@ internal static class CardsConstants
         """;
 
     internal const string SystemPrompt = 
-        Specific + "\n\n" + SharedGuardrails.Block;
+        SpecificPrompt + "\n\n" + SharedGuardrails.Block;
 }

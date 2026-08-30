@@ -29,9 +29,7 @@ public abstract class AgentProviderBase<TConfiguration>
 
     protected abstract string Description { get; }
 
-    public abstract bool IsSpecialist { get; }
-
-    protected virtual IRagSearchAdapter? RagAdapter => null;
+    protected virtual IRagSearchRepository? RagRepository => null;
 
     protected AgentProviderBase(
         ILogger logger,
@@ -53,7 +51,7 @@ public abstract class AgentProviderBase<TConfiguration>
 
     protected virtual AIAgent PostBuild(AIAgent agent) => agent;
 
-    public async ValueTask<AIAgent> GetAsync(
+    public async ValueTask<AIAgent> CreateAsync(
         CancellationToken cancellationToken)
     {
         var cached = _agent;
@@ -101,7 +99,7 @@ public abstract class AgentProviderBase<TConfiguration>
         }
     }
 
-    protected async Task<AIAgent> BuildAsync(
+    private async Task<AIAgent> BuildAsync(
         CancellationToken cancellationToken)
     {
         var configuration = _options.CurrentValue;
@@ -119,7 +117,7 @@ public abstract class AgentProviderBase<TConfiguration>
             BuildInstructions(configuration),
             configuration,
             tools,
-            RagAdapter);
+            RagRepository);
 
         var agent = _agentBuilder.Build(context);
         var built = PostBuild(agent);
@@ -134,7 +132,7 @@ public abstract class AgentProviderBase<TConfiguration>
         $"""
         # Persona
         {configuration.Persona}
-
+        # Invariants
         {Invariants}
         """;
 

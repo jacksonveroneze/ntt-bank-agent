@@ -13,7 +13,7 @@ internal static class AgentChatEndpoint
         this IEndpointRouteBuilder app,
         AIAgent agent)
     {
-        var group = app.MapGroup($"agents/v1/bank")
+        var group = app.MapGroup("agents/v1/bank")
             .WithTags(agent.Name!);
 
         group.MapPost("chat", async (

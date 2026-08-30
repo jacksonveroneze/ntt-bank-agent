@@ -2,7 +2,7 @@ using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Logging;
 using ModelContextProtocol.Client;
 using NttBank.QueryAgent.Agent.Abstractions;
-using NttBank.QueryAgent.Infrastructure.Configurations.Mcp;
+using NttBank.QueryAgent.Infrastructure.Configurations;
 using NttBank.QueryAgent.Infrastructure.Extensions;
 
 namespace NttBank.QueryAgent.Infrastructure.Mcp;
@@ -66,7 +66,8 @@ public abstract class McpToolService(
             return;
         }
 
-        var httpClient = httpClientFactory.CreateClient(configuration.Name);
+        var httpClient = httpClientFactory.CreateClient(
+            configuration.Name);
 
         _transport = new HttpClientTransport(
             new HttpClientTransportOptions

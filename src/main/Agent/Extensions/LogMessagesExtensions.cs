@@ -57,14 +57,6 @@ internal static partial class LogMessagesExtensions
         string agent);
 
     [LoggerMessage(
-        EventId = 1006,
-        Level = LogLevel.Information,
-        Message = "Applying OpenTelemetry to agent {Agent}")]
-    public static partial void AgentApplyingOpenTelemetry(
-        this ILogger logger,
-        string agent);
-
-    [LoggerMessage(
         EventId = 1007,
         Level = LogLevel.Information,
         Message = "Building handoff workflow with triage {Triage} and {SpecialistCount} specialists")]
@@ -81,14 +73,6 @@ internal static partial class LogMessagesExtensions
         this ILogger logger);
 
     [LoggerMessage(
-        EventId = 1009,
-        Level = LogLevel.Error,
-        Message = "Failed to build handoff workflow")]
-    public static partial void HandoffBuildFailed(
-        this ILogger logger,
-        Exception exception);
-
-    [LoggerMessage(
         EventId = 1010,
         Level = LogLevel.Information,
         Message = "Executing agent {Agent} for conversation {ConversationId}")]
@@ -103,16 +87,6 @@ internal static partial class LogMessagesExtensions
         Message = "Agent {Agent} execution completed for conversation {ConversationId}")]
     public static partial void AgentExecuted(
         this ILogger logger,
-        string agent,
-        string conversationId);
-
-    [LoggerMessage(
-        EventId = 1012,
-        Level = LogLevel.Error,
-        Message = "Agent {Agent} execution failed for conversation {ConversationId}")]
-    public static partial void AgentExecutionFailed(
-        this ILogger logger,
-        Exception exception,
         string agent,
         string conversationId);
 }

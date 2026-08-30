@@ -13,8 +13,7 @@ public sealed class RagMapper : IRegister
         config.NewConfig<RagChunkResult, TextSearchProvider.TextSearchResult>()
             .Map(dest => dest.Text, src => src.Content)
             .Map(dest => dest.SourceName, src => src.DocumentName)
-            .Map(
-                dest => dest.SourceLink,
+            .Map(dest => dest.SourceLink,
                 src =>
                     src.DocumentUrl == null
                         ? string.Empty

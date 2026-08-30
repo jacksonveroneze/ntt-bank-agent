@@ -5,19 +5,15 @@ namespace NttBank.QueryAgent.Infrastructure.Configurations;
 [ExcludeFromCodeCoverage]
 public sealed record AgentMemoryConfiguration
 {
-    public const string DefaultProvider = "Valkey";
+    private const int DefaultMaxMessages = 100;
 
-    public const string DefaultKeyPrefix = "chat_history";
-
-    public const int DefaultMaxMessages = 100;
-
-    public const int DefaultMaxMessagesToRetrieve = 50;
+    private const int DefaultMaxMessagesToRetrieve = 50;
 
     public bool Enabled { get; init; } = true;
 
-    public string Provider { get; init; } = DefaultProvider;
+    public required string Provider { get; init; }
 
-    public string KeyPrefix { get; init; } = DefaultKeyPrefix;
+    public required string KeyPrefix { get; init; }
 
     public int MaxMessages { get; init; } = DefaultMaxMessages;
 

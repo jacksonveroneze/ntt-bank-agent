@@ -1,9 +1,5 @@
 using CorrelationId;
 using FluentValidation;
-using Microsoft.Agents.AI.Hosting.AGUI.AspNetCore;
-using NttBank.QueryAgent.Agent;
-using NttBank.QueryAgent.Agent.Abstractions;
-using NttBank.QueryAgent.Api.Endpoints.Agents;
 using NttBank.QueryAgent.Api.Extensions;
 using NttBank.QueryAgent.Api.Middlewares;
 using NttBank.QueryAgent.Infrastructure.Configurations;
@@ -22,6 +18,7 @@ builder.Services
     .AddAGUIServer()
     .AddAiProviders(appConfiguration)
     .AddApplicationServices()
+    .AddMapper()
     .AddCached(appConfiguration)
     .AddAgentMemory(appConfiguration)
     .AddOpenTelemetry(appConfiguration)
@@ -55,14 +52,6 @@ app.UseOpenTelemetryPrometheusScrapingEndpoint("metrics");
 app.UseAuthentication();
 app.UseAuthorization();
 
-var cancellationToken = app.Lifetime.ApplicationStopping;
-
-var providers = app.Services.GetServices<IAgentProvider>();
-var loggerFactory = app.Services.GetRequiredService<ILoggerFactory>();
-var agent = await HandoffWorkflowFactory.BuildAsync(
-    providers, loggerFactory, cancellationToken);
-
-app.MapAGUIServer("/", agent);
-app.MapAgentChatEndpoint(agent);
+await app.MapAgentAsync();
 
 await app.RunAsync();

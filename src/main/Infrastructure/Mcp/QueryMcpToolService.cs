@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using NttBank.QueryAgent.Agent.Agents.Query;
-using NttBank.QueryAgent.Infrastructure.Configurations.Mcp;
+using NttBank.QueryAgent.Infrastructure.Configurations;
 
 namespace NttBank.QueryAgent.Infrastructure.Mcp;
 

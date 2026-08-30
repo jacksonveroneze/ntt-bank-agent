@@ -4,10 +4,8 @@ namespace NttBank.QueryAgent.Agent.Abstractions;
 
 public interface IAgentProvider
 {
-    bool IsSpecialist { get; }
-    
     string Name { get; }
 
-    ValueTask<AIAgent> GetAsync(
+    ValueTask<AIAgent> CreateAsync(
         CancellationToken cancellationToken);
 }

@@ -10,7 +10,7 @@ using NttBank.QueryAgent.Agent.Agents.Triage;
 using NttBank.QueryAgent.Agent.Factories;
 using NttBank.QueryAgent.Infrastructure.Mappers;
 using NttBank.QueryAgent.Infrastructure.Mcp;
-using NttBank.QueryAgent.Infrastructure.Rag;
+using NttBank.QueryAgent.Infrastructure.Repositories;
 
 namespace NttBank.QueryAgent.Infrastructure.Extensions;
 
@@ -30,13 +30,13 @@ public static class AppServicesExtensions
         services.AddSingleton<IMapper, ServiceMapper>();
 
         services.AddSingleton<IChatClientResolver, ChatClientResolver>();
-        services.AddSingleton<IRagSearchAdapter, RagSearchAdapter>();
+        services.AddSingleton<IRagSearchRepository, RagSearchRepository>();
         services.AddSingleton<IAgentBuilder, AgentBuilder>();
         
-        services.AddSingleton<IAgentProvider, TriageAgentProvider>();
-        services.AddSingleton<IAgentProvider, QueryAgentProvider>();
-        services.AddSingleton<IAgentProvider, CardsAgentProvider>();
-        services.AddSingleton<IAgentProvider, DocumentsAgentProvider>();
+        services.AddSingleton<ITriageAgentProvider, TriageAgentProvider>();
+        services.AddSingleton<ISpecialistAgentProvider, QueryAgentProvider>();
+        services.AddSingleton<ISpecialistAgentProvider, CardsAgentProvider>();
+        services.AddSingleton<ISpecialistAgentProvider, DocumentsAgentProvider>();
         
         services.AddSingleton<IMcpQueryToolService, QueryMcpToolService>();
         services.AddSingleton<IMcpCardsToolService, CardsMcpToolService>();

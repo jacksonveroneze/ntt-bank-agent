@@ -1,5 +1,4 @@
 using System.Diagnostics.CodeAnalysis;
-using NttBank.QueryAgent.Infrastructure.Configurations.Mcp;
 
 namespace NttBank.QueryAgent.Infrastructure.Configurations;
 
@@ -18,7 +17,7 @@ public sealed record AppConfiguration
     
     public required HttpClientConfiguration HttpClientRagNttBank { get; init; }
 
-    public required McpQueryConfiguration McpQuery { get; init; }
+    public required McpServerConfiguration McpQuery { get; init; }
 
-    public required McpCardsConfiguration McpCards { get; init; }
+    public required McpServerConfiguration McpCards { get; init; }
 }

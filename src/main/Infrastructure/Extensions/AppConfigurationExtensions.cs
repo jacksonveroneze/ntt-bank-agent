@@ -7,7 +7,6 @@ using NttBank.QueryAgent.Agent.Agents.Documents;
 using NttBank.QueryAgent.Agent.Agents.Query;
 using NttBank.QueryAgent.Agent.Agents.Triage;
 using NttBank.QueryAgent.Infrastructure.Configurations;
-using NttBank.QueryAgent.Infrastructure.Configurations.Mcp;
 
 namespace NttBank.QueryAgent.Infrastructure.Extensions;
 
