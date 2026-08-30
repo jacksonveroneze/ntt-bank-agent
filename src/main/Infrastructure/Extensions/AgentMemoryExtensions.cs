@@ -1,11 +1,11 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.Agents.AI;
 using Microsoft.Agents.AI.Valkey;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.AI;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using NttBank.QueryAgent.Agent.Abstractions;
 using NttBank.QueryAgent.Infrastructure.Configurations;
+using NttBank.QueryAgent.Infrastructure.Conversation;
 using Valkey.Glide;
 
 namespace NttBank.QueryAgent.Infrastructure.Extensions;
@@ -13,67 +13,61 @@ namespace NttBank.QueryAgent.Infrastructure.Extensions;
 [ExcludeFromCodeCoverage]
 public static class AgentMemoryExtensions
 {
-    public static IServiceCollection AddAgentMemory(
-        this IServiceCollection services,
-        AppConfiguration appConfiguration)
+    private const string InMemoryProvider = "InMemory";
+
+    extension(IServiceCollection services)
     {
-        ArgumentNullException.ThrowIfNull(appConfiguration);
-
-        services.AddSingleton<IConnectionMultiplexer>(_ =>
-            ConnectionMultiplexer.Connect(appConfiguration.Cache.Endpoint!));
-
-        services.AddSingleton<HistoryStateInitializer>();
-
-        services.AddSingleton<ChatHistoryProvider>(sp =>
+        public IServiceCollection AddAgentMemory(AppConfiguration appConfiguration)
         {
-            var init = sp.GetRequiredService<HistoryStateInitializer>();
+            ArgumentNullException.ThrowIfNull(appConfiguration);
 
-            return new ValkeyChatHistoryProvider(
-                sp.GetRequiredService<IConnectionMultiplexer>(),
-                stateInitializer: init.Initialize,
-                options: new ValkeyChatHistoryProviderOptions
-                {
-                    KeyPrefix = "chat_history",
-                    MaxMessages = 100,
-                    MaxMessagesToRetrieve = 50,
+            var memoryConfiguration = appConfiguration.Ai!.AgentMemory;
 
-                    StoreInputResponseMessageFilter = msgs =>
-                        msgs.Where(m => m.Role == ChatRole.User
-                                        && !string.IsNullOrWhiteSpace(m.Text)),
+            services.AddSingleton<IConversationContext, HttpConversationContext>();
 
-                    ProvideOutputMessageFilter = msgs =>
-                        msgs.Where(m => m.Role == ChatRole.User
-                                        && !string.IsNullOrWhiteSpace(m.Text)),
+            if (!memoryConfiguration.Enabled)
+            {
+                return services;
+            }
 
-                    StoreInputRequestMessageFilter = msgs =>
-                        msgs.Where(m => m.Role == ChatRole.User),
-                },
-                loggerFactory: sp.GetRequiredService<ILoggerFactory>());
-        });
+            var provider = memoryConfiguration.Provider;
 
-        return services;
-    }
+            return provider.Equals(InMemoryProvider,
+                StringComparison.OrdinalIgnoreCase)
+                ? services.AddInMemoryChatHistory()
+                : services.AddValkeyChatHistory(memoryConfiguration);
+        }
 
-    public sealed class HistoryStateInitializer(IHttpContextAccessor httpContextAccessor)
-    {
-        private const string ConversationHeader = "X-Conversation-Id";
-        private const string CustomerHeader = "X-Customer-Id";
-
-        public ValkeyChatHistoryProvider.State Initialize(AgentSession? _)
+        private IServiceCollection AddInMemoryChatHistory()
         {
-            var http = httpContextAccessor.HttpContext
-                       ?? throw new InvalidOperationException(
-                           "Sem HttpContext ao inicializar a sessão de histórico.");
+            services.AddSingleton<ChatHistoryProvider>(static _ =>
+                new InMemoryChatHistoryProvider());
 
-            var conversationId = http.Request.Headers[ConversationHeader].ToString();
+            return services;
+        }
 
-            var customerId = http.Request.Headers[CustomerHeader].ToString();
+        private IServiceCollection AddValkeyChatHistory(
+            AgentMemoryConfiguration memoryConfiguration)
+        {
+            services.AddSingleton<ConversationStateInitializer>();
 
-            var scopedId = string.IsNullOrWhiteSpace(customerId)
-                ? conversationId
-                : $"{customerId}::{conversationId}";
+            services.AddSingleton<ChatHistoryProvider>(sp =>
+            {
+                var init = sp.GetRequiredService<ConversationStateInitializer>();
 
-            return new ValkeyChatHistoryProvider.State(scopedId);
+                return new ValkeyChatHistoryProvider(
+                    sp.GetRequiredService<IConnectionMultiplexer>(),
+                    stateInitializer: init.Initialize,
+                    options: new ValkeyChatHistoryProviderOptions
+                    {
+                        KeyPrefix = memoryConfiguration.KeyPrefix,
+                        MaxMessages = memoryConfiguration.MaxMessages,
+                        MaxMessagesToRetrieve = memoryConfiguration.MaxMessagesToRetrieve,
+                    },
+                    loggerFactory: sp.GetRequiredService<ILoggerFactory>());
+            });
+
+            return services;
         }
     }
 }

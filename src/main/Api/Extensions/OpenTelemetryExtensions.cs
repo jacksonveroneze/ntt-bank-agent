@@ -83,6 +83,7 @@ public static class OpenTelemetryExtensions
                 options
                     .AddAspNetCoreInstrumentation()
                     .AddHttpClientInstrumentation()
+                    .AddRedisInstrumentation()
                     .AddSource("Microsoft.Agents.AI")
                     .AddSource("Microsoft.Extensions.AI");
 

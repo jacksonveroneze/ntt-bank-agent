@@ -22,7 +22,7 @@ public static class AppConfigurationExtensions
             ArgumentNullException.ThrowIfNull(configuration);
 
             services.AddConfiguration<AppConfiguration>(configuration);
-            
+
             services.AddConfiguration<TriageAgentConfiguration>(
                 configuration, TriageAgentConfiguration.SectionName); 
             

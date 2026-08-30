@@ -15,6 +15,9 @@ public static class CacheServicesExtensions
     {
         ArgumentNullException.ThrowIfNull(appConfiguration);
 
+        services.AddSingleton<IConnectionMultiplexer>(_ =>
+            ConnectionMultiplexer.Connect(appConfiguration.Cache.Endpoint!));
+        
         services.AddHybridCache(options =>
         {
             options.MaximumPayloadBytes = 1024 * 1024 * 1;
