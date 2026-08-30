@@ -50,13 +50,21 @@ public static class OpenTelemetryExtensions
 
     extension(IOpenTelemetryBuilder builder)
     {
-        private IOpenTelemetryBuilder AddMetrics()
+        private IOpenTelemetryBuilder AddMetrics(
+            )
         {
             builder.WithMetrics(options => options
                 .AddProcessInstrumentation()
                 .AddAspNetCoreInstrumentation()
                 .AddHttpClientInstrumentation()
                 .AddRuntimeInstrumentation()
+                .AddMeter("Microsoft.Extensions.AI")
+                .AddMeter("Microsoft.Agents.AI")
+                .AddMeter("Claude")
+                .AddMeter("OpenAi")
+                .AddMeter("Query")
+                .AddMeter("Cards")
+                .AddMeter("Documents")
                 .AddPrometheusExporter());
 
             return builder;
@@ -75,8 +83,8 @@ public static class OpenTelemetryExtensions
                 options
                     .AddAspNetCoreInstrumentation()
                     .AddHttpClientInstrumentation()
-                    .AddSource("Microsoft.Agents.AI") // spans de agente/handoff
-                    .AddSource("Microsoft.Extensions.AI");       // spans de chat/function-invocation
+                    .AddSource("Microsoft.Agents.AI")
+                    .AddSource("Microsoft.Extensions.AI");
 
                 foreach ((Provider key, _) in appConfiguration?.Ai?.Providers
                              .Where(p => p.Value.Enabled)!)
