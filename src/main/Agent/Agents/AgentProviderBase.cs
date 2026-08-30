@@ -1,35 +1,29 @@
 using Microsoft.Agents.AI;
 using Microsoft.Extensions.AI;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using NttBank.QueryAgent.Agent.Abstractions;
-using NttBank.QueryAgent.Agent.Factories;
 using NttBank.QueryAgent.Agent.Rag;
 
 namespace NttBank.QueryAgent.Agent.Agents;
 
-public abstract class AgentProviderBase<TConfiguration> : IAgentProvider, IDisposable
+public abstract class AgentProviderBase<TConfiguration>
+    : IAgentProvider, IDisposable
     where TConfiguration : AgentConfiguration
 {
-    private readonly IChatClientResolver _chatClientResolver;
     private readonly IOptionsMonitor<TConfiguration> _options;
-    private readonly IHostEnvironment _env;
     private readonly ILogger _logger;
-    private readonly ILoggerFactory _loggerFactory;
-    private readonly ChatHistoryProvider? _historyProvider;
-    private readonly RagSearchAdapter? _ragSearchAdapter;
-
+    private readonly IAgentBuilder _agentBuilder;
     private readonly SemaphoreSlim _buildLock = new(1, 1);
     private readonly IDisposable? _reloadRegistration;
 
     private volatile AIAgent? _agent;
 
-    protected abstract string Invariants { get; }
-
     private int _generation;
 
     private bool _disposed;
+
+    protected abstract string Invariants { get; }
 
     public abstract string Name { get; }
 
@@ -37,22 +31,16 @@ public abstract class AgentProviderBase<TConfiguration> : IAgentProvider, IDispo
 
     public abstract bool IsSpecialist { get; }
 
+    protected virtual RagSearchAdapter? RagAdapter => null;
+
     protected AgentProviderBase(
         ILogger logger,
         IOptionsMonitor<TConfiguration> options,
-        IChatClientResolver chatClientResolver,
-        ILoggerFactory loggerFactory,
-        IHostEnvironment env,
-        ChatHistoryProvider? historyProvider = null,
-        RagSearchAdapter? ragSearchAdapter = null)
+        IAgentBuilder agentBuilder)
     {
         _logger = logger;
         _options = options;
-        _chatClientResolver = chatClientResolver;
-        _env = env;
-        _loggerFactory = loggerFactory;
-        _historyProvider = historyProvider;
-        _ragSearchAdapter = ragSearchAdapter;
+        _agentBuilder = agentBuilder;
 
         _reloadRegistration = options.OnChange(_ => Invalidate());
     }
@@ -62,6 +50,8 @@ public abstract class AgentProviderBase<TConfiguration> : IAgentProvider, IDispo
     {
         return ValueTask.FromResult<IList<AITool>?>(null);
     }
+
+    protected virtual AIAgent PostBuild(AIAgent agent) => agent;
 
     public async ValueTask<AIAgent> GetAsync(
         CancellationToken cancellationToken)
@@ -103,21 +93,23 @@ public abstract class AgentProviderBase<TConfiguration> : IAgentProvider, IDispo
     {
         var configuration = _options.CurrentValue;
 
-        var chatClient = _chatClientResolver.Resolve(
-            configuration.Provider);
-
         var tools = await ResolveToolsAsync(cancellationToken);
 
-        var instructions = BuildInstructions(configuration);
+        var context = new AgentBuildContext(
+            Name,
+            Description,
+            BuildInstructions(configuration),
+            configuration,
+            tools,
+            RagAdapter);
 
         _logger.LogInformation(
-            "• Construindo agente {Agent} — provider: {Provider}, tools: {ToolCount}.",
+            "Construindo agente {Agent} — provider: {Provider}, tools: {ToolCount}.",
             Name, configuration.Provider, tools?.Count ?? 0);
 
-        return ChatClientAgentFactory.Create(
-            Name, Description, instructions, chatClient,
-            configuration, _loggerFactory, _env.IsDevelopment(),
-            tools, _historyProvider, _ragSearchAdapter);
+        var agent = _agentBuilder.Build(context);
+
+        return PostBuild(agent);
     }
 
     private string BuildInstructions(

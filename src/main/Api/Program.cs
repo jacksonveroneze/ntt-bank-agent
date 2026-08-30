@@ -3,7 +3,6 @@ using FluentValidation;
 using Microsoft.Agents.AI.Hosting.AGUI.AspNetCore;
 using NttBank.QueryAgent.Agent;
 using NttBank.QueryAgent.Agent.Abstractions;
-using NttBank.QueryAgent.Api.Endpoints;
 using NttBank.QueryAgent.Api.Endpoints.Agents;
 using NttBank.QueryAgent.Api.Extensions;
 using NttBank.QueryAgent.Api.Middlewares;

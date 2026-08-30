@@ -1,6 +1,3 @@
-using Microsoft.Agents.AI;
-using Microsoft.Extensions.AI;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using NttBank.QueryAgent.Agent.Abstractions;
@@ -11,14 +8,10 @@ namespace NttBank.QueryAgent.Agent.Agents.Documents;
 public sealed class DocumentsAgentProvider(
     ILogger<DocumentsAgentProvider> logger,
     IOptionsMonitor<DocumentsAgentConfiguration> options,
-    IChatClientResolver chatClientResolver,
-    ChatHistoryProvider historyProvider,
-    ILoggerFactory loggerFactory,
-    IHostEnvironment env,
+    IAgentBuilder agentBuilder,
     RagSearchAdapter ragSearchAdapter)
     : AgentProviderBase<DocumentsAgentConfiguration>(
-            logger, options, chatClientResolver, 
-            loggerFactory, env, historyProvider, ragSearchAdapter),
+            logger, options, agentBuilder),
         IDocumentsAgentProvider
 {
     public override string Name => "documents";
@@ -30,4 +23,7 @@ public sealed class DocumentsAgentProvider(
         DocumentsConstants.SystemPrompt;
 
     public override bool IsSpecialist => true;
+
+    protected override RagSearchAdapter RagAdapter =>
+        ragSearchAdapter;
 }

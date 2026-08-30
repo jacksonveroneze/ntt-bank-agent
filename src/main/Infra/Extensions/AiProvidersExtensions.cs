@@ -1,4 +1,3 @@
-using System.ClientModel;
 using System.Diagnostics.CodeAnalysis;
 using Anthropic;
 using Microsoft.Extensions.AI;
@@ -8,7 +7,6 @@ using NttBank.QueryAgent.Agent.Enums;
 using NttBank.QueryAgent.Infra.Configurations;
 using OllamaSharp;
 using OpenAI;
-using Valkey.Glide;
 
 namespace NttBank.QueryAgent.Infra.Extensions;
 

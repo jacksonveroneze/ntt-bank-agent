@@ -1,7 +1,6 @@
 using System.Runtime.CompilerServices;
 using Microsoft.Agents.AI;
 using Microsoft.Extensions.AI;
-using Microsoft.Extensions.Logging;
 
 namespace NttBank.QueryAgent.Agent.Agents.Triage;
 

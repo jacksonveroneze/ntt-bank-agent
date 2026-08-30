@@ -1,6 +1,4 @@
-using Microsoft.Agents.AI;
 using Microsoft.Extensions.AI;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using NttBank.QueryAgent.Agent.Abstractions;
@@ -11,23 +9,20 @@ namespace NttBank.QueryAgent.Agent.Agents.Query;
 public sealed class QueryAgentProvider(
     ILogger<QueryAgentProvider> logger,
     IOptionsMonitor<QueryAgentConfiguration> options,
-    IChatClientResolver chatClientResolver,
-    ChatHistoryProvider historyProvider,
-    ILoggerFactory loggerFactory,
-    IHostEnvironment env,
+    IAgentBuilder agentBuilder,
     IMcpQueryToolService mcpQueryToolService)
     : AgentProviderBase<QueryAgentConfiguration>(
-            logger, options, chatClientResolver, loggerFactory, env, historyProvider),
+            logger, options, agentBuilder),
         IQueryAgentProvider
 {
     public override string Name => "query";
 
-    protected override string Description => 
+    protected override string Description =>
         QueryConstants.Description;
-    
+
     protected override string Invariants =>
         QueryConstants.SystemPrompt;
-    
+
     public override bool IsSpecialist => true;
 
     protected override ValueTask<IList<AITool>?> ResolveToolsAsync(

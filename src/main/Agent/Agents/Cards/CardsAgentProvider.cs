@@ -1,10 +1,7 @@
-using Microsoft.Agents.AI;
 using Microsoft.Extensions.AI;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using NttBank.QueryAgent.Agent.Abstractions;
-using NttBank.QueryAgent.Agent.Rag;
 using NttBank.QueryAgent.Agent.Services;
 
 namespace NttBank.QueryAgent.Agent.Agents.Cards;
@@ -12,13 +9,10 @@ namespace NttBank.QueryAgent.Agent.Agents.Cards;
 public sealed class CardsAgentProvider(
     ILogger<CardsAgentProvider> logger,
     IOptionsMonitor<CardsAgentConfiguration> options,
-    IChatClientResolver chatClientResolver,
-    ChatHistoryProvider historyProvider,
-    ILoggerFactory loggerFactory,
-    IHostEnvironment env,
+    IAgentBuilder agentBuilder,
     IMcpQueryToolService mcpQueryToolService)
     : AgentProviderBase<CardsAgentConfiguration>(
-            logger, options, chatClientResolver, loggerFactory, env, historyProvider),
+            logger, options, agentBuilder),
         ICardsAgentProvider
 {
     public override string Name => "cards";

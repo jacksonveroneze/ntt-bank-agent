@@ -1,6 +1,5 @@
 using Microsoft.Agents.AI;
 using NttBank.QueryAgent.Agent.Abstractions;
-using NttBank.QueryAgent.Agent.Agents;
 
 namespace NttBank.QueryAgent.Agent;
 

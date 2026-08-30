@@ -1,5 +1,4 @@
 using Microsoft.Agents.AI;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using NttBank.QueryAgent.Agent.Abstractions;
@@ -9,12 +8,9 @@ namespace NttBank.QueryAgent.Agent.Agents.Triage;
 public sealed class TriageAgentProvider(
     ILogger<TriageAgentProvider> logger,
     IOptionsMonitor<TriageAgentConfiguration> options,
-    IChatClientResolver chatClientResolver,
-    ChatHistoryProvider historyProvider,
-    ILoggerFactory loggerFactory,
-    IHostEnvironment env)
+    IAgentBuilder agentBuilder)
     : AgentProviderBase<TriageAgentConfiguration>(
-            logger, options, chatClientResolver, loggerFactory, env, historyProvider),
+            logger, options, agentBuilder),
         ITriageAgentProvider
 {
     public override string Name => "triage";
@@ -27,16 +23,10 @@ public sealed class TriageAgentProvider(
 
     public override bool IsSpecialist => false;
 
-    protected override async Task<AIAgent> BuildAsync(
-        CancellationToken cancellationToken)
-    {
-        var agent = await base.BuildAsync(cancellationToken);
-
-        return agent
-            .AsBuilder()
-            .Use(
-                runFunc: InputGuardrailMiddleware.InvokeAsync,
-                runStreamingFunc: InputGuardrailMiddleware.InvokeStreamingAsync)
-            .Build();
-    }
+    protected override AIAgent PostBuild(AIAgent agent) =>
+        agent.AsBuilder()
+             .Use(
+                 runFunc: InputGuardrailMiddleware.InvokeAsync,
+                 runStreamingFunc: InputGuardrailMiddleware.InvokeStreamingAsync)
+             .Build();
 }
