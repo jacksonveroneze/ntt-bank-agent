@@ -1,7 +1,6 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using NttBank.QueryAgent.Agent.Abstractions;
-using NttBank.QueryAgent.Agent.Rag;
 
 namespace NttBank.QueryAgent.Agent.Agents.Documents;
 
@@ -9,7 +8,7 @@ public sealed class DocumentsAgentProvider(
     ILogger<DocumentsAgentProvider> logger,
     IOptionsMonitor<DocumentsAgentConfiguration> options,
     IAgentBuilder agentBuilder,
-    RagSearchAdapter ragSearchAdapter)
+    IRagSearchAdapter ragSearchAdapter)
     : AgentProviderBase<DocumentsAgentConfiguration>(
             logger, options, agentBuilder),
         IDocumentsAgentProvider
@@ -24,6 +23,6 @@ public sealed class DocumentsAgentProvider(
 
     public override bool IsSpecialist => true;
 
-    protected override RagSearchAdapter RagAdapter =>
+    protected override IRagSearchAdapter RagAdapter =>
         ragSearchAdapter;
 }

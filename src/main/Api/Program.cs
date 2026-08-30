@@ -29,6 +29,7 @@ builder.Services
     .AddMcpAuthentication(builder.Configuration)
     .AddAppAuthentication(appConfiguration)
     .AddAuthorization(appConfiguration)
+    .AddHttpClient(appConfiguration)
     .AddCors()
     .AddHttpContextAccessor()
     .AddProblemDetails()
@@ -58,8 +59,9 @@ app.UseAuthorization();
 var cancellationToken = app.Lifetime.ApplicationStopping;
 
 var providers = app.Services.GetServices<IAgentProvider>();
+var loggerFactory = app.Services.GetRequiredService<ILoggerFactory>();
 var agent = await HandoffWorkflowFactory.BuildAsync(
-    providers, cancellationToken);
+    providers, loggerFactory, cancellationToken);
 
 app.MapAGUIServer("/", agent);
 app.MapAgentChatEndpoint(agent);

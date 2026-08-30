@@ -18,6 +18,7 @@ internal static class AgentChatEndpoint
 
         group.MapPost("chat", async (
                 [FromServices] IValidator<AgentInput> validator,
+                [FromServices] ILoggerFactory loggerFactory,
                 [FromBody] AgentInput input,
                 CancellationToken cancellationToken) =>
             {
@@ -30,7 +31,7 @@ internal static class AgentChatEndpoint
                 }
 
                 var output = await AgentExecutor.RunAsync(
-                    agent, input, cancellationToken);
+                    agent, input, loggerFactory, cancellationToken);
 
                 return Results.Ok(output);
             })

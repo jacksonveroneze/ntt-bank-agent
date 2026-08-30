@@ -3,7 +3,7 @@ using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NttBank.QueryAgent.Agent.Abstractions;
-using NttBank.QueryAgent.Agent.Rag;
+using NttBank.QueryAgent.Agent.Extensions;
 
 namespace NttBank.QueryAgent.Agent.Factories;
 
@@ -16,12 +16,25 @@ public sealed class AgentBuilder(
 {
     private const int RecentMessageMemoryLimit = 6;
 
+    private const TextSearchProviderOptions.TextSearchBehavior
+        DefaultSearchBehavior =
+            TextSearchProviderOptions.TextSearchBehavior.BeforeAIInvoke;
+
+    private readonly ILogger _logger =
+        loggerFactory.CreateLogger<AgentBuilder>();
+
     public AIAgent Build(AgentBuildContext context)
     {
         var chatClient = chatClientResolver.Resolve(
             context.Configuration.Provider);
 
         var chatOptions = BuildChatOptions(context);
+
+        if (context.RagAdapter is not null)
+        {
+            _logger.AgentApplyingRag(context.Name);
+            ApplyRag(chatOptions, context.RagAdapter);
+        }
 
         var chatAgent = new ChatClientAgent(
             chatClient, chatOptions, loggerFactory);
@@ -50,21 +63,16 @@ public sealed class AgentBuilder(
             ChatHistoryProvider = historyProvider,
         };
 
-        if (context.RagAdapter is not null)
-        {
-            ApplyRag(chatOptions, context.RagAdapter);
-        }
-
         return chatOptions;
     }
 
     private static void ApplyRag(
         ChatClientAgentOptions chatOptions,
-        RagSearchAdapter ragAdapter)
+        IRagSearchAdapter ragAdapter)
     {
         var textSearchOptions = new TextSearchProviderOptions
         {
-            SearchTime = TextSearchProviderOptions.TextSearchBehavior.BeforeAIInvoke,
+            SearchTime = DefaultSearchBehavior,
             RecentMessageMemoryLimit = RecentMessageMemoryLimit,
         };
 
@@ -79,6 +87,8 @@ public sealed class AgentBuilder(
         AIAgent chatAgent,
         string name)
     {
+        _logger.AgentApplyingOpenTelemetry(name);
+
         return chatAgent
             .AsBuilder()
             .UseOpenTelemetry(

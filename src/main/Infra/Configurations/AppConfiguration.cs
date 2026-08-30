@@ -14,4 +14,6 @@ public sealed record AppConfiguration
     public required OpenTelemetryConfiguration OpenTelemetry { get; init; }
 
     public required AiConfiguration? Ai { get; init; }
+    
+    public required HttpClientConfiguration HttpClientRagNttBank { get; init; }
 }

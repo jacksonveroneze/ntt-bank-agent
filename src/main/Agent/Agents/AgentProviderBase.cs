@@ -3,7 +3,7 @@ using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using NttBank.QueryAgent.Agent.Abstractions;
-using NttBank.QueryAgent.Agent.Rag;
+using NttBank.QueryAgent.Agent.Extensions;
 
 namespace NttBank.QueryAgent.Agent.Agents;
 
@@ -31,7 +31,7 @@ public abstract class AgentProviderBase<TConfiguration>
 
     public abstract bool IsSpecialist { get; }
 
-    protected virtual RagSearchAdapter? RagAdapter => null;
+    protected virtual IRagSearchAdapter? RagAdapter => null;
 
     protected AgentProviderBase(
         ILogger logger,
@@ -73,14 +73,27 @@ public abstract class AgentProviderBase<TConfiguration>
             }
 
             var generation = Volatile.Read(ref _generation);
-            var built = await BuildAsync(cancellationToken);
 
-            if (Volatile.Read(ref _generation) == generation)
+            try
             {
-                _agent = built;
-            }
+                var built = await BuildAsync(cancellationToken);
 
-            return built;
+                if (Volatile.Read(ref _generation) == generation)
+                {
+                    _agent = built;
+                }
+                else
+                {
+                    _logger.AgentBuildDiscarded(Name);
+                }
+
+                return built;
+            }
+            catch (Exception ex)
+            {
+                _logger.AgentBuildFailed(ex, Name);
+                throw;
+            }
         }
         finally
         {
@@ -88,12 +101,17 @@ public abstract class AgentProviderBase<TConfiguration>
         }
     }
 
-    protected virtual async Task<AIAgent> BuildAsync(
+    protected async Task<AIAgent> BuildAsync(
         CancellationToken cancellationToken)
     {
         var configuration = _options.CurrentValue;
 
         var tools = await ResolveToolsAsync(cancellationToken);
+
+        _logger.AgentBuilding(
+            Name,
+            configuration.Provider,
+            tools?.Count ?? 0);
 
         var context = new AgentBuildContext(
             Name,
@@ -103,32 +121,26 @@ public abstract class AgentProviderBase<TConfiguration>
             tools,
             RagAdapter);
 
-        _logger.LogInformation(
-            "Construindo agente {Agent} — provider: {Provider}, tools: {ToolCount}.",
-            Name, configuration.Provider, tools?.Count ?? 0);
-
         var agent = _agentBuilder.Build(context);
+        var built = PostBuild(agent);
 
-        return PostBuild(agent);
+        _logger.AgentBuilt(Name);
+
+        return built;
     }
 
     private string BuildInstructions(
-        TConfiguration configuration)
-    {
-        var persona = configuration.Persona;
+        TConfiguration configuration) =>
+        $"""
+        # Persona
+        {configuration.Persona}
 
-        var instructions = $"""
-                            # Persona
-                            {persona}
-
-                            {Invariants}
-                            """;
-
-        return instructions;
-    }
+        {Invariants}
+        """;
 
     private void Invalidate()
     {
+        _logger.AgentInvalidated(Name);
         Interlocked.Increment(ref _generation);
         _agent = null;
     }
