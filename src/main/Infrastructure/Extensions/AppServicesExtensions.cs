@@ -3,9 +3,13 @@ using Mapster;
 using MapsterMapper;
 using Microsoft.Extensions.DependencyInjection;
 using NttBank.Agent.Agent.Abstractions;
+using NttBank.Agent.Agent.Abstractions.Agent;
+using NttBank.Agent.Agent.Abstractions.Mcp;
+using NttBank.Agent.Agent.Abstractions.Rag;
+using NttBank.Agent.Agent.Agents.Accounts;
 using NttBank.Agent.Agent.Agents.Cards;
+using NttBank.Agent.Agent.Agents.Customer;
 using NttBank.Agent.Agent.Agents.Documents;
-using NttBank.Agent.Agent.Agents.Query;
 using NttBank.Agent.Agent.Agents.Triage;
 using NttBank.Agent.Agent.Factories;
 using NttBank.Agent.Infrastructure.Mappers;
@@ -34,7 +38,8 @@ public static class AppServicesExtensions
         services.AddSingleton<IAgentBuilder, AgentBuilder>();
         
         services.AddSingleton<ITriageAgentProvider, TriageAgentProvider>();
-        services.AddSingleton<ISpecialistAgentProvider, QueryAgentProvider>();
+        services.AddSingleton<ISpecialistAgentProvider, CustomerAgentProvider>();
+        services.AddSingleton<ISpecialistAgentProvider, AccountsAgentProvider>();
         services.AddSingleton<ISpecialistAgentProvider, CardsAgentProvider>();
         services.AddSingleton<ISpecialistAgentProvider, DocumentsAgentProvider>();
         

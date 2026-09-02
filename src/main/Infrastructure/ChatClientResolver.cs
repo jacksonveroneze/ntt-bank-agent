@@ -1,6 +1,7 @@
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.DependencyInjection;
 using NttBank.Agent.Agent.Abstractions;
+using NttBank.Agent.Agent.Abstractions.Agent;
 using NttBank.Agent.Agent.Enums;
 
 namespace NttBank.Agent.Infrastructure;

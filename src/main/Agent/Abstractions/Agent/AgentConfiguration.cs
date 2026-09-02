@@ -1,6 +1,6 @@
 using NttBank.Agent.Agent.Enums;
 
-namespace NttBank.Agent.Agent.Abstractions;
+namespace NttBank.Agent.Agent.Abstractions.Agent;
 
 public abstract class AgentConfiguration
 {

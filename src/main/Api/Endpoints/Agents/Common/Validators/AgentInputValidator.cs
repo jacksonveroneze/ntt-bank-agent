@@ -1,5 +1,6 @@
 using FluentValidation;
 using NttBank.Agent.Agent.Abstractions;
+using NttBank.Agent.Agent.Abstractions.Agent;
 
 namespace NttBank.Agent.Api.Endpoints.Agents.Common.Validators;
 

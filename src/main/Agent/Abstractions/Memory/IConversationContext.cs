@@ -1,4 +1,4 @@
-namespace NttBank.Agent.Agent.Abstractions;
+namespace NttBank.Agent.Agent.Abstractions.Memory;
 
 public interface IConversationContext
 {

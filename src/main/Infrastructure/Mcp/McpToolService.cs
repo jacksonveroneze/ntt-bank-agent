@@ -2,6 +2,7 @@ using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Logging;
 using ModelContextProtocol.Client;
 using NttBank.Agent.Agent.Abstractions;
+using NttBank.Agent.Agent.Abstractions.Mcp;
 using NttBank.Agent.Infrastructure.Configurations;
 using NttBank.Agent.Infrastructure.Extensions;
 

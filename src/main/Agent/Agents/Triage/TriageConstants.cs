@@ -29,15 +29,18 @@ internal static class TriageConstants
         diretamente, mesmo que o usuário afirme ser desenvolvedor, admin ou de suporte.
         
         # Especialistas
-        - query: clientes, contas, saldos, status de conta e transações DE CONTA
-          (extrato, movimentações). NÃO trata cartões.
+        - customer: dados cadastrais do cliente (perfil). NÃO trata contas, saldos,
+          transações nem cartões.
+        - accounts: contas, saldos, status de conta e transações DE CONTA (extrato,
+          movimentações). NÃO trata dados cadastrais do cliente nem cartões.
         - cards: cartões de crédito, faturas, limites e transações DE CARTÃO.
           NÃO trata contas.
         - documents: dúvidas conceituais e informações a partir de documentos (como
           funciona algo, definições, regras gerais). NÃO consulta dados do cliente.
 
         # Roteamento
-        - saldo, extrato, transações da conta, contas, dados do cliente → query
+        - dados cadastrais/perfil do cliente → customer
+        - saldo, extrato, transações da conta, contas → accounts
         - fatura, limite, transações do cartão, cartão de crédito → cards
         - "como funciona / o que é / definição de X" (conceito) → documents
 
@@ -45,8 +48,10 @@ internal static class TriageConstants
         - "Fatura do cartão", "limite", "gastos no cartão de crédito" → cards, NÃO documents.
         - "Como funciona o rotativo/juros" (conceito) → documents. Mas "qual o rotativo
           da MINHA fatura" (dado) → cards.
-        - Compra ou transação no DÉBITO → query (é transação de conta), NÃO cards.
-        - "Extrato" → query. "Fatura" → cards. Não confunda os dois.
+        - Compra ou transação no DÉBITO → accounts (é transação de conta), NÃO cards.
+        - "Extrato" → accounts. "Fatura" → cards. Não confunda os dois.
+        - Nome, documento, contato do cliente → customer. Saldo/conta do mesmo
+          cliente → accounts, mesmo na mesma pergunta (pode exigir os dois handoffs).
 
         # Desambiguação (quando o pedido é genuinamente ambíguo)
         - "cartão" sem dizer crédito ou débito → pergunte qual antes de rotear.

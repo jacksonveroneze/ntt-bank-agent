@@ -2,9 +2,10 @@ using System.Diagnostics.CodeAnalysis;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using NttBank.Agent.Agent.Agents.Accounts;
 using NttBank.Agent.Agent.Agents.Cards;
+using NttBank.Agent.Agent.Agents.Customer;
 using NttBank.Agent.Agent.Agents.Documents;
-using NttBank.Agent.Agent.Agents.Query;
 using NttBank.Agent.Agent.Agents.Triage;
 using NttBank.Agent.Infrastructure.Configurations;
 
@@ -25,9 +26,12 @@ public static class AppConfigurationExtensions
             services.AddConfiguration<TriageAgentConfiguration>(
                 configuration, TriageAgentConfiguration.SectionName); 
             
-            services.AddConfiguration<QueryAgentConfiguration>(
-                configuration, QueryAgentConfiguration.SectionName); 
-            
+            services.AddConfiguration<CustomerAgentConfiguration>(
+                configuration, CustomerAgentConfiguration.SectionName);
+
+            services.AddConfiguration<AccountsAgentConfiguration>(
+                configuration, AccountsAgentConfiguration.SectionName);
+
             services.AddConfiguration<CardsAgentConfiguration>(
                 configuration, CardsAgentConfiguration.SectionName);
             

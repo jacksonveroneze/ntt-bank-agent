@@ -1,6 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Http;
 using NttBank.Agent.Agent.Abstractions;
+using NttBank.Agent.Agent.Abstractions.Memory;
 
 namespace NttBank.Agent.Infrastructure.Conversation;
 

@@ -3,6 +3,7 @@ using Microsoft.Agents.AI;
 using Microsoft.AspNetCore.Mvc;
 using NttBank.Agent.Agent;
 using NttBank.Agent.Agent.Abstractions;
+using NttBank.Agent.Agent.Abstractions.Agent;
 using NttBank.Agent.Api.Endpoints.Extensions;
 
 namespace NttBank.Agent.Api.Endpoints.Agents;

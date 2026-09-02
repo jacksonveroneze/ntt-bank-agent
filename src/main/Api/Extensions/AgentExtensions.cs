@@ -1,6 +1,7 @@
 using Microsoft.Agents.AI.Hosting.AGUI.AspNetCore;
 using NttBank.Agent.Agent;
 using NttBank.Agent.Agent.Abstractions;
+using NttBank.Agent.Agent.Abstractions.Agent;
 using NttBank.Agent.Agent.Agents.Triage;
 using NttBank.Agent.Api.Endpoints.Agents;
 
