@@ -1,8 +1,9 @@
 using System.Diagnostics.CodeAnalysis;
+using Microsoft.AspNetCore.Builder;
 using NttBank.Agent.Infrastructure.Configurations;
 using Serilog;
 
-namespace NttBank.Agent.Api.Extensions;
+namespace NttBank.Agent.Infrastructure.Extensions;
 
 [ExcludeFromCodeCoverage]
 public static class LoggingExtensions

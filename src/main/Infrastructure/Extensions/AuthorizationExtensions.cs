@@ -1,7 +1,8 @@
 using System.Diagnostics.CodeAnalysis;
+using Microsoft.Extensions.DependencyInjection;
 using NttBank.Agent.Infrastructure.Configurations;
 
-namespace NttBank.Agent.Api.Extensions;
+namespace NttBank.Agent.Infrastructure.Extensions;
 
 [ExcludeFromCodeCoverage]
 public static class AuthorizationExtensions

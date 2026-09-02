@@ -1,4 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
+using Microsoft.Extensions.DependencyInjection;
 using NttBank.Agent.Agent.Enums;
 using NttBank.Agent.Infrastructure.Configurations;
 using OpenTelemetry;
@@ -7,7 +8,7 @@ using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 
-namespace NttBank.Agent.Api.Extensions;
+namespace NttBank.Agent.Infrastructure.Extensions;
 
 [ExcludeFromCodeCoverage]
 public static class OpenTelemetryExtensions

@@ -1,7 +1,8 @@
 using System.Diagnostics.CodeAnalysis;
 using CorrelationId.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace NttBank.Agent.Api.Extensions;
+namespace NttBank.Agent.Infrastructure.Extensions;
 
 [ExcludeFromCodeCoverage]
 public static class CorrelationIdExtensions

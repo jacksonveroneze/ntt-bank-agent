@@ -1,10 +1,12 @@
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using NttBank.Agent.Infrastructure.Configurations;
 
-namespace NttBank.Agent.Api.Extensions;
+namespace NttBank.Agent.Infrastructure.Extensions;
 
-internal static class HealthCheckExtensions
+public static class HealthCheckExtensions
 {
     private const string PathHealthStartup = "/health/startup";
     private const string PathHealthReady = "/health/ready";
