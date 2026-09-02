@@ -3,12 +3,12 @@ using Anthropic;
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using NttBank.QueryAgent.Agent.Enums;
-using NttBank.QueryAgent.Infrastructure.Configurations;
+using NttBank.Agent.Agent.Enums;
+using NttBank.Agent.Infrastructure.Configurations;
 using OllamaSharp;
 using OpenAI;
 
-namespace NttBank.QueryAgent.Infrastructure.Extensions;
+namespace NttBank.Agent.Infrastructure.Extensions;
 
 [ExcludeFromCodeCoverage]
 public static class AiProvidersExtensions

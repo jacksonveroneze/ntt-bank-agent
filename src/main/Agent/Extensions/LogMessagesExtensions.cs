@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Logging;
-using NttBank.QueryAgent.Agent.Enums;
+using NttBank.Agent.Agent.Enums;
 
-namespace NttBank.QueryAgent.Agent.Extensions;
+namespace NttBank.Agent.Agent.Extensions;
 
 internal static partial class LogMessagesExtensions
 {

@@ -1,4 +1,4 @@
-namespace NttBank.QueryAgent.Agent.Agents.Triage;
+namespace NttBank.Agent.Agent.Agents.Triage;
 
 internal static class TriageConstants
 {

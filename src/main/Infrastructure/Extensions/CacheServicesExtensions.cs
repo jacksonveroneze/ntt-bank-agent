@@ -1,10 +1,10 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.Extensions.Caching.Hybrid;
 using Microsoft.Extensions.DependencyInjection;
-using NttBank.QueryAgent.Infrastructure.Configurations;
+using NttBank.Agent.Infrastructure.Configurations;
 using StackExchange.Redis;
 
-namespace NttBank.QueryAgent.Infrastructure.Extensions;
+namespace NttBank.Agent.Infrastructure.Extensions;
 
 [ExcludeFromCodeCoverage]
 public static class CacheServicesExtensions

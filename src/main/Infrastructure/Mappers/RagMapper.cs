@@ -1,8 +1,8 @@
 using Mapster;
 using Microsoft.Agents.AI;
-using NttBank.QueryAgent.Infrastructure.Results;
+using NttBank.Agent.Infrastructure.Results;
 
-namespace NttBank.QueryAgent.Infrastructure.Mappers;
+namespace NttBank.Agent.Infrastructure.Mappers;
 
 public sealed class RagMapper : IRegister
 {

@@ -1,13 +1,13 @@
 using System.Diagnostics.CodeAnalysis;
-using NttBank.QueryAgent.Agent.Enums;
-using NttBank.QueryAgent.Infrastructure.Configurations;
+using NttBank.Agent.Agent.Enums;
+using NttBank.Agent.Infrastructure.Configurations;
 using OpenTelemetry;
 using OpenTelemetry.Instrumentation.AspNetCore;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 
-namespace NttBank.QueryAgent.Api.Extensions;
+namespace NttBank.Agent.Api.Extensions;
 
 [ExcludeFromCodeCoverage]
 public static class OpenTelemetryExtensions

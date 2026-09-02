@@ -1,4 +1,4 @@
-namespace NttBank.QueryAgent.Infrastructure.Configurations;
+namespace NttBank.Agent.Infrastructure.Configurations;
 
 public record McpQueryConfiguration : McpServerConfiguration
 {

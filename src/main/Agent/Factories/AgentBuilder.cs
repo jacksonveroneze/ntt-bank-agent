@@ -2,10 +2,10 @@ using Microsoft.Agents.AI;
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using NttBank.QueryAgent.Agent.Abstractions;
-using NttBank.QueryAgent.Agent.Extensions;
+using NttBank.Agent.Agent.Abstractions;
+using NttBank.Agent.Agent.Extensions;
 
-namespace NttBank.QueryAgent.Agent.Factories;
+namespace NttBank.Agent.Agent.Factories;
 
 public sealed class AgentBuilder(
     IChatClientResolver chatClientResolver,

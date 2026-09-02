@@ -1,9 +1,9 @@
 using Microsoft.Agents.AI;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using NttBank.QueryAgent.Agent.Abstractions;
+using NttBank.Agent.Agent.Abstractions;
 
-namespace NttBank.QueryAgent.Agent.Agents.Triage;
+namespace NttBank.Agent.Agent.Agents.Triage;
 
 public sealed class TriageAgentProvider(
     ILogger<TriageAgentProvider> logger,

@@ -1,11 +1,11 @@
 using MapsterMapper;
 using Microsoft.Extensions.Logging;
-using NttBank.QueryAgent.Agent.Abstractions;
-using NttBank.QueryAgent.Infrastructure.Extensions;
-using NttBank.QueryAgent.Infrastructure.HttpClients;
+using NttBank.Agent.Agent.Abstractions;
+using NttBank.Agent.Infrastructure.Extensions;
+using NttBank.Agent.Infrastructure.HttpClients;
 using TextSearchResult = Microsoft.Agents.AI.TextSearchProvider.TextSearchResult;
 
-namespace NttBank.QueryAgent.Infrastructure.Repositories;
+namespace NttBank.Agent.Infrastructure.Repositories;
 
 public sealed class RagSearchRepository(
     IMapper mapper,

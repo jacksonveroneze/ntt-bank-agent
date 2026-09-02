@@ -3,9 +3,9 @@ using System.Net.Security;
 using Duende.AccessTokenManagement;
 using Duende.IdentityModel.Client;
 using Microsoft.Extensions.DependencyInjection;
-using NttBank.QueryAgent.Infrastructure.Configurations;
+using NttBank.Agent.Infrastructure.Configurations;
 
-namespace NttBank.QueryAgent.Infrastructure.Extensions;
+namespace NttBank.Agent.Infrastructure.Extensions;
 
 [ExcludeFromCodeCoverage]
 public static class McpAuthenticationExtensions

@@ -1,7 +1,7 @@
 using Microsoft.Extensions.AI;
-using NttBank.QueryAgent.Agent.Enums;
+using NttBank.Agent.Agent.Enums;
 
-namespace NttBank.QueryAgent.Agent.Abstractions;
+namespace NttBank.Agent.Agent.Abstractions;
 
 public interface IChatClientResolver
 {

@@ -1,9 +1,9 @@
 using Microsoft.Agents.AI;
 using Microsoft.Extensions.Logging;
-using NttBank.QueryAgent.Agent.Abstractions;
-using NttBank.QueryAgent.Agent.Extensions;
+using NttBank.Agent.Agent.Abstractions;
+using NttBank.Agent.Agent.Extensions;
 
-namespace NttBank.QueryAgent.Agent;
+namespace NttBank.Agent.Agent;
 
 public static class AgentExecutor
 {

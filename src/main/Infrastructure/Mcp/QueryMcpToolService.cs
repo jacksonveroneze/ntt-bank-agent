@@ -1,9 +1,9 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using NttBank.QueryAgent.Agent.Agents.Query;
-using NttBank.QueryAgent.Infrastructure.Configurations;
+using NttBank.Agent.Agent.Agents.Query;
+using NttBank.Agent.Infrastructure.Configurations;
 
-namespace NttBank.QueryAgent.Infrastructure.Mcp;
+namespace NttBank.Agent.Infrastructure.Mcp;
 
 public sealed class QueryMcpToolService(
     IOptions<McpQueryConfiguration> options,

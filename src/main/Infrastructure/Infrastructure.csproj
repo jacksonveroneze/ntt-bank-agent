@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <RootNamespace>NttBank.QueryAgent.Infrastructure</RootNamespace>
+    <RootNamespace>NttBank.Agent.Infrastructure</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

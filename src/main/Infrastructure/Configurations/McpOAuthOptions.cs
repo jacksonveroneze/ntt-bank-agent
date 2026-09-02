@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace NttBank.QueryAgent.Infrastructure.Configurations;
+namespace NttBank.Agent.Infrastructure.Configurations;
 
 public sealed class McpOAuthOptions
 {

@@ -2,9 +2,9 @@ using System.Diagnostics.CodeAnalysis;
 using Mapster;
 using MapsterMapper;
 using Microsoft.Extensions.DependencyInjection;
-using NttBank.QueryAgent.Infrastructure.Mappers;
+using NttBank.Agent.Infrastructure.Mappers;
 
-namespace NttBank.QueryAgent.Infrastructure.Extensions;
+namespace NttBank.Agent.Infrastructure.Extensions;
 
 [ExcludeFromCodeCoverage]
 public static class MapperExtensions

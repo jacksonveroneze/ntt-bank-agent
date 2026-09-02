@@ -1,5 +1,5 @@
-using NttBank.QueryAgent.Agent.Abstractions;
+using NttBank.Agent.Agent.Abstractions;
 
-namespace NttBank.QueryAgent.Agent.Agents.Cards;
+namespace NttBank.Agent.Agent.Agents.Cards;
 
 public interface IMcpCardsToolService : IMcpToolService;

@@ -2,10 +2,10 @@ using Microsoft.Agents.AI;
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using NttBank.QueryAgent.Agent.Abstractions;
-using NttBank.QueryAgent.Agent.Extensions;
+using NttBank.Agent.Agent.Abstractions;
+using NttBank.Agent.Agent.Extensions;
 
-namespace NttBank.QueryAgent.Agent.Agents;
+namespace NttBank.Agent.Agent.Agents;
 
 public abstract class AgentProviderBase<TConfiguration>
     : IAgentProvider, IDisposable

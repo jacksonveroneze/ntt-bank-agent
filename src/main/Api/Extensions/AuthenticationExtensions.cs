@@ -1,9 +1,9 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using NttBank.QueryAgent.Infrastructure.Configurations;
+using NttBank.Agent.Infrastructure.Configurations;
 
-namespace NttBank.QueryAgent.Api.Extensions;
+namespace NttBank.Agent.Api.Extensions;
 
 [ExcludeFromCodeCoverage]
 public static class AuthenticationExtensions

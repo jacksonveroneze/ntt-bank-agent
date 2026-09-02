@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
-using NttBank.QueryAgent.Infrastructure.Configurations;
+using NttBank.Agent.Infrastructure.Configurations;
 
-namespace NttBank.QueryAgent.Api.Extensions;
+namespace NttBank.Agent.Api.Extensions;
 
 internal static class HealthCheckExtensions
 {

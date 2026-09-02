@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Logging;
 
-namespace NttBank.QueryAgent.Infrastructure.Extensions;
+namespace NttBank.Agent.Infrastructure.Extensions;
 
 internal static partial class LogMessagesExtensions
 {

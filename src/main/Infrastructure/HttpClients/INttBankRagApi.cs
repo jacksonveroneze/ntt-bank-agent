@@ -1,7 +1,7 @@
-using NttBank.QueryAgent.Infrastructure.Results;
+using NttBank.Agent.Infrastructure.Results;
 using Refit;
 
-namespace NttBank.QueryAgent.Infrastructure.HttpClients;
+namespace NttBank.Agent.Infrastructure.HttpClients;
 
 public interface INttBankRagApi
 {

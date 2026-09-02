@@ -1,11 +1,11 @@
 using System.Diagnostics.CodeAnalysis;
 using CorrelationId.HttpClient;
 using Microsoft.Extensions.DependencyInjection;
-using NttBank.QueryAgent.Infrastructure.Configurations;
-using NttBank.QueryAgent.Infrastructure.HttpClients;
+using NttBank.Agent.Infrastructure.Configurations;
+using NttBank.Agent.Infrastructure.HttpClients;
 using Refit;
 
-namespace NttBank.QueryAgent.Infrastructure.Extensions;
+namespace NttBank.Agent.Infrastructure.Extensions;
 
 [ExcludeFromCodeCoverage]
 public static class HttpClientExtensions

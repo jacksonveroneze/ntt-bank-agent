@@ -1,4 +1,4 @@
-namespace NttBank.QueryAgent.Agent.Enums;
+namespace NttBank.Agent.Agent.Enums;
 
 public enum Provider
 {

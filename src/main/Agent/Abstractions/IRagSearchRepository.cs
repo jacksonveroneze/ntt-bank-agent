@@ -1,6 +1,6 @@
 using TextSearchResult = Microsoft.Agents.AI.TextSearchProvider.TextSearchResult;
 
-namespace NttBank.QueryAgent.Agent.Abstractions;
+namespace NttBank.Agent.Agent.Abstractions;
 
 public interface IRagSearchRepository
 {

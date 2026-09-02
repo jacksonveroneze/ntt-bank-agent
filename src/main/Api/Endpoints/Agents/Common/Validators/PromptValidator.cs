@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace NttBank.QueryAgent.Api.Endpoints.Agents.Common.Validators;
+namespace NttBank.Agent.Api.Endpoints.Agents.Common.Validators;
 
 public sealed class PromptValidator
     : AbstractValidator<string>

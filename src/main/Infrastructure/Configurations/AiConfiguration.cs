@@ -1,7 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
-using NttBank.QueryAgent.Agent.Enums;
+using NttBank.Agent.Agent.Enums;
 
-namespace NttBank.QueryAgent.Infrastructure.Configurations;
+namespace NttBank.Agent.Infrastructure.Configurations;
 
 [ExcludeFromCodeCoverage]
 public sealed record AiConfiguration

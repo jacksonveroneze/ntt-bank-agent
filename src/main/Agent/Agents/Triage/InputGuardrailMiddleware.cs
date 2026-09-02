@@ -2,7 +2,7 @@ using System.Runtime.CompilerServices;
 using Microsoft.Agents.AI;
 using Microsoft.Extensions.AI;
 
-namespace NttBank.QueryAgent.Agent.Agents.Triage;
+namespace NttBank.Agent.Agent.Agents.Triage;
 
 internal static class InputGuardrailMiddleware
 {

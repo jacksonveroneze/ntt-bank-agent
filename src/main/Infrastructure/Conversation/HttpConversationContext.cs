@@ -1,8 +1,8 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Http;
-using NttBank.QueryAgent.Agent.Abstractions;
+using NttBank.Agent.Agent.Abstractions;
 
-namespace NttBank.QueryAgent.Infrastructure.Conversation;
+namespace NttBank.Agent.Infrastructure.Conversation;
 
 [ExcludeFromCodeCoverage]
 public sealed class HttpConversationContext(

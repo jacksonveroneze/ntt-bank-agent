@@ -3,12 +3,12 @@ using Microsoft.Agents.AI;
 using Microsoft.Agents.AI.Valkey;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using NttBank.QueryAgent.Agent.Abstractions;
-using NttBank.QueryAgent.Infrastructure.Configurations;
-using NttBank.QueryAgent.Infrastructure.Conversation;
+using NttBank.Agent.Agent.Abstractions;
+using NttBank.Agent.Infrastructure.Configurations;
+using NttBank.Agent.Infrastructure.Conversation;
 using Valkey.Glide;
 
-namespace NttBank.QueryAgent.Infrastructure.Extensions;
+namespace NttBank.Agent.Infrastructure.Extensions;
 
 [ExcludeFromCodeCoverage]
 public static class AgentMemoryExtensions

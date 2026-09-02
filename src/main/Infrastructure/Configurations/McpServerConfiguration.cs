@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 
-namespace NttBank.QueryAgent.Infrastructure.Configurations;
+namespace NttBank.Agent.Infrastructure.Configurations;
 
 [ExcludeFromCodeCoverage]
 public record McpServerConfiguration

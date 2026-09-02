@@ -1,9 +1,9 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.Agents.AI;
 using Microsoft.Agents.AI.Valkey;
-using NttBank.QueryAgent.Agent.Abstractions;
+using NttBank.Agent.Agent.Abstractions;
 
-namespace NttBank.QueryAgent.Infrastructure.Conversation;
+namespace NttBank.Agent.Infrastructure.Conversation;
 
 [ExcludeFromCodeCoverage]
 public sealed class ConversationStateInitializer(

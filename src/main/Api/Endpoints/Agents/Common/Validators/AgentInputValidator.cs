@@ -1,7 +1,7 @@
 using FluentValidation;
-using NttBank.QueryAgent.Agent.Abstractions;
+using NttBank.Agent.Agent.Abstractions;
 
-namespace NttBank.QueryAgent.Api.Endpoints.Agents.Common.Validators;
+namespace NttBank.Agent.Api.Endpoints.Agents.Common.Validators;
 
 public sealed class AgentInputValidator
     : AbstractValidator<AgentInput>

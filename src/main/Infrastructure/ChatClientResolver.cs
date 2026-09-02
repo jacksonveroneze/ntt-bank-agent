@@ -1,9 +1,9 @@
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.DependencyInjection;
-using NttBank.QueryAgent.Agent.Abstractions;
-using NttBank.QueryAgent.Agent.Enums;
+using NttBank.Agent.Agent.Abstractions;
+using NttBank.Agent.Agent.Enums;
 
-namespace NttBank.QueryAgent.Infrastructure;
+namespace NttBank.Agent.Infrastructure;
 
 internal sealed class ChatClientResolver(
     IServiceProvider serviceProvider) : IChatClientResolver

@@ -1,4 +1,4 @@
-namespace NttBank.QueryAgent.Infrastructure.Results;
+namespace NttBank.Agent.Infrastructure.Results;
 
 public sealed record RagChunkResult(
     string Content,

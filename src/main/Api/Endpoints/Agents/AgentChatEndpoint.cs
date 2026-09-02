@@ -1,11 +1,11 @@
 using FluentValidation;
 using Microsoft.Agents.AI;
 using Microsoft.AspNetCore.Mvc;
-using NttBank.QueryAgent.Agent;
-using NttBank.QueryAgent.Agent.Abstractions;
-using NttBank.QueryAgent.Api.Endpoints.Extensions;
+using NttBank.Agent.Agent;
+using NttBank.Agent.Agent.Abstractions;
+using NttBank.Agent.Api.Endpoints.Extensions;
 
-namespace NttBank.QueryAgent.Api.Endpoints.Agents;
+namespace NttBank.Agent.Api.Endpoints.Agents;
 
 internal static class AgentChatEndpoint
 {

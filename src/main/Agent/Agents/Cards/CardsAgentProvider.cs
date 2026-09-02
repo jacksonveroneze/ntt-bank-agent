@@ -1,9 +1,9 @@
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using NttBank.QueryAgent.Agent.Abstractions;
+using NttBank.Agent.Agent.Abstractions;
 
-namespace NttBank.QueryAgent.Agent.Agents.Cards;
+namespace NttBank.Agent.Agent.Agents.Cards;
 
 public sealed class CardsAgentProvider(
     ILogger<CardsAgentProvider> logger,

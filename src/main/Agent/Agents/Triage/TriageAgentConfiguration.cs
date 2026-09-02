@@ -1,6 +1,6 @@
-using NttBank.QueryAgent.Agent.Abstractions;
+using NttBank.Agent.Agent.Abstractions;
 
-namespace NttBank.QueryAgent.Agent.Agents.Triage;
+namespace NttBank.Agent.Agent.Agents.Triage;
 
 public sealed class TriageAgentConfiguration : AgentConfiguration
 {

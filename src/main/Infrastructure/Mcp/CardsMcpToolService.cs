@@ -1,9 +1,9 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using NttBank.QueryAgent.Agent.Agents.Cards;
-using NttBank.QueryAgent.Infrastructure.Configurations;
+using NttBank.Agent.Agent.Agents.Cards;
+using NttBank.Agent.Infrastructure.Configurations;
 
-namespace NttBank.QueryAgent.Infrastructure.Mcp;
+namespace NttBank.Agent.Infrastructure.Mcp;
 
 public sealed class CardsMcpToolService(
     IOptions<McpCardsConfiguration> options,

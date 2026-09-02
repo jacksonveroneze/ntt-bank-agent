@@ -1,6 +1,6 @@
-using NttBank.QueryAgent.Agent.Common;
+using NttBank.Agent.Agent.Common;
 
-namespace NttBank.QueryAgent.Agent.Agents.Query;
+namespace NttBank.Agent.Agent.Agents.Query;
 
 internal static class QueryConstants
 {

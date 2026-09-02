@@ -1,6 +1,6 @@
 using FluentValidation.Results;
 
-namespace NttBank.QueryAgent.Api.Endpoints.Extensions;
+namespace NttBank.Agent.Api.Endpoints.Extensions;
 
 internal static class ValidationResultExtensions
 {

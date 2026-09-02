@@ -1,4 +1,4 @@
-namespace NttBank.QueryAgent.Agent.Common;
+namespace NttBank.Agent.Agent.Common;
 
 internal static class SharedGuardrails
 {

@@ -1,7 +1,7 @@
 using FluentValidation;
 using Microsoft.AspNetCore.Diagnostics;
 
-namespace NttBank.QueryAgent.Api.Middlewares;
+namespace NttBank.Agent.Api.Middlewares;
 
 internal sealed class CustomExceptionHandler(
     IHostEnvironment hostEnvironment,

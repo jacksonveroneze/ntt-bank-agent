@@ -1,6 +1,6 @@
-using NttBank.QueryAgent.Agent.Common;
+using NttBank.Agent.Agent.Common;
 
-namespace NttBank.QueryAgent.Agent.Agents.Cards;
+namespace NttBank.Agent.Agent.Agents.Cards;
 
 internal static class CardsConstants
 {

@@ -1,3 +1,3 @@
-namespace NttBank.QueryAgent.Agent.Abstractions;
+namespace NttBank.Agent.Agent.Abstractions;
 
 public interface ISpecialistAgentProvider : IAgentProvider;

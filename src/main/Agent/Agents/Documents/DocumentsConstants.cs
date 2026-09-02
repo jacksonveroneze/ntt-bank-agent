@@ -1,6 +1,6 @@
-using NttBank.QueryAgent.Agent.Common;
+using NttBank.Agent.Agent.Common;
 
-namespace NttBank.QueryAgent.Agent.Agents.Documents;
+namespace NttBank.Agent.Agent.Agents.Documents;
 
 internal static class DocumentsConstants
 {

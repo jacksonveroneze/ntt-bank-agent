@@ -1,9 +1,9 @@
 using CorrelationId;
 using FluentValidation;
-using NttBank.QueryAgent.Api.Extensions;
-using NttBank.QueryAgent.Api.Middlewares;
-using NttBank.QueryAgent.Infrastructure.Configurations;
-using NttBank.QueryAgent.Infrastructure.Extensions;
+using NttBank.Agent.Api.Extensions;
+using NttBank.Agent.Api.Middlewares;
+using NttBank.Agent.Infrastructure.Configurations;
+using NttBank.Agent.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateSlimBuilder(args);
 

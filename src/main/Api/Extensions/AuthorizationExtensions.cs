@@ -1,7 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
-using NttBank.QueryAgent.Infrastructure.Configurations;
+using NttBank.Agent.Infrastructure.Configurations;
 
-namespace NttBank.QueryAgent.Api.Extensions;
+namespace NttBank.Agent.Api.Extensions;
 
 [ExcludeFromCodeCoverage]
 public static class AuthorizationExtensions

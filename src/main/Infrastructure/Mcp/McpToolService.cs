@@ -1,11 +1,11 @@
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Logging;
 using ModelContextProtocol.Client;
-using NttBank.QueryAgent.Agent.Abstractions;
-using NttBank.QueryAgent.Infrastructure.Configurations;
-using NttBank.QueryAgent.Infrastructure.Extensions;
+using NttBank.Agent.Agent.Abstractions;
+using NttBank.Agent.Infrastructure.Configurations;
+using NttBank.Agent.Infrastructure.Extensions;
 
-namespace NttBank.QueryAgent.Infrastructure.Mcp;
+namespace NttBank.Agent.Infrastructure.Mcp;
 
 public abstract class McpToolService(
     McpServerConfiguration configuration,

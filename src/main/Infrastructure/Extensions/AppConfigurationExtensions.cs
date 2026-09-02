@@ -2,13 +2,13 @@ using System.Diagnostics.CodeAnalysis;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using NttBank.QueryAgent.Agent.Agents.Cards;
-using NttBank.QueryAgent.Agent.Agents.Documents;
-using NttBank.QueryAgent.Agent.Agents.Query;
-using NttBank.QueryAgent.Agent.Agents.Triage;
-using NttBank.QueryAgent.Infrastructure.Configurations;
+using NttBank.Agent.Agent.Agents.Cards;
+using NttBank.Agent.Agent.Agents.Documents;
+using NttBank.Agent.Agent.Agents.Query;
+using NttBank.Agent.Agent.Agents.Triage;
+using NttBank.Agent.Infrastructure.Configurations;
 
-namespace NttBank.QueryAgent.Infrastructure.Extensions;
+namespace NttBank.Agent.Infrastructure.Extensions;
 
 [ExcludeFromCodeCoverage]
 public static class AppConfigurationExtensions

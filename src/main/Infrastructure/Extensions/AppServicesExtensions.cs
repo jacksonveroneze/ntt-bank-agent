@@ -2,17 +2,17 @@ using System.Diagnostics.CodeAnalysis;
 using Mapster;
 using MapsterMapper;
 using Microsoft.Extensions.DependencyInjection;
-using NttBank.QueryAgent.Agent.Abstractions;
-using NttBank.QueryAgent.Agent.Agents.Cards;
-using NttBank.QueryAgent.Agent.Agents.Documents;
-using NttBank.QueryAgent.Agent.Agents.Query;
-using NttBank.QueryAgent.Agent.Agents.Triage;
-using NttBank.QueryAgent.Agent.Factories;
-using NttBank.QueryAgent.Infrastructure.Mappers;
-using NttBank.QueryAgent.Infrastructure.Mcp;
-using NttBank.QueryAgent.Infrastructure.Repositories;
+using NttBank.Agent.Agent.Abstractions;
+using NttBank.Agent.Agent.Agents.Cards;
+using NttBank.Agent.Agent.Agents.Documents;
+using NttBank.Agent.Agent.Agents.Query;
+using NttBank.Agent.Agent.Agents.Triage;
+using NttBank.Agent.Agent.Factories;
+using NttBank.Agent.Infrastructure.Mappers;
+using NttBank.Agent.Infrastructure.Mcp;
+using NttBank.Agent.Infrastructure.Repositories;
 
-namespace NttBank.QueryAgent.Infrastructure.Extensions;
+namespace NttBank.Agent.Infrastructure.Extensions;
 
 [ExcludeFromCodeCoverage]
 public static class AppServicesExtensions

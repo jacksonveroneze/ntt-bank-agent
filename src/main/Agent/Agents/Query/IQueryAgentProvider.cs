@@ -1,5 +1,5 @@
-using NttBank.QueryAgent.Agent.Abstractions;
+using NttBank.Agent.Agent.Abstractions;
 
-namespace NttBank.QueryAgent.Agent.Agents.Query;
+namespace NttBank.Agent.Agent.Agents.Query;
 
 public interface IQueryAgentProvider : ISpecialistAgentProvider;

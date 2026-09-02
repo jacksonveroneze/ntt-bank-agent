@@ -1,8 +1,8 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using NttBank.QueryAgent.Agent.Abstractions;
+using NttBank.Agent.Agent.Abstractions;
 
-namespace NttBank.QueryAgent.Agent.Agents.Documents;
+namespace NttBank.Agent.Agent.Agents.Documents;
 
 public sealed class DocumentsAgentProvider(
     ILogger<DocumentsAgentProvider> logger,
