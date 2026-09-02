@@ -2,7 +2,6 @@ using Microsoft.Agents.AI;
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using NttBank.Agent.Agent.Abstractions;
 using NttBank.Agent.Agent.Abstractions.Agent;
 using NttBank.Agent.Agent.Abstractions.Rag;
 using NttBank.Agent.Agent.Extensions;

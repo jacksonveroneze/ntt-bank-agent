@@ -1,7 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.Agents.AI;
 using Microsoft.Agents.AI.Valkey;
-using NttBank.Agent.Agent.Abstractions;
 using NttBank.Agent.Agent.Abstractions.Memory;
 
 namespace NttBank.Agent.Infrastructure.Conversation;

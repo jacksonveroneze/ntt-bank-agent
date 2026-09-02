@@ -4,7 +4,7 @@ namespace NttBank.Agent.Agent.Agents.Customer;
 
 internal static class CustomerConstants
 {
-    internal const string ToolGetCustomer = "get_customer";
+    private const string ToolGetCustomer = "get_customer";
 
     internal static readonly IReadOnlySet<string> AllowedTools =
         new HashSet<string>([ToolGetCustomer], StringComparer.Ordinal);

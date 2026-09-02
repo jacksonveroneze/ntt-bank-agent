@@ -1,7 +1,6 @@
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using NttBank.Agent.Agent.Abstractions;
 using NttBank.Agent.Agent.Abstractions.Agent;
 using NttBank.Agent.Agent.Abstractions.Mcp;
 using NttBank.Agent.Agent.Agents.Common;
@@ -28,7 +27,8 @@ public sealed class AccountsAgentProvider(
     protected override async ValueTask<IList<AITool>?> ResolveToolsAsync(
         CancellationToken cancellationToken)
     {
-        var tools = await mcpQueryToolService.GetToolsAsync(cancellationToken);
+        var tools = await mcpQueryToolService
+            .GetToolsAsync(cancellationToken);
 
         return tools?
             .Where(tool => AccountsConstants.AllowedTools.Contains(tool.Name))

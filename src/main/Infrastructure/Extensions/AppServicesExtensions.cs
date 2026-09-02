@@ -2,7 +2,6 @@ using System.Diagnostics.CodeAnalysis;
 using Mapster;
 using MapsterMapper;
 using Microsoft.Extensions.DependencyInjection;
-using NttBank.Agent.Agent.Abstractions;
 using NttBank.Agent.Agent.Abstractions.Agent;
 using NttBank.Agent.Agent.Abstractions.Mcp;
 using NttBank.Agent.Agent.Abstractions.Rag;

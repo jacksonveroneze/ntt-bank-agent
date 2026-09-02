@@ -3,7 +3,6 @@ using Microsoft.Agents.AI;
 using Microsoft.Agents.AI.Valkey;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using NttBank.Agent.Agent.Abstractions;
 using NttBank.Agent.Agent.Abstractions.Memory;
 using NttBank.Agent.Infrastructure.Configurations;
 using NttBank.Agent.Infrastructure.Conversation;

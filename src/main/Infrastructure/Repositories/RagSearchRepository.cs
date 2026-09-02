@@ -1,6 +1,5 @@
 using MapsterMapper;
 using Microsoft.Extensions.Logging;
-using NttBank.Agent.Agent.Abstractions;
 using NttBank.Agent.Agent.Abstractions.Rag;
 using NttBank.Agent.Infrastructure.Extensions;
 using NttBank.Agent.Infrastructure.HttpClients;
