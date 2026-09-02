@@ -23,9 +23,14 @@ public sealed class CardsAgentProvider(
     protected override string Invariants =>
         CardsConstants.SystemPrompt;
 
-    protected override ValueTask<IList<AITool>?> ResolveToolsAsync(
+    protected override async ValueTask<IList<AITool>?> ResolveToolsAsync(
         CancellationToken cancellationToken)
     {
-        return mcpCardsToolService.GetToolsAsync(cancellationToken);
+        var tools = await mcpCardsToolService.GetToolsAsync(cancellationToken);
+
+        return tools?
+            .Where(tool => CardsConstants.AllowedTools
+                .Contains(tool.Name, StringComparer.OrdinalIgnoreCase))
+            .ToArray();
     }
 }

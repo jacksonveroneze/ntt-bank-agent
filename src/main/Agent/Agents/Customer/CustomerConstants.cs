@@ -4,14 +4,11 @@ namespace NttBank.Agent.Agent.Agents.Customer;
 
 internal static class CustomerConstants
 {
-    private const string ToolGetCustomer = "get_customer";
-
-    internal static readonly IReadOnlySet<string> AllowedTools =
-        new HashSet<string>([ToolGetCustomer], StringComparer.Ordinal);
-
     internal const string Description =
-        "Consultas bancárias somente-leitura: perfil e dados cadastrais DO CLIENTE. " +
-        "NÃO trata contas, saldos, cartões nem transações.";
+        """
+        Consultas bancárias somente-leitura: perfil e dados cadastrais DO CLIENTE.
+        NÃO trata contas, saldos, cartões nem transações.";
+        """;
 
     private const string SpecificPrompt =
         """
@@ -36,4 +33,12 @@ internal static class CustomerConstants
 
     internal const string SystemPrompt =
         SpecificPrompt + "\n\n" + SharedGuardrails.Block;
+
+    private const string ToolGetCustomer = "get_customer";
+
+    internal static readonly IReadOnlySet<string> AllowedTools = new HashSet<string>(
+        [
+            ToolGetCustomer,
+        ],
+        StringComparer.OrdinalIgnoreCase);
 }

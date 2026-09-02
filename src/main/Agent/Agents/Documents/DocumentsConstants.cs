@@ -5,8 +5,10 @@ namespace NttBank.Agent.Agent.Agents.Documents;
 internal static class DocumentsConstants
 {
     internal const string Description =
-        "Responde dúvidas conceituais e informações a partir de documentos. " +
-        "NÃO consulta dados do cliente, contas, cartões nem transações.";
+        """
+        Responde dúvidas conceituais e informações a partir de documentos.
+        NÃO consulta dados do cliente, contas, cartões nem transações.
+        """;
 
     private const string SpecificPrompt =
         """

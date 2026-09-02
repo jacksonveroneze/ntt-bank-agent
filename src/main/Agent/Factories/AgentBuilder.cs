@@ -11,8 +11,7 @@ namespace NttBank.Agent.Agent.Factories;
 public sealed class AgentBuilder(
     IChatClientResolver chatClientResolver,
     ILoggerFactory loggerFactory,
-    IHostEnvironment hostEnvironment,
-    ChatHistoryProvider? historyProvider = null)
+    IHostEnvironment hostEnvironment)
     : IAgentBuilder
 {
     private const int RecentMessageMemoryLimit = 6;
@@ -56,7 +55,7 @@ public sealed class AgentBuilder(
                 ToolMode = ChatToolMode.Auto,
                 AllowMultipleToolCalls = context.Configuration.AllowMultipleToolCalls,
             },
-            ChatHistoryProvider = historyProvider,
+            ChatHistoryProvider = null,
         };
 
         return chatOptions;

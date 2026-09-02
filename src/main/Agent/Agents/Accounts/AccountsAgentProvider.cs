@@ -31,7 +31,8 @@ public sealed class AccountsAgentProvider(
             .GetToolsAsync(cancellationToken);
 
         return tools?
-            .Where(tool => AccountsConstants.AllowedTools.Contains(tool.Name))
-            .ToList();
+            .Where(tool => AccountsConstants.AllowedTools
+                .Contains(tool.Name, StringComparer.OrdinalIgnoreCase))
+            .ToArray();
     }
 }

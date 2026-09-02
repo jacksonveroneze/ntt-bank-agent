@@ -27,6 +27,7 @@ internal static class AgentExtensions
             triageProvider!,
             specialistProviders,
             loggerFactory,
+            app.Environment,
             cancellationToken);
 
         app.MapAGUIServer("/", agent);

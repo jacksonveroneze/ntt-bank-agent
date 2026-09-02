@@ -4,23 +4,11 @@ namespace NttBank.Agent.Agent.Agents.Accounts;
 
 internal static class AccountsConstants
 {
-    internal const string ToolListCustomerAccounts = "list_customer_accounts";
-    internal const string ToolGetAccount = "get_account";
-    internal const string ToolListAccountTransactions = "list_account_transactions";
-    internal const string ToolSummarizeAccountTransactions = "summarize_account_transactions";
-
-    internal static readonly IReadOnlySet<string> AllowedTools = new HashSet<string>(
-        [
-            ToolListCustomerAccounts,
-            ToolGetAccount,
-            ToolListAccountTransactions,
-            ToolSummarizeAccountTransactions,
-        ],
-        StringComparer.Ordinal);
-
     internal const string Description =
-        "Consultas bancárias somente-leitura: contas, saldos e transações DE CONTA. " +
-        "NÃO trata dados cadastrais do cliente, cartões nem transações de cartão.";
+        """
+        Consultas bancárias somente-leitura: contas, saldos e transações DE CONTA.
+        NÃO trata dados cadastrais do cliente, cartões nem transações de cartão.
+        """;
 
     private const string SpecificPrompt =
         """
@@ -54,4 +42,18 @@ internal static class AccountsConstants
 
     internal const string SystemPrompt =
         SpecificPrompt + "\n\n" + SharedGuardrails.Block;
+
+    private const string ToolListCustomerAccounts = "list_customer_accounts";
+    private const string ToolGetAccount = "get_account";
+    private const string ToolListAccountTransactions = "list_account_transactions";
+    private const string ToolSummarizeAccountTransactions = "summarize_account_transactions";
+
+    internal static readonly IReadOnlySet<string> AllowedTools = new HashSet<string>(
+        [
+            ToolGetAccount,
+            ToolListCustomerAccounts,
+            ToolListAccountTransactions,
+            ToolSummarizeAccountTransactions,
+        ],
+        StringComparer.OrdinalIgnoreCase);
 }

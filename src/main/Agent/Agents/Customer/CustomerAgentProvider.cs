@@ -30,7 +30,8 @@ public sealed class CustomerAgentProvider(
         var tools = await mcpQueryToolService.GetToolsAsync(cancellationToken);
 
         return tools?
-            .Where(tool => CustomerConstants.AllowedTools.Contains(tool.Name))
-            .ToList();
+            .Where(tool => CustomerConstants.AllowedTools
+                .Contains(tool.Name, StringComparer.OrdinalIgnoreCase))
+            .ToArray();
     }
 }

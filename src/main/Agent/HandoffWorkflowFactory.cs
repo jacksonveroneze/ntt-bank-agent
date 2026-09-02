@@ -1,5 +1,6 @@
 using Microsoft.Agents.AI;
 using Microsoft.Agents.AI.Workflows;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NttBank.Agent.Agent.Abstractions.Agent;
 using NttBank.Agent.Agent.Agents.Triage;
@@ -9,10 +10,13 @@ namespace NttBank.Agent.Agent;
 
 public static class HandoffWorkflowFactory
 {
+    public const string AgentName = "handoff";
+
     public static async Task<AIAgent> BuildAsync(
         ITriageAgentProvider agentTriageProvider,
         IReadOnlyCollection<ISpecialistAgentProvider> agentsSpecialistsProviders,
         ILoggerFactory loggerFactory,
+        IHostEnvironment environment,
         CancellationToken cancellationToken)
     {
         var logger = loggerFactory.CreateLogger(nameof(HandoffWorkflowFactory));
@@ -45,6 +49,10 @@ public static class HandoffWorkflowFactory
 
         logger.HandoffBuilt();
 
-        return workflow.AsAIAgent();
+        return workflow.AsAIAgent(
+            id: $"id-{AgentName}",
+            name: AgentName,
+            includeExceptionDetails: environment.IsDevelopment(),
+            includeWorkflowOutputsInResponse: false);
     }
 }
