@@ -50,7 +50,7 @@ public static class HandoffWorkflowFactory
         logger.HandoffBuilt();
 
         return workflow.AsAIAgent(
-            id: $"id-{AgentName}",
+            id: $"agent-id-{AgentName}",
             name: AgentName,
             includeExceptionDetails: environment.IsDevelopment(),
             includeWorkflowOutputsInResponse: false);
