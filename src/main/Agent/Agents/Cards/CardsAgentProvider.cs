@@ -12,8 +12,7 @@ public sealed class CardsAgentProvider(
     IAgentBuilder agentBuilder,
     IMcpCardsToolService mcpCardsToolService)
     : AgentProviderBase<CardsAgentConfiguration>(
-            logger, options, agentBuilder),
-        ICardsAgentProvider
+        logger, options, agentBuilder), ICardsAgentProvider
 {
     public override string Name => "cards";
 
@@ -23,7 +22,7 @@ public sealed class CardsAgentProvider(
     protected override string Invariants =>
         CardsConstants.SystemPrompt;
 
-    protected override async ValueTask<IList<AITool>?> ResolveToolsAsync(
+    protected override async ValueTask<IList<AITool>> ResolveMcpToolsAsync(
         CancellationToken cancellationToken)
     {
         var tools = await mcpCardsToolService.GetToolsAsync(cancellationToken);
@@ -31,6 +30,6 @@ public sealed class CardsAgentProvider(
         return tools?
             .Where(tool => CardsConstants.AllowedTools
                 .Contains(tool.Name, StringComparer.OrdinalIgnoreCase))
-            .ToArray();
+            .ToArray() ?? [];
     }
 }

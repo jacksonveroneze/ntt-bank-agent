@@ -13,8 +13,7 @@ public sealed class CustomerAgentProvider(
     IAgentBuilder agentBuilder,
     IMcpQueryToolService mcpQueryToolService)
     : AgentProviderBase<CustomerAgentConfiguration>(
-            logger, options, agentBuilder),
-        ICustomerAgentProvider
+        logger, options, agentBuilder), ICustomerAgentProvider
 {
     public override string Name => "customer";
 
@@ -24,7 +23,7 @@ public sealed class CustomerAgentProvider(
     protected override string Invariants =>
         CustomerConstants.SystemPrompt;
 
-    protected override async ValueTask<IList<AITool>?> ResolveToolsAsync(
+    protected override async ValueTask<IList<AITool>> ResolveMcpToolsAsync(
         CancellationToken cancellationToken)
     {
         var tools = await mcpQueryToolService.GetToolsAsync(cancellationToken);
@@ -32,6 +31,6 @@ public sealed class CustomerAgentProvider(
         return tools?
             .Where(tool => CustomerConstants.AllowedTools
                 .Contains(tool.Name, StringComparer.OrdinalIgnoreCase))
-            .ToArray();
+            .ToArray() ?? [];
     }
 }

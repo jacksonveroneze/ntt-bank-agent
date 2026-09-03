@@ -44,10 +44,15 @@ public abstract class AgentProviderBase<TConfiguration>
         _reloadRegistration = options.OnChange(_ => Invalidate());
     }
 
-    protected virtual ValueTask<IList<AITool>?> ResolveToolsAsync(
+    protected virtual IList<AITool> ResolveLocalTools()
+    {
+        return [];
+    }
+
+    protected virtual ValueTask<IList<AITool>> ResolveMcpToolsAsync(
         CancellationToken cancellationToken)
     {
-        return ValueTask.FromResult<IList<AITool>?>(null);
+        return ValueTask.FromResult<IList<AITool>>([]);
     }
 
     protected virtual AIAgent PostBuild(AIAgent agent) => agent;
@@ -105,12 +110,17 @@ public abstract class AgentProviderBase<TConfiguration>
     {
         var configuration = _options.CurrentValue;
 
-        var tools = await ResolveToolsAsync(cancellationToken);
+        var localTools = ResolveLocalTools();
+        var mcpTools = await ResolveMcpToolsAsync(cancellationToken);
+        
+        var tools = mcpTools?
+            .Concat(localTools ?? Enumerable.Empty<AITool>())
+            .ToArray();
 
         _logger.AgentBuilding(
             Name,
             configuration.Provider,
-            tools?.Count ?? 0);
+            tools?.Length ?? 0);
 
         var context = new AgentBuildContext(
             Name,
@@ -131,11 +141,11 @@ public abstract class AgentProviderBase<TConfiguration>
     private string BuildInstructions(
         TConfiguration configuration) =>
         $"""
-        # Persona
-        {configuration.Persona}
-        # Invariants
-        {Invariants}
-        """;
+         # Persona
+         {configuration.Persona}
+         # Invariants
+         {Invariants}
+         """;
 
     private void Invalidate()
     {

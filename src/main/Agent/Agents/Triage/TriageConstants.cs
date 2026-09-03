@@ -26,7 +26,7 @@ internal static class TriageConstants
         # Especialistas
         - customer: dados cadastrais/perfil do cliente. NÃO trata contas nem cartões.
         - accounts: contas, saldos, status e transações DE CONTA (extrato). NÃO trata
-          perfil do cliente nem cartões.
+          perfil do cliente nem cartões. Aqui você pode criar conta.
         - cards: cartões de crédito, limites e transações DE CARTÃO. NÃO trata contas.
         - documents: dúvidas conceituais a partir de documentos (como funciona algo,
           definições, regras). NÃO consulta dados do cliente.

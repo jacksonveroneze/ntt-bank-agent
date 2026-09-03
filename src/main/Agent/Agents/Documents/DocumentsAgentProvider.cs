@@ -12,8 +12,7 @@ public sealed class DocumentsAgentProvider(
     IAgentBuilder agentBuilder,
     IRagSearchRepository ragSearchRepository)
     : AgentProviderBase<DocumentsAgentConfiguration>(
-            logger, options, agentBuilder),
-        IDocumentsAgentProvider
+        logger, options, agentBuilder), IDocumentsAgentProvider
 {
     public override string Name => "documents";
 
