@@ -1,3 +1,4 @@
+using NttBank.Agent.Infrastructure.Models;
 using NttBank.Agent.Infrastructure.Results;
 using Refit;
 
@@ -5,9 +6,8 @@ namespace NttBank.Agent.Infrastructure.HttpClients;
 
 public interface INttBankRagApi
 {
-    [Get("/rag/search")]
+    [Post("/v1/rag/search")]
     Task<RagSearchResult> SearchAsync(
-        [Query("query")] string query,
-        [Query("topK")] int topK,
+        [Body] RagSearchRequest body,
         CancellationToken cancellationToken);
 }

@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using NttBank.Agent.Agent.Abstractions.Rag;
 using NttBank.Agent.Infrastructure.Extensions;
 using NttBank.Agent.Infrastructure.HttpClients;
+using NttBank.Agent.Infrastructure.Models;
 using TextSearchResult = Microsoft.Agents.AI.TextSearchProvider.TextSearchResult;
 
 namespace NttBank.Agent.Infrastructure.Repositories;
@@ -20,8 +21,10 @@ public sealed class RagSearchRepository(
     {
         try
         {
+            var search = new RagSearchRequest(query, TopK);
+
             var result = await api.SearchAsync(
-                query, TopK, cancellationToken);
+                search, cancellationToken);
 
             var results = result.Results ?? [];
 

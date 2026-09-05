@@ -1,4 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
+using System.Net;
 using Anthropic;
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.DependencyInjection;
@@ -54,6 +55,7 @@ public static class AiProvidersExtensions
                 Provider.Claude => new AnthropicClient
                 {
                     ApiKey = cfg.ApiKey,
+                    HttpClient = GetHttpClientProxy(),
                 }.AsIChatClient(cfg.Model!),
 
                 Provider.OpenAi => new OpenAIClient(cfg.ApiKey!)
@@ -72,5 +74,24 @@ public static class AiProvidersExtensions
                         cfg.EnableSensitiveData && env.IsDevelopment())
                 .Build();
         });
+    }
+
+    private static HttpClient GetHttpClientProxy()
+    {
+        var proxy = new WebProxy("http://localhost:1457")
+        {
+            BypassProxyOnLocal = true 
+        };
+
+        var handler = new HttpClientHandler();
+        handler.Proxy = proxy;
+        handler.UseProxy = true;
+
+        handler.ClientCertificateOptions = ClientCertificateOption.Manual;
+            
+        handler.ServerCertificateCustomValidationCallback =
+            (_, _, _, _) => true;
+
+        return new HttpClient(handler);
     }
 }

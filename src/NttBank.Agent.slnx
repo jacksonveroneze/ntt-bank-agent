@@ -6,6 +6,7 @@
         <File Path=".editorconfig" />
         <File Path="AssemblyInfo.cs" />
         <File Path="BannedSymbols.txt" />
+        <File Path="build.sh" />
         <File Path="Directory.Build.props" />
         <File Path="Directory.Packages.props" />
         <File Path="Dockerfile" />
